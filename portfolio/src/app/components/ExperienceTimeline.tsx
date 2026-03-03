@@ -60,20 +60,6 @@ const timelineData: TimelineItem[] = [
   },
   {
     year: "2022",
-    period: "Feb 2022 – Mar 2022",
-    title: "Engineer Intern",
-    org: "Grand Hyatt Singapore",
-    description: [
-      "Assisted in the development and maintenance of engineering systems within the hotel, ensuring optimal functionality and guest satisfaction.",
-      "Collaborated with the engineering team to troubleshoot and resolve technical issues, enhancing operational efficiency.",
-      "Participated in projects aimed at improving energy efficiency and sustainability within the hotel premises.",
-      "Gained hands-on experience in problem-solving and critical thinking in a fast-paced environment.",
-    ],
-    skills: ["Problem Solving", "Teamwork", "Technical Support"],
-    accent: "#c084fc",
-  },
-  {
-    year: "2022",
     period: "Mar 2022 – Feb 2024",
     title: "3SG, Artillery Specialist (HIMARS)",
     org: "Singapore Armed Forces (23 SA)",
@@ -91,6 +77,20 @@ const timelineData: TimelineItem[] = [
       "Discipline",
     ],
     accent: "#f87171",
+  },
+  {
+    year: "2022",
+    period: "Feb 2022 – Mar 2022",
+    title: "Engineer Intern",
+    org: "Grand Hyatt Singapore",
+    description: [
+      "Assisted in the development and maintenance of engineering systems within the hotel, ensuring optimal functionality and guest satisfaction.",
+      "Collaborated with the engineering team to troubleshoot and resolve technical issues, enhancing operational efficiency.",
+      "Participated in projects aimed at improving energy efficiency and sustainability within the hotel premises.",
+      "Gained hands-on experience in problem-solving and critical thinking in a fast-paced environment.",
+    ],
+    skills: ["Problem Solving", "Teamwork", "Technical Support"],
+    accent: "#c084fc",
   },
 ];
 

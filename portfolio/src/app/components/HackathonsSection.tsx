@@ -46,7 +46,7 @@ const hackathons: Hackathon[] = [
       "Self-Sovereign Identity for blockchain-backed credit, micro-futures smart contracts for fair fish pricing, Fisherfolk financial equity.",
     accent: "#fbbf24",
     images: [
-      "/images/harvestchain-slide.jpg",
+      "/images/harvestchain1.jpg",
       "/images/harvestchain-dashboard.jpg",
       "/images/harvestchain-google.jpg",
       "/images/harvestchain-audience.jpg",
@@ -62,7 +62,7 @@ const hackathons: Hackathon[] = [
     highlights:
       "Ran 200+ backtests on BRAIN before submitting top-scoring alpha; Gold award for producing 10k points in the global ranking. Signals combined decay, neutralisation & risk constraints to improve Sharpe-style metrics.",
     accent: "#c084fc",
-    images: ["/images/worldquant-1.jpg", "/images/worldquant-2.jpg"],
+    images: ["/images/worldquant-1.png", "/images/worldquant2.png"],
   },
 ];
 
