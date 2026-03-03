@@ -159,4 +159,6 @@ export function ContactSection() {
           &copy; 2026 Sanjeyan Chrysharnthan
         </motion.p>
       </div>
-    </secti
+    </section>
+  );
+}

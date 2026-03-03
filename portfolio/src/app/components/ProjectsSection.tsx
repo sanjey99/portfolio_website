@@ -293,4 +293,6 @@ export function ProjectsSection() {
           ))}
         </div>
       </div>
-    </s
+    </section>
+  );
+}
