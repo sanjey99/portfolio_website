@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { ExperienceTimeline } from "./components/ExperienceTimeline";
@@ -25,6 +26,7 @@ export default function App() {
       <HackathonsSection />
       <SkillsLeadershipSection />
       <ContactSection />
+      <Analytics />
     </div>
   );
 }
