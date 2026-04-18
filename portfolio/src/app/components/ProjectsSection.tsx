@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Github } from "lucide-react";
+import { Github, Lock } from "lucide-react";
 
 interface Project {
   title: string;
@@ -216,7 +216,7 @@ export function ProjectsSection() {
                         >
                           {project.title}
                         </h3>
-                        {project.repo && project.repo !== "#" && (
+                        {project.repo && project.repo !== "#" ? (
                           <a
                             href={project.repo}
                             target="_blank"
@@ -225,7 +225,20 @@ export function ProjectsSection() {
                           >
                             <Github size={14} />
                           </a>
-                        )}
+                        ) : !project.repo ? (
+                          <span
+                            className="inline-flex items-center gap-1 shrink-0 ml-3"
+                            style={{
+                              fontSize: "10px",
+                              fontFamily: "'Epilogue', sans-serif",
+                              color: "rgba(255,255,255,0.2)",
+                              letterSpacing: "0.04em",
+                            }}
+                          >
+                            <Lock size={10} />
+                            Academic
+                          </span>
+                        ) : null}
                       </div>
                       <p
                         className="mb-4"
@@ -345,7 +358,7 @@ export function ProjectsSection() {
                       >
                         {project.title}
                       </h3>
-                      {project.repo && project.repo !== "#" && (
+                      {project.repo && project.repo !== "#" ? (
                         <a
                           href={project.repo}
                           target="_blank"
@@ -354,7 +367,20 @@ export function ProjectsSection() {
                         >
                           <Github size={14} />
                         </a>
-                      )}
+                      ) : !project.repo ? (
+                        <span
+                          className="inline-flex items-center gap-1 shrink-0 ml-3"
+                          style={{
+                            fontSize: "10px",
+                            fontFamily: "'Epilogue', sans-serif",
+                            color: "rgba(255,255,255,0.2)",
+                            letterSpacing: "0.04em",
+                          }}
+                        >
+                          <Lock size={10} />
+                          Academic
+                        </span>
+                      ) : null}
                     </div>
                     <p
                       className="mb-2"

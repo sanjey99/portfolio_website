@@ -139,8 +139,86 @@ export function ExperienceTimeline() {
           </h2>
         </motion.div>
 
-        {/* Horizontal timeline */}
-        <div className="relative">
+        {/* Mobile: vertical stacked cards */}
+        <div className="md:hidden space-y-4">
+          {timelineData.map((item, i) => (
+            <motion.div
+              key={`mobile-${item.title}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="p-5 rounded-xl"
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              <div className="flex items-center gap-2.5 mb-2">
+                <div
+                  className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ background: `${item.accent}15` }}
+                >
+                  <Briefcase size={13} style={{ color: item.accent }} />
+                </div>
+                <span
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "'Epilogue', sans-serif",
+                    fontWeight: 600,
+                    color: "rgba(255,255,255,0.9)",
+                  }}
+                >
+                  {item.title}
+                </span>
+              </div>
+              <p style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.3)", marginBottom: "2px" }}>
+                {item.org}
+              </p>
+              <p style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.38)", marginBottom: "12px" }}>
+                {item.period}
+              </p>
+              <ul className="space-y-1.5 mb-3">
+                {item.description.map((desc, j) => (
+                  <li
+                    key={j}
+                    style={{
+                      fontSize: "13px",
+                      fontFamily: "'Epilogue', sans-serif",
+                      fontWeight: 300,
+                      lineHeight: 1.65,
+                      color: "rgba(255,255,255,0.45)",
+                      paddingLeft: "10px",
+                      position: "relative",
+                    }}
+                  >
+                    <span style={{ position: "absolute", left: 0, color: item.accent, opacity: 0.5 }}>·</span>
+                    {desc}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-1.5">
+                {item.skills.map((s) => (
+                  <span
+                    key={s}
+                    className="px-2 py-0.5 rounded"
+                    style={{
+                      fontSize: "10px",
+                      fontFamily: "'Epilogue', sans-serif",
+                      color: "rgba(255,255,255,0.3)",
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                    }}
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Desktop: horizontal drag timeline */}
+        <div className="hidden md:block relative">
           {/* Right-edge fade — signals scrollable content */}
           <div
             className="absolute top-0 right-0 h-full w-24 z-10 pointer-events-none"
@@ -321,7 +399,7 @@ export function ExperienceTimeline() {
             ))}
           </div>
         </div>
-        </div> {/* close outer relative wrapper */}
+        </div> {/* close desktop relative wrapper */}
       </div>
     </section>
   );

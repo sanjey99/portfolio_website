@@ -171,7 +171,7 @@ export function HackathonsSection() {
           >
             Built under
             <br />
-            pressure<span style={{ color: "#4ade80" }}>.</span>
+            pressure<span style={{ color: "oklch(76% 0.155 65)" }}>.</span>
           </h2>
         </motion.div>
 

@@ -139,6 +139,23 @@ export function HeroSection() {
           Nanyang Technological University
         </motion.p>
 
+        {/* Availability */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.8 }}
+          className="mt-3"
+          style={{
+            fontFamily: "'Epilogue', sans-serif",
+            fontWeight: 400,
+            fontSize: "13px",
+            color: "oklch(76% 0.155 65 / 0.75)",
+            letterSpacing: "0.04em",
+          }}
+        >
+          Seeking SWE internship · May 2026
+        </motion.p>
+
         {/* CTA buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
