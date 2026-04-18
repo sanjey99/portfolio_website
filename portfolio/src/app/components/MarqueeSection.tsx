@@ -31,7 +31,7 @@ export function MarqueeSection() {
   return (
     <section
       className="relative py-10 overflow-hidden"
-      style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+      style={{ background: "oklch(8.5% 0.006 65)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
     >
       <div className="flex animate-marquee whitespace-nowrap">
         {doubled.map((word, i) => (
@@ -39,7 +39,7 @@ export function MarqueeSection() {
             key={`${word}-${i}`}
             className="mx-6 md:mx-10"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 700,
               fontSize: "clamp(28px, 4vw, 48px)",
               color: "rgba(255,255,255,0.04)",

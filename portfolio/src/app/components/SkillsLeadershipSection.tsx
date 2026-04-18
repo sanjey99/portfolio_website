@@ -82,7 +82,7 @@ export function SkillsLeadershipSection() {
       id="skills"
       ref={sectionRef}
       className="relative py-24 md:py-32 px-6"
-      style={{ background: "#0a0a0a" }}
+      style={{ background: "oklch(8.5% 0.006 65)" }}
     >
       <div
         className="max-w-[1200px] mx-auto"
@@ -92,15 +92,15 @@ export function SkillsLeadershipSection() {
           transition: "transform 0.1s ease-out",
         }}
       >
-        {/* Two-column layout */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Left: Skills & Technical */}
+        {/* Asymmetric layout: Skills wider, Leadership narrower */}
+        <div className="grid md:grid-cols-5 gap-6">
+          {/* Left: Skills & Technical (wider) */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl p-7 md:p-8"
+            className="md:col-span-3 rounded-2xl p-7 md:p-8"
             style={{
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(255,255,255,0.06)",
@@ -109,13 +109,13 @@ export function SkillsLeadershipSection() {
             <div className="flex items-center gap-3 mb-8">
               <div
                 className="w-9 h-9 rounded-lg flex items-center justify-center"
-                style={{ background: "rgba(96,165,250,0.1)" }}
+                style={{ background: "oklch(76% 0.155 65 / 0.1)" }}
               >
-                <Code size={16} style={{ color: "#60a5fa" }} />
+                <Code size={16} style={{ color: "oklch(76% 0.155 65)" }} />
               </div>
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Bricolage Grotesque', sans-serif",
                   fontWeight: 700,
                   fontSize: "22px",
                   color: "#fff",
@@ -132,8 +132,8 @@ export function SkillsLeadershipSection() {
                     className="mb-3"
                     style={{
                       fontSize: "11px",
-                      fontFamily: "'JetBrains Mono', monospace",
-                      color: "#60a5fa",
+                      fontFamily: "'Epilogue', sans-serif",
+                      color: "oklch(76% 0.155 65)",
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
                     }}
@@ -147,7 +147,7 @@ export function SkillsLeadershipSection() {
                         className="px-2.5 py-1 rounded-md"
                         style={{
                           fontSize: "11px",
-                          fontFamily: "'Inter', sans-serif",
+                          fontFamily: "'Epilogue', sans-serif",
                           fontWeight: 400,
                           color: "rgba(255,255,255,0.45)",
                           background: "rgba(255,255,255,0.04)",
@@ -163,13 +163,13 @@ export function SkillsLeadershipSection() {
             </div>
           </motion.div>
 
-          {/* Right: Leadership & Extracurriculars */}
+          {/* Right: Leadership & Extracurriculars (narrower) */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="rounded-2xl p-7 md:p-8"
+            className="md:col-span-2 rounded-2xl p-7 md:p-8"
             style={{
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(255,255,255,0.06)",
@@ -178,13 +178,13 @@ export function SkillsLeadershipSection() {
             <div className="flex items-center gap-3 mb-8">
               <div
                 className="w-9 h-9 rounded-lg flex items-center justify-center"
-                style={{ background: "rgba(74,222,128,0.1)" }}
+                style={{ background: "oklch(76% 0.155 65 / 0.1)" }}
               >
-                <Users size={16} style={{ color: "#4ade80" }} />
+                <Users size={16} style={{ color: "oklch(76% 0.155 65)" }} />
               </div>
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Bricolage Grotesque', sans-serif",
                   fontWeight: 700,
                   fontSize: "22px",
                   color: "#fff",
@@ -210,7 +210,7 @@ export function SkillsLeadershipSection() {
                     className="mb-1"
                     style={{
                       fontSize: "13px",
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Epilogue', sans-serif",
                       fontWeight: 500,
                       color: "rgba(255,255,255,0.7)",
                       lineHeight: 1.4,
@@ -221,7 +221,7 @@ export function SkillsLeadershipSection() {
                   <p
                     style={{
                       fontSize: "12px",
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Epilogue', sans-serif",
                       fontWeight: 300,
                       lineHeight: 1.6,
                       color: "rgba(255,255,255,0.3)",

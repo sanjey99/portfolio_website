@@ -54,6 +54,7 @@ const projects: Project[] = [
 
 function ProjectImageCarousel({ images }: { images: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
 
   const next = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -64,19 +65,38 @@ function ProjectImageCarousel({ images }: { images: string[] }) {
     return () => clearInterval(interval);
   }, [next]);
 
+  const allFailed = images.every((_, i) => failedImages.has(i));
+
   return (
     <div className="relative w-full h-full overflow-hidden">
       <AnimatePresence mode="wait">
-        <motion.img
-          key={currentIndex}
-          src={images[currentIndex]}
-          alt="Project screenshot"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full h-full object-cover"
-        />
+        {allFailed || failedImages.has(currentIndex) ? (
+          <motion.div
+            key={`fallback-${currentIndex}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="w-full h-full flex items-center justify-center"
+            style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.015), rgba(255,255,255,0.003))" }}
+          >
+            <span style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.15)", letterSpacing: "0.06em" }}>
+              Preview unavailable
+            </span>
+          </motion.div>
+        ) : (
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            alt="Project screenshot"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full h-full object-cover"
+            onError={() => setFailedImages((prev) => new Set([...prev, currentIndex]))}
+          />
+        )}
       </AnimatePresence>
       {/* Dots */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
@@ -85,7 +105,7 @@ function ProjectImageCarousel({ images }: { images: string[] }) {
             key={idx}
             className="w-1.5 h-1.5 rounded-full transition-all duration-300"
             style={{
-              background: idx === currentIndex ? "#4ade80" : "rgba(255,255,255,0.3)",
+              background: idx === currentIndex ? "oklch(76% 0.155 65)" : "rgba(255,255,255,0.3)",
             }}
           />
         ))}
@@ -99,12 +119,12 @@ export function ProjectsSection() {
     <section
       id="projects"
       className="relative py-24 md:py-32 px-6"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "oklch(9.5% 0.007 65)" }}
     >
       <div className="max-w-[1100px] mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
@@ -113,10 +133,10 @@ export function ProjectsSection() {
           <p
             style={{
               fontSize: "12px",
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: 400,
+              fontFamily: "'Epilogue', sans-serif",
+              fontWeight: 500,
               letterSpacing: "0.15em",
-              color: "rgba(255,255,255,0.25)",
+              color: "oklch(76% 0.155 65 / 0.65)",
               textTransform: "uppercase",
               marginBottom: "12px",
             }}
@@ -125,7 +145,7 @@ export function ProjectsSection() {
           </p>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 700,
               fontSize: "clamp(28px, 4vw, 42px)",
               color: "#fff",
@@ -136,21 +156,20 @@ export function ProjectsSection() {
           </h2>
         </motion.div>
 
-        {/* 2x2 grid */}
+        {/* Featured first + 2-column grid for the rest */}
         <div className="grid md:grid-cols-2 gap-5">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
               whileHover={{
-                scale: 1.03,
-                y: -5,
-                transition: { duration: 0.25, ease: "easeOut" },
+                y: -4,
+                transition: { duration: 0.2, ease: "easeOut" },
               }}
-              className="group relative rounded-2xl overflow-hidden cursor-default"
+              className={`group relative rounded-2xl overflow-hidden cursor-default${i === 0 ? " md:col-span-2" : ""}`}
               style={{
                 background: "rgba(255,255,255,0.02)",
                 border: "1px solid rgba(255,255,255,0.06)",
@@ -158,10 +177,8 @@ export function ProjectsSection() {
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                const accentColor =
-                  project.type === "Personal" ? "#4ade80" : "#60a5fa";
-                el.style.borderColor = `${accentColor}30`;
-                el.style.boxShadow = `0 8px 32px ${accentColor}12`;
+                el.style.borderColor = "oklch(76% 0.155 65 / 0.25)";
+                el.style.boxShadow = "0 8px 32px oklch(76% 0.155 65 / 0.08)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
@@ -169,126 +186,219 @@ export function ProjectsSection() {
                 el.style.boxShadow = "none";
               }}
             >
-              {/* Image area */}
-              <div
-                className="relative w-full flex items-center justify-center"
-                style={{
-                  height: "200px",
-                  background:
-                    project.images
-                      ? "transparent"
-                      : "linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005))",
-                }}
-              >
-                {project.images ? (
-                  <ProjectImageCarousel images={project.images} />
-                ) : (
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      fontFamily: "'Playfair Display', serif",
-                      fontWeight: 700,
-                      color: "rgba(255,255,255,0.06)",
-                      letterSpacing: "0.05em",
-                    }}
+              {i === 0 ? (
+                /* Featured: horizontal layout */
+                <div className="flex flex-col md:flex-row">
+                  <div className="flex-1 p-7 flex flex-col justify-between gap-5">
+                    <div>
+                      <span
+                        className="inline-block px-3 py-1 rounded-full mb-5"
+                        style={{
+                          fontSize: "10px",
+                          fontFamily: "'Epilogue', sans-serif",
+                          letterSpacing: "0.06em",
+                          color: "oklch(76% 0.155 65)",
+                          background: "oklch(76% 0.155 65 / 0.1)",
+                          border: "1px solid oklch(76% 0.155 65 / 0.2)",
+                        }}
+                      >
+                        {project.type}
+                      </span>
+                      <div className="flex items-start justify-between mb-3">
+                        <h3
+                          style={{
+                            fontFamily: "'Bricolage Grotesque', sans-serif",
+                            fontWeight: 700,
+                            fontSize: "22px",
+                            color: "rgba(255,255,255,0.92)",
+                            letterSpacing: "-0.01em",
+                          }}
+                        >
+                          {project.title}
+                        </h3>
+                        {project.repo && project.repo !== "#" && (
+                          <a
+                            href={project.repo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/30 hover:text-white/60 shrink-0 ml-3"
+                          >
+                            <Github size={14} />
+                          </a>
+                        )}
+                      </div>
+                      <p
+                        className="mb-4"
+                        style={{
+                          fontSize: "14px",
+                          fontFamily: "'Epilogue', sans-serif",
+                          fontWeight: 300,
+                          lineHeight: 1.65,
+                          color: "rgba(255,255,255,0.5)",
+                          maxWidth: "55ch",
+                        }}
+                      >
+                        {project.highlights}
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        className="mb-3"
+                        style={{
+                          fontSize: "11px",
+                          fontFamily: "'Epilogue', sans-serif",
+                          color: "rgba(255,255,255,0.22)",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {project.stack}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.keywords.map((kw) => (
+                          <span
+                            key={kw}
+                            className="px-2.5 py-1 rounded-md"
+                            style={{
+                              fontSize: "10px",
+                              fontFamily: "'Epilogue', sans-serif",
+                              color: "rgba(255,255,255,0.3)",
+                              background: "rgba(255,255,255,0.04)",
+                              border: "1px solid rgba(255,255,255,0.06)",
+                            }}
+                          >
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Visual: large dim title */}
+                  <div
+                    className="md:w-[260px] h-[120px] md:h-auto shrink-0 flex items-center justify-center"
+                    style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.015), rgba(255,255,255,0.003))" }}
                   >
-                    {project.title}
-                  </span>
-                )}
-
-                {/* Type badge */}
-                <span
-                  className="absolute top-4 left-4 px-3 py-1 rounded-full z-10"
-                  style={{
-                    fontSize: "10px",
-                    fontFamily: "'JetBrains Mono', monospace",
-                    color:
-                      project.type === "Personal"
-                        ? "#4ade80"
-                        : "#60a5fa",
-                    background:
-                      project.type === "Personal"
-                        ? "rgba(74,222,128,0.15)"
-                        : "rgba(96,165,250,0.15)",
-                    border: `1px solid ${
-                      project.type === "Personal"
-                        ? "rgba(74,222,128,0.2)"
-                        : "rgba(96,165,250,0.2)"
-                    }`,
-                    backdropFilter: "blur(8px)",
-                  }}
-                >
-                  {project.type}
-                </span>
-              </div>
-
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <h3
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontWeight: 600,
-                      fontSize: "18px",
-                      color: "rgba(255,255,255,0.9)",
-                    }}
-                  >
-                    {project.title}
-                  </h3>
-                  {project.repo && project.repo !== "#" && (
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/30 hover:text-white/60 shrink-0 ml-3"
-                    >
-                      <Github size={14} />
-                    </a>
-                  )}
-                </div>
-
-                <p
-                  className="mb-2"
-                  style={{
-                    fontSize: "11px",
-                    fontFamily: "'JetBrains Mono', monospace",
-                    color: "rgba(255,255,255,0.25)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {project.stack}
-                </p>
-
-                <p
-                  className="mb-4"
-                  style={{
-                    fontSize: "13px",
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 300,
-                    lineHeight: 1.7,
-                    color: "rgba(255,255,255,0.4)",
-                  }}
-                >
-                  {project.highlights}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {project.keywords.map((kw) => (
                     <span
-                      key={kw}
-                      className="px-2.5 py-1 rounded-md"
                       style={{
-                        fontSize: "10px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        color: "rgba(255,255,255,0.3)",
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.06)",
+                        fontSize: "clamp(44px, 5vw, 72px)",
+                        fontFamily: "'Bricolage Grotesque', sans-serif",
+                        fontWeight: 800,
+                        color: "oklch(76% 0.155 65 / 0.08)",
+                        letterSpacing: "-0.04em",
+                        userSelect: "none",
                       }}
                     >
-                      {kw}
+                      {project.title}
                     </span>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                /* Regular: stacked layout */
+                <>
+                  {project.images ? (
+                    <div className="relative w-full h-[170px] overflow-hidden">
+                      <ProjectImageCarousel images={project.images} />
+                    </div>
+                  ) : (
+                    <div
+                      className="relative w-full h-[130px] flex items-center justify-center"
+                      style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.015), rgba(255,255,255,0.003))" }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "clamp(28px, 4vw, 42px)",
+                          fontFamily: "'Bricolage Grotesque', sans-serif",
+                          fontWeight: 800,
+                          color: "oklch(76% 0.155 65 / 0.07)",
+                          letterSpacing: "-0.03em",
+                          userSelect: "none",
+                        }}
+                      >
+                        {project.title}
+                      </span>
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <span
+                      className="inline-block px-3 py-1 rounded-full mb-4"
+                      style={{
+                        fontSize: "10px",
+                        fontFamily: "'Epilogue', sans-serif",
+                        letterSpacing: "0.06em",
+                        color:
+                          project.type === "Personal"
+                            ? "oklch(76% 0.155 65)"
+                            : "oklch(62% 0.1 65)",
+                        background: "oklch(76% 0.155 65 / 0.1)",
+                        border: "1px solid oklch(76% 0.155 65 / 0.2)",
+                      }}
+                    >
+                      {project.type}
+                    </span>
+                    <div className="flex items-start justify-between mb-3">
+                      <h3
+                        style={{
+                          fontFamily: "'Epilogue', sans-serif",
+                          fontWeight: 600,
+                          fontSize: "17px",
+                          color: "rgba(255,255,255,0.9)",
+                        }}
+                      >
+                        {project.title}
+                      </h3>
+                      {project.repo && project.repo !== "#" && (
+                        <a
+                          href={project.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/30 hover:text-white/60 shrink-0 ml-3"
+                        >
+                          <Github size={14} />
+                        </a>
+                      )}
+                    </div>
+                    <p
+                      className="mb-2"
+                      style={{
+                        fontSize: "11px",
+                        fontFamily: "'Epilogue', sans-serif",
+                        color: "rgba(255,255,255,0.22)",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {project.stack}
+                    </p>
+                    <p
+                      className="mb-4"
+                      style={{
+                        fontSize: "13px",
+                        fontFamily: "'Epilogue', sans-serif",
+                        fontWeight: 300,
+                        lineHeight: 1.65,
+                        color: "rgba(255,255,255,0.48)",
+                      }}
+                    >
+                      {project.highlights}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.keywords.map((kw) => (
+                        <span
+                          key={kw}
+                          className="px-2.5 py-1 rounded-md"
+                          style={{
+                            fontSize: "10px",
+                            fontFamily: "'Epilogue', sans-serif",
+                            color: "rgba(255,255,255,0.3)",
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid rgba(255,255,255,0.06)",
+                          }}
+                        >
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </motion.div>
           ))}
         </div>

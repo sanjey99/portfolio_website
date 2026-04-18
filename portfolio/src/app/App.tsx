@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { ExperienceTimeline } from "./components/ExperienceTimeline";
-import { MarqueeSection } from "./components/MarqueeSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { HackathonsSection } from "./components/HackathonsSection";
 import { SkillsLeadershipSection } from "./components/SkillsLeadershipSection";
@@ -13,15 +12,14 @@ export default function App() {
     <div
       className="min-h-screen w-full"
       style={{
-        background: "#0a0a0a",
-        fontFamily: "'Inter', sans-serif",
-        color: "#fff",
+        background: "oklch(8.5% 0.006 65)",
+        fontFamily: "'Epilogue', sans-serif",
+        color: "oklch(96% 0.008 65)",
       }}
     >
       <Navbar />
       <HeroSection />
       <ExperienceTimeline />
-      <MarqueeSection />
       <ProjectsSection />
       <HackathonsSection />
       <SkillsLeadershipSection />

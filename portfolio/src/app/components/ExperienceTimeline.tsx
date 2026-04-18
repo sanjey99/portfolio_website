@@ -32,7 +32,7 @@ const timelineData: TimelineItem[] = [
       "Microsoft Excel",
       "Git",
     ],
-    accent: "#34d399",
+    accent: "oklch(76% 0.155 65)",
   },
   {
     year: "2024",
@@ -56,7 +56,7 @@ const timelineData: TimelineItem[] = [
       "JavaScript",
       "Scratch",
     ],
-    accent: "#fbbf24",
+    accent: "oklch(67% 0.12 65)",
   },
   {
     year: "2022",
@@ -76,7 +76,7 @@ const timelineData: TimelineItem[] = [
       "Communication",
       "Discipline",
     ],
-    accent: "#f87171",
+    accent: "oklch(56% 0.085 65)",
   },
   {
     year: "2022",
@@ -90,7 +90,7 @@ const timelineData: TimelineItem[] = [
       "Gained hands-on experience in problem-solving and critical thinking in a fast-paced environment.",
     ],
     skills: ["Problem Solving", "Teamwork", "Technical Support"],
-    accent: "#c084fc",
+    accent: "oklch(46% 0.06 65)",
   },
 ];
 
@@ -102,7 +102,7 @@ export function ExperienceTimeline() {
     <section
       id="experience"
       className="relative py-24 md:py-32 px-6"
-      style={{ background: "#0a0a0a" }}
+      style={{ background: "oklch(8.5% 0.006 65)" }}
     >
       <div className="max-w-[1200px] mx-auto" ref={sectionRef}>
         {/* Header */}
@@ -116,10 +116,10 @@ export function ExperienceTimeline() {
           <p
             style={{
               fontSize: "12px",
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: 400,
+              fontFamily: "'Epilogue', sans-serif",
+              fontWeight: 500,
               letterSpacing: "0.15em",
-              color: "rgba(255,255,255,0.25)",
+              color: "oklch(76% 0.155 65 / 0.65)",
               textTransform: "uppercase",
               marginBottom: "12px",
             }}
@@ -128,7 +128,7 @@ export function ExperienceTimeline() {
           </p>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 700,
               fontSize: "clamp(28px, 4vw, 42px)",
               color: "#fff",
@@ -140,31 +140,41 @@ export function ExperienceTimeline() {
         </motion.div>
 
         {/* Horizontal timeline */}
-        <div className="relative overflow-x-auto hide-scrollbar pb-6">
-          {/* Timeline line */}
+        <div className="relative">
+          {/* Right-edge fade — signals scrollable content */}
           <div
-            className="absolute top-[52px] left-0 right-0 h-px"
-            style={{ background: "rgba(255,255,255,0.08)" }}
+            className="absolute top-0 right-0 h-full w-24 z-10 pointer-events-none"
+            style={{
+              background: "linear-gradient(to left, oklch(8.5% 0.006 65) 0%, transparent 100%)",
+            }}
           />
 
-          {/* Direction indicator */}
-          <div className="flex items-center gap-2 mb-6">
-            <span
-              style={{
-                fontSize: "10px",
-                fontFamily: "'JetBrains Mono', monospace",
-                color: "rgba(255,255,255,0.2)",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              Recent → Past
-            </span>
+          <div className="overflow-x-auto hide-scrollbar pb-6">
+            {/* Timeline line */}
             <div
-              className="flex-1 h-px"
-              style={{ background: "rgba(255,255,255,0.05)" }}
+              className="absolute top-[88px] left-0 right-0 h-px"
+              style={{ background: "rgba(255,255,255,0.07)" }}
             />
-          </div>
+
+            {/* Direction indicator */}
+            <div className="flex items-center gap-3 mb-6">
+              <span
+                style={{
+                  fontSize: "11px",
+                  fontFamily: "'Epilogue', sans-serif",
+                  fontWeight: 500,
+                  color: "oklch(76% 0.155 65 / 0.55)",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Drag to explore →
+              </span>
+              <div
+                className="flex-1 h-px"
+                style={{ background: "rgba(255,255,255,0.05)" }}
+              />
+            </div>
 
           <div className="flex gap-0 min-w-max">
             {timelineData.map((item, i) => (
@@ -181,7 +191,7 @@ export function ExperienceTimeline() {
                   className="mb-4"
                   style={{
                     fontSize: "11px",
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "'Epilogue', sans-serif",
                     color: item.accent,
                     letterSpacing: "0.05em",
                   }}
@@ -192,20 +202,16 @@ export function ExperienceTimeline() {
                 {/* Dot on timeline */}
                 <div className="relative mb-6">
                   <div
-                    className="w-3 h-3 rounded-full"
-                    style={{
-                      background: item.accent,
-                      boxShadow: `0 0 12px ${item.accent}40`,
-                    }}
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ background: item.accent }}
                   />
                 </div>
 
                 {/* Card with hover effect */}
                 <motion.div
                   whileHover={{
-                    scale: 1.03,
-                    y: -4,
-                    transition: { duration: 0.25, ease: "easeOut" },
+                    y: -3,
+                    transition: { duration: 0.2, ease: "easeOut" },
                   }}
                   className="p-5 rounded-xl w-full cursor-default"
                   style={{
@@ -215,8 +221,8 @@ export function ExperienceTimeline() {
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = `${item.accent}30`;
-                    el.style.boxShadow = `0 8px 32px ${item.accent}12`;
+                    el.style.borderColor = "oklch(76% 0.155 65 / 0.22)";
+                    el.style.boxShadow = "0 8px 28px oklch(76% 0.155 65 / 0.07)";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLElement;
@@ -234,7 +240,7 @@ export function ExperienceTimeline() {
                     <span
                       style={{
                         fontSize: "14px",
-                        fontFamily: "'Inter', sans-serif",
+                        fontFamily: "'Epilogue', sans-serif",
                         fontWeight: 600,
                         color: "rgba(255,255,255,0.9)",
                       }}
@@ -246,7 +252,7 @@ export function ExperienceTimeline() {
                     className="mb-1"
                     style={{
                       fontSize: "11px",
-                      fontFamily: "'JetBrains Mono', monospace",
+                      fontFamily: "'Epilogue', sans-serif",
                       color: "rgba(255,255,255,0.3)",
                     }}
                   >
@@ -255,9 +261,9 @@ export function ExperienceTimeline() {
                   <p
                     className="mb-3"
                     style={{
-                      fontSize: "10px",
-                      fontFamily: "'JetBrains Mono', monospace",
-                      color: "rgba(255,255,255,0.18)",
+                      fontSize: "11px",
+                      fontFamily: "'Epilogue', sans-serif",
+                      color: "rgba(255,255,255,0.38)",
                     }}
                   >
                     {item.period}
@@ -268,11 +274,11 @@ export function ExperienceTimeline() {
                       <li
                         key={j}
                         style={{
-                          fontSize: "11.5px",
-                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "13px",
+                          fontFamily: "'Epilogue', sans-serif",
                           fontWeight: 300,
-                          lineHeight: 1.6,
-                          color: "rgba(255,255,255,0.35)",
+                          lineHeight: 1.65,
+                          color: "rgba(255,255,255,0.45)",
                           paddingLeft: "10px",
                           position: "relative",
                         }}
@@ -299,9 +305,9 @@ export function ExperienceTimeline() {
                         key={s}
                         className="px-2 py-0.5 rounded"
                         style={{
-                          fontSize: "9px",
-                          fontFamily: "'JetBrains Mono', monospace",
-                          color: "rgba(255,255,255,0.25)",
+                          fontSize: "10px",
+                          fontFamily: "'Epilogue', sans-serif",
+                          color: "rgba(255,255,255,0.3)",
                           background: "rgba(255,255,255,0.04)",
                           border: "1px solid rgba(255,255,255,0.06)",
                         }}
@@ -315,6 +321,7 @@ export function ExperienceTimeline() {
             ))}
           </div>
         </div>
+        </div> {/* close outer relative wrapper */}
       </div>
     </section>
   );

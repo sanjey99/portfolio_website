@@ -87,10 +87,10 @@ export function HeroSection() {
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               style={{
-                fontFamily: "'Playfair Display', serif",
-                fontWeight: 400,
+                fontFamily: "'Epilogue', sans-serif",
+                fontWeight: 300,
                 fontStyle: "italic",
-                fontSize: "clamp(22px, 4vw, 38px)",
+                fontSize: "clamp(20px, 3.5vw, 34px)",
                 color: "rgba(255,255,255,0.8)",
                 letterSpacing: "-0.01em",
               }}
@@ -106,7 +106,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Bricolage Grotesque', sans-serif",
             fontWeight: 900,
             fontSize: "clamp(52px, 10vw, 120px)",
             color: "#fff",
@@ -114,7 +114,7 @@ export function HeroSection() {
             letterSpacing: "-0.03em",
           }}
         >
-          Sanjey<span style={{ color: "#4ade80" }}>.</span>
+          Sanjey<span style={{ color: "oklch(76% 0.155 65)" }}>.</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -124,7 +124,7 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mt-5"
           style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Epilogue', sans-serif",
             fontWeight: 400,
             fontSize: "clamp(14px, 2vw, 18px)",
             color: "rgba(255,255,255,0.75)",
@@ -150,6 +150,7 @@ export function HeroSection() {
             href="https://github.com/sanjey99"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white/15"
             style={{
               background: "rgba(255,255,255,0.08)",
@@ -162,6 +163,7 @@ export function HeroSection() {
             href="https://www.linkedin.com/in/sanjey99/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white/15"
             style={{
               background: "rgba(255,255,255,0.08)",
@@ -172,6 +174,7 @@ export function HeroSection() {
           </a>
           <a
             href="mailto:sanjeyan001@e.ntu.edu.sg"
+            aria-label="Email"
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white/15"
             style={{
               background: "rgba(255,255,255,0.08)",
@@ -199,7 +202,7 @@ export function HeroSection() {
           <span
             style={{
               fontSize: "11px",
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'Epilogue', sans-serif",
               fontWeight: 300,
               color: "rgba(255,255,255,0.35)",
               letterSpacing: "0.12em",
