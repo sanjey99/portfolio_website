@@ -25,7 +25,8 @@ const words = [
   "Fama-French",
 ];
 
-export function MarqueeSection() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function MarqueeSection({ track: _track }: { track?: string }) {
   const doubled = [...words, ...words];
 
   return (

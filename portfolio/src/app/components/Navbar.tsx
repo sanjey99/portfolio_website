@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, Download } from "lucide-react";
 import type { TrackConfig } from "../context/TrackContext";
 
 const navLinks = [
@@ -16,10 +16,35 @@ interface NavbarProps {
   onReopenSelector?: () => void;
 }
 
+const resumeByTrack: Record<string, { href: string; filename: string }> = {
+  quant: { href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume_Quant.pdf" },
+  ml: { href: "/resumes/resume-ml.pdf", filename: "Sanjey_Resume_ML.pdf" },
+  fullstack: { href: "/resumes/resume-fullstack.pdf", filename: "Sanjey_Resume_FullStack.pdf" },
+  all: { href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume.pdf" },
+};
+
+const allResumes = [
+  { label: "Quantitative Finance", href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume_Quant.pdf" },
+  { label: "Machine Learning & AI", href: "/resumes/resume-ml.pdf", filename: "Sanjey_Resume_ML.pdf" },
+  { label: "Full Stack", href: "/resumes/resume-fullstack.pdf", filename: "Sanjey_Resume_FullStack.pdf" },
+];
+
 export function Navbar({ activeTrack, onReopenSelector }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const resumeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (resumeRef.current && !resumeRef.current.contains(e.target as Node)) {
+        setResumeOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -190,21 +215,72 @@ export function Navbar({ activeTrack, onReopenSelector }: NavbarProps) {
                 </a>
               );
             })}
-            <a
-              href="/resume.pdf"
-              download
-              className="px-4 py-1.5 rounded-full transition-all duration-200 hover:opacity-90 hover:translate-y-[-1px]"
-              style={{
-                fontSize: "12px",
-                fontFamily: "'Epilogue', sans-serif",
-                fontWeight: 500,
-                color: "oklch(12% 0.02 65)",
-                background: "oklch(76% 0.155 65)",
-                letterSpacing: "0.02em",
-              }}
-            >
-              Resume
-            </a>
+            {/* Track-aware resume button */}
+            {activeTrack?.id === "all" ? (
+              <div ref={resumeRef} className="relative">
+                <button
+                  onClick={() => setResumeOpen(v => !v)}
+                  className="flex items-center gap-1.5 px-4 py-1.5 rounded-full transition-all duration-200 hover:opacity-90"
+                  style={{
+                    fontSize: "12px",
+                    fontFamily: "'Epilogue', sans-serif",
+                    fontWeight: 500,
+                    color: "oklch(12% 0.02 65)",
+                    background: activeTrack.color,
+                    letterSpacing: "0.02em",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Resume
+                  <ChevronDown size={11} style={{ transform: resumeOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.18s ease" }} />
+                </button>
+                <AnimatePresence>
+                  {resumeOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 4, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 3, scale: 0.97 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full mt-2 right-0 rounded-xl overflow-hidden"
+                      style={{ background: "oklch(11% 0.01 65)", border: "1px solid rgba(255,255,255,0.1)", minWidth: "190px", boxShadow: "0 8px 32px rgba(0,0,0,0.5)", zIndex: 50 }}
+                    >
+                      {allResumes.map((r) => (
+                        <a
+                          key={r.label}
+                          href={r.href}
+                          download={r.filename}
+                          onClick={() => setResumeOpen(false)}
+                          className="flex items-center gap-2 px-4 py-2.5 transition-colors"
+                          style={{ fontSize: "12px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.65)", display: "flex" }}
+                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)"; }}
+                        >
+                          <Download size={10} style={{ opacity: 0.5 }} />
+                          {r.label}
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : activeTrack ? (
+              <a
+                href={resumeByTrack[activeTrack.id]?.href ?? "/resumes/resume-quant.pdf"}
+                download={resumeByTrack[activeTrack.id]?.filename}
+                className="px-4 py-1.5 rounded-full transition-all duration-200 hover:opacity-90 hover:translate-y-[-1px]"
+                style={{
+                  fontSize: "12px",
+                  fontFamily: "'Epilogue', sans-serif",
+                  fontWeight: 500,
+                  color: "oklch(12% 0.02 65)",
+                  background: activeTrack.color,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Resume
+              </a>
+            ) : null}
           </div>
 
           {/* Mobile menu button */}
@@ -254,30 +330,32 @@ export function Navbar({ activeTrack, onReopenSelector }: NavbarProps) {
                     fontWeight: 600,
                     color:
                       activeSection === link.href.slice(1)
-                        ? "oklch(76% 0.155 65)"
+                        ? (activeTrack?.color ?? "oklch(76% 0.155 65)")
                         : "oklch(96% 0.008 65 / 0.65)",
                   }}
                 >
                   {link.label}
                 </motion.a>
               ))}
-              <motion.a
-                href="/resume.pdf"
-                download
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25, delay: 0.28 }}
-                className="px-6 py-2 rounded-full mt-4"
-                style={{
-                  fontSize: "16px",
-                  fontFamily: "'Epilogue', sans-serif",
-                  fontWeight: 500,
-                  color: "oklch(8.5% 0.006 65)",
-                  background: "oklch(76% 0.155 65)",
-                }}
-              >
-                Resume
-              </motion.a>
+              {activeTrack && (
+                <motion.a
+                  href={resumeByTrack[activeTrack.id]?.href ?? "/resumes/resume-quant.pdf"}
+                  download={resumeByTrack[activeTrack.id]?.filename}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, delay: 0.28 }}
+                  className="px-6 py-2 rounded-full mt-4"
+                  style={{
+                    fontSize: "16px",
+                    fontFamily: "'Epilogue', sans-serif",
+                    fontWeight: 500,
+                    color: "oklch(8.5% 0.006 65)",
+                    background: activeTrack.color,
+                  }}
+                >
+                  Resume
+                </motion.a>
+              )}
 
               {activeTrack && (
                 <motion.button

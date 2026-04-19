@@ -79,8 +79,24 @@ const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Algorithmic Arbitrage Trading Bot",
+    subtitle: "Cross-exchange statistical arbitrage engine",
+    category: "quant",
+    tracks: ["quant", "all"],
+    stack: ["Python", "CCXT", "Pandas", "NumPy", "asyncio"],
+    repo: "https://github.com/sanjey99/algo-trading",
+    description:
+      "Automated arbitrage bot exploiting price discrepancies across exchanges using statistical mean-reversion signals. Asynchronous order execution, real-time spread monitoring, configurable risk limits, and PnL tracking.",
+    metrics: [
+      { label: "Strategy", value: "Stat. arbitrage" },
+      { label: "Execution", value: "Async / asyncio" },
+      { label: "Risk", value: "Configurable limits" },
+    ],
+    badge: "Personal",
+  },
+  {
     title: "FIN.IQ",
-    subtitle: "Finance AI hackathon system",
+    subtitle: "Finance AI microservices platform",
     category: "quant",
     tracks: ["quant", "fullstack", "all"],
     stack: ["Python", "FastAPI", "PyTorch", "React", "Docker"],
@@ -92,7 +108,7 @@ const projects: Project[] = [
       { label: "Risk measures", value: "VaR + CVaR" },
       { label: "Architecture", value: "4 microservices" },
     ],
-    badge: "Hackathon",
+    badge: "Personal",
   },
   {
     title: "LLM Fine-Tuning & Alignment Lab",
@@ -150,7 +166,7 @@ const projects: Project[] = [
     title: "Sentinel",
     subtitle: "AI Governance · 3rd Place NTU Deep Learning Week 2026",
     category: "ml",
-    tracks: ["ml", "fullstack", "all"],
+    tracks: ["fullstack", "all"],
     stack: ["React", "Node.js", "FastAPI", "OpenAI", "Python", "Docker"],
     repo: "https://github.com/sanjey99/dlweek",
     description:
@@ -204,7 +220,7 @@ const projects: Project[] = [
     title: "PRISM",
     subtitle: "HacX 2025 · Prison Transport Management",
     category: "academic",
-    tracks: ["fullstack", "all"],
+    tracks: ["all"],
     stack: ["React", "Node.js", "TypeScript", "Express", "Socket.IO"],
     repo: "https://github.com/sanjey99/PRISM-hacx",
     description:

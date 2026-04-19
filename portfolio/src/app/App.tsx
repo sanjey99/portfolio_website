@@ -11,25 +11,31 @@ import { SkillsLeadershipSection } from "./components/SkillsLeadershipSection";
 import { ContactSection } from "./components/ContactSection";
 import { TrackSelector } from "./components/TrackSelector";
 import { PatternOverlay } from "./components/PatternOverlay";
+import { WarpTransition } from "./components/WarpTransition";
 import { TrackProvider, TrackId, TRACKS } from "./context/TrackContext";
 
+type Stage = "hero" | "warping" | "selecting" | "portfolio";
+
 function PortfolioApp() {
-  const [showSelector, setShowSelector] = useState(true);
+  const [stage, setStage] = useState<Stage>("hero");
   const [selectedTrack, setSelectedTrack] = useState<TrackId>("all");
   const [patternVisible, setPatternVisible] = useState(false);
+
+  const handleEnter = () => setStage("warping");
+  const handleWarpDone = () => setStage("selecting");
 
   const handleTrackComplete = (track: TrackId) => {
     setSelectedTrack(track);
     setPatternVisible(true);
-    setShowSelector(false);
+    setStage("portfolio");
   };
 
   const handleReopen = () => {
     setPatternVisible(false);
-    setShowSelector(true);
+    setStage("selecting");
   };
 
-  const activeTrack = patternVisible
+  const activeTrack = stage === "portfolio"
     ? TRACKS.find((t) => t.id === selectedTrack)
     : undefined;
 
@@ -43,26 +49,40 @@ function PortfolioApp() {
         position: "relative",
       }}
     >
-      {/* Full-page pattern layer — fades in during slot machine */}
-      <PatternOverlay track={selectedTrack} visible={patternVisible} />
-
-      {/* Track selector popup */}
+      {/* Warp animation — plays between hero and selector */}
       <AnimatePresence>
-        {showSelector && (
+        {stage === "warping" && (
+          <WarpTransition onComplete={handleWarpDone} />
+        )}
+      </AnimatePresence>
+
+      {/* Track selector popup — shown after warp */}
+      <AnimatePresence>
+        {stage === "selecting" && (
           <TrackSelector onComplete={handleTrackComplete} />
         )}
       </AnimatePresence>
 
+      {/* Full-page pattern layer — fades in after track chosen */}
+      <PatternOverlay track={selectedTrack} visible={patternVisible} />
+
       {/* Portfolio content */}
       <div style={{ position: "relative", zIndex: 2 }}>
-        <Navbar activeTrack={activeTrack} onReopenSelector={handleReopen} />
-        <HeroSection />
-        <MarqueeSection />
-        <ExperienceTimeline track={selectedTrack} />
-        <ProjectsSection track={selectedTrack} />
-        <HackathonsSection track={selectedTrack} />
-        <SkillsLeadershipSection track={selectedTrack} />
-        <ContactSection />
+        {stage === "hero" && (
+          <HeroSection onEnter={handleEnter} />
+        )}
+
+        {stage === "portfolio" && (
+          <>
+            <Navbar activeTrack={activeTrack} onReopenSelector={handleReopen} />
+            <MarqueeSection track={selectedTrack} />
+            <ExperienceTimeline track={selectedTrack} />
+            <ProjectsSection track={selectedTrack} />
+            <HackathonsSection track={selectedTrack} />
+            <SkillsLeadershipSection track={selectedTrack} />
+            <ContactSection track={selectedTrack} />
+          </>
+        )}
       </div>
 
       <Analytics />

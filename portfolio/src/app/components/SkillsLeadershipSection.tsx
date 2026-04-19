@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { TrackId } from "../context/TrackContext";
+import { TRACKS } from "../context/TrackContext";
 
 const skills: Record<string, string[]> = {
   Languages: ["Python", "TypeScript", "JavaScript", "Java", "C", "C++", "C#", "SQL"],
@@ -95,6 +96,9 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
   const filteredSkills = Object.fromEntries(
     Object.entries(skills).filter(([cat]) => visibleCategories.includes(cat))
   );
+  const trackColor = TRACKS.find(t => t.id === track)?.color ?? "oklch(76% 0.155 65)";
+  const trackColorDim = trackColor.replace(")", " / 0.6)");
+  const trackColorFaint = trackColor.replace(")", " / 0.08)");
 
   return (
     <section
@@ -117,7 +121,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
               fontFamily: "'Epilogue', sans-serif",
               fontWeight: 500,
               letterSpacing: "0.15em",
-              color: "oklch(76% 0.155 65 / 0.6)",
+              color: trackColorDim,
               textTransform: "uppercase",
               marginBottom: "10px",
             }}
@@ -157,7 +161,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                         fontSize: "10px",
                         fontFamily: "'Epilogue', sans-serif",
                         fontWeight: 600,
-                        color: "oklch(76% 0.155 65 / 0.7)",
+                        color: trackColorDim,
                         letterSpacing: "0.12em",
                         textTransform: "uppercase",
                       }}
@@ -166,7 +170,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                     </p>
                     <div
                       className="flex-1 h-px"
-                      style={{ background: "oklch(76% 0.155 65 / 0.08)" }}
+                      style={{ background: trackColorFaint }}
                     />
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -207,7 +211,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                   fontSize: "10px",
                   fontFamily: "'Epilogue', sans-serif",
                   fontWeight: 600,
-                  color: "oklch(76% 0.155 65 / 0.7)",
+                  color: trackColorDim,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
                 }}
@@ -216,7 +220,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
               </p>
               <div
                 className="flex-1 h-px"
-                style={{ background: "oklch(76% 0.155 65 / 0.08)" }}
+                style={{ background: trackColorFaint }}
               />
             </div>
 

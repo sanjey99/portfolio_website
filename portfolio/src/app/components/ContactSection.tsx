@@ -1,45 +1,36 @@
 import { motion } from "motion/react";
 import { Mail, Github, Linkedin, FileText } from "lucide-react";
+import type { TrackId } from "../context/TrackContext";
+import { TRACKS } from "../context/TrackContext";
 
-const contactLinks = [
-  {
-    label: "Email",
-    icon: Mail,
-    href: "mailto:sanjeyan001@e.ntu.edu.sg",
-    value: "sanjeyan001@e.ntu.edu.sg",
-    download: false,
-  },
-  {
-    label: "GitHub",
-    icon: Github,
-    href: "https://github.com/sanjey99",
-    value: "sanjey99",
-    download: false,
-  },
-  {
-    label: "LinkedIn",
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/sanjey99/",
-    value: "Sanjeyan Chrysharnthan",
-    download: false,
-  },
-  {
-    label: "Resume",
-    icon: FileText,
-    href: "/resume.pdf",
-    value: "Download CV",
-    download: true,
-  },
-];
+const resumeByTrack: Record<TrackId, { href: string; filename: string }> = {
+  quant: { href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume_Quant.pdf" },
+  ml: { href: "/resumes/resume-ml.pdf", filename: "Sanjey_Resume_ML.pdf" },
+  fullstack: { href: "/resumes/resume-fullstack.pdf", filename: "Sanjey_Resume_FullStack.pdf" },
+  all: { href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume.pdf" },
+};
 
-export function ContactSection() {
+interface ContactSectionProps {
+  track: TrackId;
+}
+
+export function ContactSection({ track }: ContactSectionProps) {
+  const trackColor = TRACKS.find(t => t.id === track)?.color ?? "oklch(76% 0.155 65)";
+  const resume = resumeByTrack[track];
+
+  const contactLinks = [
+    { label: "Email", icon: Mail, href: "mailto:sanjeyan001@e.ntu.edu.sg", value: "sanjeyan001@e.ntu.edu.sg", download: false },
+    { label: "GitHub", icon: Github, href: "https://github.com/sanjey99", value: "sanjey99", download: false },
+    { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/sanjey99/", value: "Sanjeyan Chrysharnthan", download: false },
+    { label: "Resume", icon: FileText, href: resume.href, value: "Download CV", download: true, filename: resume.filename },
+  ];
+
   return (
     <section
       id="contact"
       className="relative py-28 md:py-40 px-6"
       style={{
-        background:
-          "linear-gradient(180deg, oklch(8.5% 0.006 65) 0%, oklch(9% 0.008 65) 100%)",
+        background: "linear-gradient(180deg, oklch(8.5% 0.006 65) 0%, oklch(9% 0.008 65) 100%)",
         borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
     >
@@ -66,7 +57,7 @@ export function ContactSection() {
               <br />
               something
               <br />
-              together<span style={{ color: "oklch(76% 0.155 65)" }}>.</span>
+              together<span style={{ color: trackColor }}>.</span>
             </h2>
             <p
               className="mt-6"
@@ -83,7 +74,7 @@ export function ContactSection() {
             </p>
           </motion.div>
 
-          {/* Right: Contact links as a clean list */}
+          {/* Right: Contact links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +88,7 @@ export function ContactSection() {
                 <motion.a
                   key={link.label}
                   href={link.href}
-                  download={link.download ? "Sanjeyan_Chrysharnthan_Resume.pdf" : undefined}
+                  download={link.download ? link.filename : undefined}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   initial={{ opacity: 0, x: -12 }}
@@ -106,44 +97,19 @@ export function ContactSection() {
                   transition={{ duration: 0.35, delay: 0.2 + i * 0.08 }}
                   className="group flex items-center gap-4 py-4 transition-all duration-200"
                   style={{
-                    borderBottom: i < contactLinks.length - 1
-                      ? "1px solid oklch(96% 0.008 65 / 0.05)"
-                      : "none",
+                    borderBottom: i < contactLinks.length - 1 ? "1px solid oklch(96% 0.008 65 / 0.05)" : "none",
                   }}
                 >
                   <Icon
                     size={16}
-                    style={{
-                      color: "oklch(76% 0.155 65)",
-                      flexShrink: 0,
-                      opacity: 0.8,
-                      transition: "opacity 0.2s",
-                    }}
+                    style={{ color: trackColor, flexShrink: 0, opacity: 0.8, transition: "opacity 0.2s" }}
                     className="group-hover:opacity-100"
                   />
                   <div className="flex items-baseline justify-between w-full gap-4">
-                    <span
-                      style={{
-                        fontSize: "11px",
-                        fontFamily: "'Epilogue', sans-serif",
-                        fontWeight: 600,
-                        color: "oklch(96% 0.008 65 / 0.3)",
-                        letterSpacing: "0.13em",
-                        textTransform: "uppercase",
-                        flexShrink: 0,
-                      }}
-                    >
+                    <span style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", fontWeight: 600, color: "oklch(96% 0.008 65 / 0.3)", letterSpacing: "0.13em", textTransform: "uppercase", flexShrink: 0 }}>
                       {link.label}
                     </span>
-                    <span
-                      className="group-hover:text-white transition-colors duration-200 truncate text-right"
-                      style={{
-                        fontSize: "14px",
-                        fontFamily: "'Epilogue', sans-serif",
-                        fontWeight: 400,
-                        color: "oklch(96% 0.008 65 / 0.6)",
-                      }}
-                    >
+                    <span className="group-hover:text-white transition-colors duration-200 truncate text-right" style={{ fontSize: "14px", fontFamily: "'Epilogue', sans-serif", fontWeight: 400, color: "oklch(96% 0.008 65 / 0.6)" }}>
                       {link.value}
                     </span>
                   </div>
@@ -153,18 +119,13 @@ export function ContactSection() {
           </motion.div>
         </div>
 
-        {/* Bottom note */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.6 }}
           className="mt-20"
-          style={{
-            fontSize: "11px",
-            fontFamily: "'Epilogue', sans-serif",
-            color: "oklch(96% 0.008 65 / 0.12)",
-          }}
+          style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "oklch(96% 0.008 65 / 0.12)" }}
         >
           &copy; 2026 Sanjeyan Chrysharnthan
         </motion.p>
