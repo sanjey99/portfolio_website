@@ -17,7 +17,7 @@ const hackathons: Hackathon[] = [
   {
     title: "Sentinel",
     event: "Deep Learning Week 2026, NTU",
-    result: "Finalist (Judging)",
+    result: "3rd Place",
     stack: "React, Node/Express, FastAPI, Python, OpenClaw",
     repo: "https://github.com/sanjey99/dlweek",
     highlights:
@@ -159,14 +159,27 @@ export function HackathonsSection() {
           transition={{ duration: 0.6 }}
           className="mb-6"
         >
+          <p
+            style={{
+              fontSize: "11px",
+              fontFamily: "'Epilogue', sans-serif",
+              fontWeight: 600,
+              letterSpacing: "0.13em",
+              color: "oklch(76% 0.155 65 / 0.6)",
+              textTransform: "uppercase",
+              marginBottom: "16px",
+            }}
+          >
+            Competitions & Wins
+          </p>
           <h2
             style={{
               fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 800,
               fontSize: "clamp(36px, 6vw, 72px)",
-              color: "#fff",
+              color: "oklch(96% 0.008 65)",
               lineHeight: 1.05,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.025em",
             }}
           >
             Built under
@@ -182,11 +195,12 @@ export function HackathonsSection() {
           transition={{ duration: 0.4, delay: 0.2 }}
           className="mb-16"
           style={{
-            fontSize: "14px",
+            fontSize: "13.5px",
             fontFamily: "'Epilogue', sans-serif",
             fontWeight: 300,
+            lineHeight: 1.7,
             color: "rgba(255,255,255,0.35)",
-            maxWidth: "500px",
+            maxWidth: "480px",
           }}
         >
           Hackathons, competitions, and wins. Shipped for impact.
@@ -200,14 +214,14 @@ export function HackathonsSection() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="flex items-center gap-3 mb-10"
         >
-          <Trophy size={16} style={{ color: "#4ade80" }} />
+          <Trophy size={14} style={{ color: "#4ade80" }} />
           <span
             style={{
-              fontSize: "13px",
+              fontSize: "11px",
               fontFamily: "'Epilogue', sans-serif",
-              fontWeight: 500,
-              color: "rgba(255,255,255,0.6)",
-              letterSpacing: "0.05em",
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.55)",
+              letterSpacing: "0.13em",
               textTransform: "uppercase",
             }}
           >
@@ -240,8 +254,8 @@ export function HackathonsSection() {
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "oklch(76% 0.155 65 / 0.22)";
-                el.style.boxShadow = "0 8px 28px oklch(76% 0.155 65 / 0.07)";
+                el.style.borderColor = `${hack.accent}55`;
+                el.style.boxShadow = `0 8px 28px ${hack.accent}18`;
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
@@ -255,10 +269,11 @@ export function HackathonsSection() {
                   <div className="flex flex-wrap items-center gap-3 mb-2">
                     <h3
                       style={{
-                        fontFamily: "'Epilogue', sans-serif",
-                        fontWeight: 600,
+                        fontFamily: "'Bricolage Grotesque', sans-serif",
+                        fontWeight: 700,
                         fontSize: "18px",
-                        color: "rgba(255,255,255,0.9)",
+                        color: "rgba(255,255,255,0.92)",
+                        letterSpacing: "-0.01em",
                       }}
                     >
                       {hack.title}
@@ -291,10 +306,10 @@ export function HackathonsSection() {
                   <p
                     className="mb-4"
                     style={{
-                      fontSize: "14px",
+                      fontSize: "13.5px",
                       fontFamily: "'Epilogue', sans-serif",
                       fontWeight: 300,
-                      lineHeight: 1.65,
+                      lineHeight: 1.7,
                       color: "rgba(255,255,255,0.5)",
                     }}
                   >

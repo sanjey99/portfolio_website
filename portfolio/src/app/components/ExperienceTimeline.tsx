@@ -113,30 +113,31 @@ export function ExperienceTimeline() {
           transition={{ duration: 0.5 }}
           className="mb-14"
         >
-          <p
-            style={{
-              fontSize: "12px",
-              fontFamily: "'Epilogue', sans-serif",
-              fontWeight: 500,
-              letterSpacing: "0.15em",
-              color: "oklch(76% 0.155 65 / 0.65)",
-              textTransform: "uppercase",
-              marginBottom: "12px",
-            }}
-          >
-            Journey so far
-          </p>
           <h2
             style={{
               fontFamily: "'Bricolage Grotesque', sans-serif",
-              fontWeight: 700,
-              fontSize: "clamp(28px, 4vw, 42px)",
-              color: "#fff",
-              letterSpacing: "-0.02em",
+              fontWeight: 800,
+              fontSize: "clamp(36px, 6vw, 64px)",
+              color: "oklch(96% 0.008 65)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.0,
+              marginBottom: "12px",
             }}
           >
             Work Experience
           </h2>
+          <p
+            style={{
+              fontSize: "13.5px",
+              fontFamily: "'Epilogue', sans-serif",
+              fontWeight: 300,
+              lineHeight: 1.7,
+              color: "rgba(255,255,255,0.35)",
+              maxWidth: "480px",
+            }}
+          >
+            Where I've built things that matter.
+          </p>
         </motion.div>
 
         {/* Mobile: vertical stacked cards */}
@@ -182,10 +183,10 @@ export function ExperienceTimeline() {
                   <li
                     key={j}
                     style={{
-                      fontSize: "13px",
+                      fontSize: "13.5px",
                       fontFamily: "'Epilogue', sans-serif",
                       fontWeight: 300,
-                      lineHeight: 1.65,
+                      lineHeight: 1.7,
                       color: "rgba(255,255,255,0.45)",
                       paddingLeft: "10px",
                       position: "relative",
@@ -299,8 +300,8 @@ export function ExperienceTimeline() {
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "oklch(76% 0.155 65 / 0.22)";
-                    el.style.boxShadow = "0 8px 28px oklch(76% 0.155 65 / 0.07)";
+                    el.style.borderColor = `${item.accent}55`;
+                    el.style.boxShadow = `0 8px 28px ${item.accent}18`;
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLElement;

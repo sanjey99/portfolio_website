@@ -130,7 +130,7 @@ export function Navbar() {
                 fontSize: "12px",
                 fontFamily: "'Epilogue', sans-serif",
                 fontWeight: 500,
-                color: "oklch(8.5% 0.006 65)",
+                color: "oklch(12% 0.02 65)",
                 background: "oklch(76% 0.155 65)",
                 letterSpacing: "0.02em",
               }}

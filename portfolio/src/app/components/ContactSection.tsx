@@ -40,6 +40,7 @@ export function ContactSection() {
       style={{
         background:
           "linear-gradient(180deg, oklch(8.5% 0.006 65) 0%, oklch(9% 0.008 65) 100%)",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       <div className="max-w-[1100px] mx-auto">
@@ -51,19 +52,6 @@ export function ContactSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p
-              className="mb-4"
-              style={{
-                fontSize: "12px",
-                fontFamily: "'Epilogue', sans-serif",
-                fontWeight: 500,
-                letterSpacing: "0.15em",
-                color: "oklch(76% 0.155 65)",
-                textTransform: "uppercase",
-              }}
-            >
-              Get in touch
-            </p>
             <h2
               style={{
                 fontFamily: "'Bricolage Grotesque', sans-serif",
@@ -136,11 +124,11 @@ export function ContactSection() {
                   <div className="flex items-baseline justify-between w-full gap-4">
                     <span
                       style={{
-                        fontSize: "13px",
+                        fontSize: "11px",
                         fontFamily: "'Epilogue', sans-serif",
-                        fontWeight: 500,
-                        color: "oklch(96% 0.008 65 / 0.35)",
-                        letterSpacing: "0.04em",
+                        fontWeight: 600,
+                        color: "oklch(96% 0.008 65 / 0.3)",
+                        letterSpacing: "0.13em",
                         textTransform: "uppercase",
                         flexShrink: 0,
                       }}

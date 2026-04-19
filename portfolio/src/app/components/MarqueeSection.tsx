@@ -3,26 +3,26 @@ const words = [
   "React",
   "TypeScript",
   "FastAPI",
-  "TensorFlow",
+  "LangGraph",
   "Monte Carlo",
   "AI Governance",
   "Node.js",
-  "Java",
+  "PyTorch",
   "Docker",
-  "PostgreSQL",
-  "WebSocket",
-  "Solidity",
+  "TimescaleDB",
+  "Kafka",
+  "LoRA / GRPO",
   "C++",
   "Next.js",
-  "Socket.IO",
-  "Flask",
-  "MongoDB",
-  "NumPy",
-  "Pandas",
-  "Risk Modeling",
-  "Blockchain",
-  "Arbitrage",
-  "Embedded Systems",
+  "CLIP",
+  "FAISS",
+  "LightGBM",
+  "vLLM",
+  "PostgreSQL",
+  "VaR · CVaR",
+  "Triton kernels",
+  "Qdrant",
+  "Fama-French",
 ];
 
 export function MarqueeSection() {
@@ -30,19 +30,25 @@ export function MarqueeSection() {
 
   return (
     <section
-      className="relative py-10 overflow-hidden"
-      style={{ background: "oklch(8.5% 0.006 65)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+      role="presentation"
+      aria-hidden="true"
+      className="relative py-9 overflow-hidden"
+      style={{
+        background: "oklch(8.5% 0.006 65)",
+        borderTop: "1px solid rgba(255,255,255,0.04)",
+        borderBottom: "1px solid rgba(255,255,255,0.04)",
+      }}
     >
       <div className="flex animate-marquee whitespace-nowrap">
         {doubled.map((word, i) => (
           <span
             key={`${word}-${i}`}
-            className="mx-6 md:mx-10"
+            className="mx-8 md:mx-12"
             style={{
               fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 700,
-              fontSize: "clamp(28px, 4vw, 48px)",
-              color: "rgba(255,255,255,0.04)",
+              fontSize: "clamp(22px, 3vw, 38px)",
+              color: "rgba(255,255,255,0.05)",
               letterSpacing: "-0.02em",
               userSelect: "none",
             }}

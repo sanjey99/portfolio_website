@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import heroImg from "@/assets/519e3075752b6c7f5afc08ea933955f297ac4d06.png";
 
 const greetings = [
@@ -161,8 +161,31 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.9 }}
-          className="flex items-center justify-center gap-5 mt-10"
+          className="flex items-center justify-center gap-4 mt-10 flex-wrap"
         >
+          {/* Resume CTA — primary action */}
+          <a
+            href="/resume.pdf"
+            download
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              fontFamily: "'Epilogue', sans-serif",
+              fontSize: "13px",
+              fontWeight: 500,
+              letterSpacing: "0.03em",
+              background: "oklch(76% 0.155 65)",
+              color: "oklch(12% 0.02 65)",
+            }}
+          >
+            <FileText size={14} />
+            Resume
+          </a>
+
+          <div
+            className="hidden sm:block w-px h-6 shrink-0"
+            style={{ background: "rgba(255,255,255,0.12)" }}
+          />
+
           <a
             href="https://github.com/sanjey99"
             target="_blank"
@@ -211,11 +234,7 @@ export function HeroSection() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 cursor-pointer"
         onClick={handleScrollDown}
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-3"
-        >
+        <div className="flex flex-col items-center gap-3">
           <span
             style={{
               fontSize: "11px",
@@ -230,16 +249,16 @@ export function HeroSection() {
           </span>
           <div className="w-5 h-9 rounded-full border border-white/25 flex items-start justify-center pt-2">
             <motion.div
-              animate={{ y: [0, 10, 0], opacity: [1, 0.3, 1] }}
+              animate={{ y: [0, 12, 0], opacity: [1, 0.25, 1] }}
               transition={{
-                duration: 2,
+                duration: 1.8,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
               className="w-1 h-2 rounded-full bg-white/50"
             />
           </div>
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
