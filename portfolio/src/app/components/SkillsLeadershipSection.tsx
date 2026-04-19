@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import type { TrackId } from "../context/TrackContext";
 
 const skills: Record<string, string[]> = {
   Languages: ["Python", "TypeScript", "JavaScript", "Java", "C", "C++", "C#", "SQL"],
@@ -79,7 +80,22 @@ const leadership = [
   },
 ];
 
-export function SkillsLeadershipSection() {
+const TRACK_SKILL_CATEGORIES: Record<TrackId, string[]> = {
+  quant: ["Languages", "Quant / Finance", "Data & Infrastructure"],
+  ml: ["Languages", "ML & AI", "Data & Infrastructure"],
+  fullstack: ["Languages", "Frontend", "Backend / APIs", "Data & Infrastructure"],
+  all: Object.keys({
+    Languages: [], Frontend: [], "Backend / APIs": [], "ML & AI": [],
+    "Quant / Finance": [], "Data & Infrastructure": [],
+  }),
+};
+
+export function SkillsLeadershipSection({ track }: { track: TrackId }) {
+  const visibleCategories = TRACK_SKILL_CATEGORIES[track];
+  const filteredSkills = Object.fromEntries(
+    Object.entries(skills).filter(([cat]) => visibleCategories.includes(cat))
+  );
+
   return (
     <section
       id="skills"
@@ -133,7 +149,7 @@ export function SkillsLeadershipSection() {
             className="md:col-span-3"
           >
             <div className="space-y-8">
-              {Object.entries(skills).map(([category, items]) => (
+              {Object.entries(filteredSkills).map(([category, items]) => (
                 <div key={category}>
                   <div className="flex items-center gap-3 mb-3">
                     <p

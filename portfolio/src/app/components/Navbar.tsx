@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
+import type { TrackConfig } from "../context/TrackContext";
 
 const navLinks = [
   { label: "Experience", href: "#experience" },
@@ -10,7 +11,12 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  activeTrack?: TrackConfig;
+  onReopenSelector?: () => void;
+}
+
+export function Navbar({ activeTrack, onReopenSelector }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -88,6 +94,68 @@ export function Navbar() {
               S<span style={{ color: "oklch(76% 0.155 65)" }}>.</span>
             </span>
           </a>
+
+          {/* Active track badge — desktop */}
+          <AnimatePresence>
+            {activeTrack && (
+              <motion.button
+                key={activeTrack.id}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.3 }}
+                onClick={onReopenSelector}
+                className="hidden md:flex items-center gap-1.5"
+                style={{
+                  background: activeTrack.color.replace(")", " / 0.1)"),
+                  border: `1px solid ${activeTrack.color.replace(")", " / 0.28)")}`,
+                  borderRadius: "100px",
+                  padding: "4px 10px 4px 8px",
+                  cursor: "pointer",
+                  transition: "border-color 0.2s ease, background 0.2s ease",
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderColor = activeTrack.color.replace(")", " / 0.5)");
+                  el.style.background = activeTrack.color.replace(")", " / 0.16)");
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderColor = activeTrack.color.replace(")", " / 0.28)");
+                  el.style.background = activeTrack.color.replace(")", " / 0.1)");
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: activeTrack.color,
+                    flexShrink: 0,
+                    display: "inline-block",
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontFamily: "'Epilogue', sans-serif",
+                    fontWeight: 500,
+                    color: activeTrack.color,
+                    letterSpacing: "0.02em",
+                    maxWidth: "130px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {activeTrack.label}
+                </span>
+                <span style={{ fontSize: "10px", color: activeTrack.color, opacity: 0.65, marginLeft: "2px" }}>
+                  ↺
+                </span>
+              </motion.button>
+            )}
+          </AnimatePresence>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
@@ -210,6 +278,28 @@ export function Navbar() {
               >
                 Resume
               </motion.a>
+
+              {activeTrack && (
+                <motion.button
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, delay: 0.34 }}
+                  onClick={() => { setMobileOpen(false); onReopenSelector?.(); }}
+                  className="flex items-center gap-2 mt-2"
+                  style={{
+                    background: activeTrack.color.replace(")", " / 0.12)"),
+                    border: `1px solid ${activeTrack.color.replace(")", " / 0.3)")}`,
+                    borderRadius: "100px",
+                    padding: "8px 18px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: activeTrack.color, display: "inline-block" }} />
+                  <span style={{ fontSize: "14px", fontFamily: "'Epilogue', sans-serif", fontWeight: 500, color: activeTrack.color }}>
+                    Switch track ↺
+                  </span>
+                </motion.button>
+              )}
             </div>
           </motion.div>
         )}

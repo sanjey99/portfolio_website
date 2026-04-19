@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Github } from "lucide-react";
+import type { TrackId } from "../context/TrackContext";
 
 interface Hackathon {
   title: string;
@@ -11,6 +12,7 @@ interface Hackathon {
   highlights: string;
   accent: string;
   images: string[];
+  tracks: TrackId[];
 }
 
 const hackathons: Hackathon[] = [
@@ -20,6 +22,7 @@ const hackathons: Hackathon[] = [
     result: "3rd Place",
     stack: "React, Node/Express, FastAPI, Python, OpenClaw",
     repo: "https://github.com/sanjey99/dlweek",
+    tracks: ["ml", "fullstack", "all"],
     highlights:
       "Policy-as-code gate, ML risk scoring + uncertainty output, human approval workflows, real-time governance feed, audit log, demo-ready UI.",
     accent: "oklch(76% 0.155 65)",
@@ -31,6 +34,7 @@ const hackathons: Hackathon[] = [
     result: "2nd Place",
     stack: "React, Node.js, Express, TypeScript, Socket.IO",
     repo: "https://github.com/sanjey99/PRISM-hacx",
+    tracks: ["fullstack", "all"],
     highlights:
       "Prison transport management with real-time vehicle/inmate telemetry, 15+ API endpoints, edge-compute demo, audit logging.",
     accent: "oklch(70% 0.13 65)",
@@ -42,6 +46,7 @@ const hackathons: Hackathon[] = [
     result: "Global Top 5",
     stack: "React, Tailwind, Flask, MongoDB, XRPL, Solidity, MetaMask",
     repo: "https://github.com/sanjey99/harvestchain",
+    tracks: ["fullstack", "all"],
     highlights:
       "Self-Sovereign Identity for blockchain-backed credit, micro-futures smart contracts for fair fish pricing, Fisherfolk financial equity.",
     accent: "oklch(80% 0.16 65)",
@@ -59,6 +64,7 @@ const hackathons: Hackathon[] = [
     result: "Gold Award",
     stack: "BRAIN platform, Alpha modeling, Backtesting",
     repo: "#",
+    tracks: ["quant", "all"],
     highlights:
       "Ran 200+ backtests on BRAIN before submitting top-scoring alpha; Gold award for producing 10k points in the global ranking. Signals combined decay, neutralisation & risk constraints to improve Sharpe-style metrics.",
     accent: "oklch(64% 0.1 65)",
@@ -143,7 +149,10 @@ function ImageCarousel({ images, accent }: { images: string[]; accent: string })
   );
 }
 
-export function HackathonsSection() {
+export function HackathonsSection({ track }: { track: TrackId }) {
+  const visible = hackathons.filter(h => h.tracks.includes(track));
+  if (visible.length === 0) return null;
+
   return (
     <section
       id="hackathons"
@@ -214,7 +223,7 @@ export function HackathonsSection() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="flex items-center gap-3 mb-10"
         >
-          <Trophy size={14} style={{ color: "#4ade80" }} />
+          <Trophy size={14} style={{ color: "oklch(76% 0.155 65)" }} />
           <span
             style={{
               fontSize: "11px",
@@ -235,7 +244,7 @@ export function HackathonsSection() {
 
         {/* Hackathon cards - info left, images right */}
         <div className="space-y-6">
-          {hackathons.map((hack, i) => (
+          {visible.map((hack, i) => (
             <motion.div
               key={hack.title}
               initial={{ opacity: 0, y: 30 }}
@@ -279,13 +288,16 @@ export function HackathonsSection() {
                       {hack.title}
                     </h3>
                     <span
-                      className="px-2.5 py-0.5 rounded-full"
+                      className="rounded-full"
                       style={{
-                        fontSize: "10px",
+                        fontSize: "10.5px",
                         fontFamily: "'Epilogue', sans-serif",
+                        fontWeight: 600,
+                        letterSpacing: "0.04em",
                         color: hack.accent,
-                        background: `${hack.accent}12`,
-                        border: `1px solid ${hack.accent}25`,
+                        background: hack.accent.replace(")", " / 0.18)"),
+                        border: `1px solid ${hack.accent.replace(")", " / 0.38)")}`,
+                        padding: "3px 10px",
                       }}
                     >
                       {hack.result}

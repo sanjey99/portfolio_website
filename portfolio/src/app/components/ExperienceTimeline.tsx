@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Briefcase } from "lucide-react";
+import type { TrackId } from "../context/TrackContext";
 
 interface TimelineItem {
   year: string;
@@ -94,7 +95,8 @@ const timelineData: TimelineItem[] = [
   },
 ];
 
-export function ExperienceTimeline() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function ExperienceTimeline({ track: _track }: { track: TrackId }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 

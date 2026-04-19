@@ -1,5 +1,7 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { Github, Lock, TrendingUp, BrainCircuit, BookOpen } from "lucide-react";
+import type { TrackId } from "../context/TrackContext";
 
 type Category = "quant" | "ml" | "academic";
 
@@ -12,6 +14,7 @@ interface Project {
   title: string;
   subtitle: string;
   category: Category;
+  tracks: TrackId[];
   stack: string[];
   repo: string;
   description: string;
@@ -61,6 +64,7 @@ const projects: Project[] = [
     title: "Portfolio Risk Analytics",
     subtitle: "Real-time quant risk infrastructure",
     category: "quant",
+    tracks: ["quant", "all"],
     stack: ["Python", "FastAPI", "Kafka KRaft", "TimescaleDB", "Redis"],
     repo: "https://github.com/sanjey99/PortfolioRisk",
     description:
@@ -78,6 +82,7 @@ const projects: Project[] = [
     title: "FIN.IQ",
     subtitle: "Finance AI hackathon system",
     category: "quant",
+    tracks: ["quant", "fullstack", "all"],
     stack: ["Python", "FastAPI", "PyTorch", "React", "Docker"],
     repo: "https://github.com/sanjey99/hackathon-fin-ai",
     description:
@@ -93,6 +98,7 @@ const projects: Project[] = [
     title: "LLM Fine-Tuning & Alignment Lab",
     subtitle: "LoRA from scratch → GRPO → Triton",
     category: "ml",
+    tracks: ["ml", "all"],
     stack: ["PyTorch", "vLLM", "Triton", "HuggingFace TRL", "W&B"],
     repo: "https://github.com/sanjey99/llm-fine-tuning-rag-lab",
     description:
@@ -110,6 +116,7 @@ const projects: Project[] = [
     title: "Multi-Agent Reasoning System",
     subtitle: "LangGraph · RAGAS · production serving",
     category: "ml",
+    tracks: ["ml", "all"],
     stack: ["LangGraph", "vLLM", "Qdrant", "Celery", "FastAPI", "Grafana"],
     repo: "https://github.com/sanjey99/multi-agent-reasoning-system",
     description:
@@ -126,6 +133,7 @@ const projects: Project[] = [
     title: "Multimodal Video Recommendation",
     subtitle: "TikTok Monolith architecture replica",
     category: "ml",
+    tracks: ["ml", "all"],
     stack: ["CLIP ViT-L/14", "C++/pybind11", "Whisper", "DeepFM", "FAISS"],
     repo: "https://github.com/sanjey99/multimodal-video-recommendation",
     description:
@@ -142,6 +150,7 @@ const projects: Project[] = [
     title: "Sentinel",
     subtitle: "AI Governance · 3rd Place NTU Deep Learning Week 2026",
     category: "ml",
+    tracks: ["ml", "fullstack", "all"],
     stack: ["React", "Node.js", "FastAPI", "OpenAI", "Python", "Docker"],
     repo: "https://github.com/sanjey99/dlweek",
     description:
@@ -157,6 +166,7 @@ const projects: Project[] = [
     title: "NAISC 2026 — Adaptive Drift Detection",
     subtitle: "National AI Singapore Challenge · Singtel Track",
     category: "ml",
+    tracks: ["ml", "all"],
     stack: ["LightGBM", "PSI", "KS tests", "scikit-learn", "Python"],
     repo: "https://github.com/sanjey99/singtel_naisc",
     description:
@@ -172,6 +182,7 @@ const projects: Project[] = [
     title: "HomeCast",
     subtitle: "SC2006 · Full-stack Singapore real estate platform",
     category: "academic",
+    tracks: ["fullstack", "all"],
     stack: ["Next.js 14", "React", "TypeScript", "MySQL 8", "Node.js", "Leaflet"],
     repo: "",
     description:
@@ -182,6 +193,7 @@ const projects: Project[] = [
     title: "SC2002 OOP Internship System",
     subtitle: "SC2002 · Role-based CLI in Java",
     category: "academic",
+    tracks: ["fullstack", "all"],
     stack: ["Java 17", "OOP Architecture", "CSV persistence", "Role-based ACL"],
     repo: "",
     description:
@@ -192,6 +204,7 @@ const projects: Project[] = [
     title: "PRISM",
     subtitle: "HacX 2025 · Prison Transport Management",
     category: "academic",
+    tracks: ["fullstack", "all"],
     stack: ["React", "Node.js", "TypeScript", "Express", "Socket.IO"],
     repo: "https://github.com/sanjey99/PRISM-hacx",
     description:
@@ -207,8 +220,11 @@ const projects: Project[] = [
 function CategoryDivider({ category }: { category: Category }) {
   const cfg = categoryConfig[category];
   const { Icon } = cfg;
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
+
   return (
-    <div className="flex items-center gap-3 mb-6">
+    <div ref={ref} className="flex items-center gap-3 mb-6">
       <Icon size={15} style={{ color: cfg.accent, flexShrink: 0 }} />
       <span
         style={{
@@ -222,7 +238,19 @@ function CategoryDivider({ category }: { category: Category }) {
       >
         {cfg.label}
       </span>
-      <div className="flex-1 h-px" style={{ background: cfg.border }} />
+      <div style={{ flex: 1, height: "1px", overflow: "hidden" }}>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            height: "100%",
+            width: "100%",
+            background: cfg.border,
+            transformOrigin: "left",
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -315,6 +343,7 @@ function ProjectCard({
         background: cfg.cardBg,
         border: `1px solid ${cfg.border}`,
         borderRadius: "14px",
+        overflow: "hidden",
         padding: "22px",
         cursor: "default",
         transition: "box-shadow 0.25s ease, border-color 0.25s ease",
@@ -330,6 +359,15 @@ function ProjectCard({
         el.style.boxShadow = "none";
       }}
     >
+      {project.featured && (
+        <div
+          style={{
+            margin: "-22px -22px 20px -22px",
+            height: "2px",
+            background: `linear-gradient(to right, ${cfg.accent.replace(")", " / 0.55)")}, transparent 80%)`,
+          }}
+        />
+      )}
       <div className="flex items-start justify-between gap-3 mb-1">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -347,19 +385,19 @@ function ProjectCard({
             </h3>
             <span
               style={{
-                fontSize: "9.5px",
+                fontSize: badgeIsWin ? "10px" : "9.5px",
                 fontFamily: "'Epilogue', sans-serif",
-                fontWeight: 500,
+                fontWeight: badgeIsWin ? 600 : 500,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 color: badgeIsWin ? cfg.accent : "rgba(255,255,255,0.28)",
                 background: badgeIsWin
-                  ? `${cfg.accent.replace(")", " / 0.1)")}`
+                  ? `${cfg.accent.replace(")", " / 0.18)")}`
                   : "rgba(255,255,255,0.04)",
                 border: badgeIsWin
-                  ? `1px solid ${cfg.accent.replace(")", " / 0.22)")}`
+                  ? `1px solid ${cfg.accent.replace(")", " / 0.38)")}`
                   : "1px solid rgba(255,255,255,0.07)",
-                padding: "2px 8px",
+                padding: badgeIsWin ? "3px 10px" : "2px 8px",
                 borderRadius: "100px",
                 flexShrink: 0,
               }}
@@ -456,11 +494,22 @@ function ProjectCard({
   );
 }
 
-const quantProjects = projects.filter((p) => p.category === "quant");
-const mlProjects = projects.filter((p) => p.category === "ml");
-const academicProjects = projects.filter((p) => p.category === "academic");
+export function ProjectsSection({ track }: { track: TrackId }) {
+  const quantProjects = projects.filter(
+    (p) => p.category === "quant" && p.tracks.includes(track)
+  );
+  const mlProjects = projects.filter(
+    (p) => p.category === "ml" && p.tracks.includes(track)
+  );
+  const academicProjects = projects.filter(
+    (p) => p.category === "academic" && p.tracks.includes(track)
+  );
 
-export function ProjectsSection() {
+  const hasQuant = quantProjects.length > 0;
+  const hasMl = mlProjects.length > 0;
+  const hasAcademic = academicProjects.length > 0;
+
+  if (!hasQuant && !hasMl && !hasAcademic) return null;
   return (
     <section
       id="projects"
@@ -492,72 +541,65 @@ export function ProjectsSection() {
             style={{
               fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 800,
-              fontSize: "clamp(30px, 5vw, 52px)",
+              fontSize: "clamp(36px, 6vw, 64px)",
               color: "oklch(96% 0.008 65)",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.05,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.0,
             }}
           >
             Projects
           </h2>
         </motion.div>
 
-        {/* QUANT SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-20"
-        >
-          <CategoryDivider category="quant" />
-          <div className="grid md:grid-cols-2 gap-4">
-            {quantProjects.map((p, i) => (
-              <ProjectCard
-                key={p.title}
-                project={p}
-                index={i}
-                span2={p.featured}
-              />
-            ))}
-          </div>
-        </motion.div>
+        {hasQuant && (
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="mb-20"
+          >
+            <CategoryDivider category="quant" />
+            <div className="grid md:grid-cols-2 gap-4">
+              {quantProjects.map((p, i) => (
+                <ProjectCard key={p.title} project={p} index={i} span2={p.featured} />
+              ))}
+            </div>
+          </motion.div>
+        )}
 
-        {/* ML / AI SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-20"
-        >
-          <CategoryDivider category="ml" />
-          <div className="grid md:grid-cols-2 gap-4">
-            {mlProjects.map((p, i) => (
-              <ProjectCard
-                key={p.title}
-                project={p}
-                index={i}
-                span2={p.featured}
-              />
-            ))}
-          </div>
-        </motion.div>
+        {hasMl && (
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="mb-20"
+          >
+            <CategoryDivider category="ml" />
+            <div className="grid md:grid-cols-2 gap-4">
+              {mlProjects.map((p, i) => (
+                <ProjectCard key={p.title} project={p} index={i} span2={p.featured} />
+              ))}
+            </div>
+          </motion.div>
+        )}
 
-        {/* ACADEMIC SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-        >
-          <CategoryDivider category="academic" />
-          <div className="grid md:grid-cols-3 gap-4">
-            {academicProjects.map((p, i) => (
-              <ProjectCard key={p.title} project={p} index={i} />
-            ))}
-          </div>
-        </motion.div>
+        {hasAcademic && (
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <CategoryDivider category="academic" />
+            <div className="grid md:grid-cols-3 gap-4">
+              {academicProjects.map((p, i) => (
+                <ProjectCard key={p.title} project={p} index={i} />
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
