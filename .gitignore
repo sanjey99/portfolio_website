@@ -27,3 +27,6 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+
+# Private working notes (references an external personal path)
+CLAUDE.md

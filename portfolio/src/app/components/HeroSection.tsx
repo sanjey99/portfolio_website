@@ -170,7 +170,7 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
             marginBottom: "28px",
           }}
         >
-          Seeking SWE internship · May 2026
+          Seeking 2027 summer internships
         </motion.p>
 
         {/* CTA row */}

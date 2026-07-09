@@ -16,8 +16,21 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
   {
+    year: "2026",
+    period: "May 2026 – Jul 2026",
+    title: "Machine Learning & Computer Vision Engineer Intern",
+    org: "Panasonic R&D Centre Singapore",
+    description: [
+      "Built and deployed an interactive video-segmentation web app on Meta's SAM3 (FastAPI, React, Docker) on a 24GB-VRAM GPU server — multi-modal prompting, full-video mask propagation, live SSE previews.",
+      "Hardened the newly-released SAM3 model for production serving: fixed mixed-precision inference bugs, object-ID collisions, and GPU race conditions via lock-guarded predictors.",
+      "Built a Tauri desktop app for fully local multi-model video-QA (Qwen2.5-VL, Cosmos-Reason2, MUSEG-3B) with single-GPU hot-swapping and a ROUGE-L/BERTScore evaluation harness.",
+    ],
+    skills: ["Python", "FastAPI", "React", "PyTorch", "Docker", "Computer Vision", "MLflow", "Prometheus/Grafana", "Tauri"],
+    accent: "oklch(76% 0.155 65)",
+  },
+  {
     year: "2025",
-    period: "May 2025 – Aug 2025",
+    period: "May 2025 – Jul 2025",
     title: "Software Development Intern",
     org: "Rohde & Schwarz",
     description: [
@@ -26,7 +39,7 @@ const timelineData: TimelineItem[] = [
       "Conducted data analysis to support decision-making, utilizing statistical methods and data visualization techniques.",
     ],
     skills: ["Python", "GitLab", "C#", "Software Development", "Problem Solving", "Microsoft Excel", "Git"],
-    accent: "oklch(76% 0.155 65)",
+    accent: "oklch(68% 0.13 65)",
   },
   {
     year: "2024",
@@ -40,7 +53,7 @@ const timelineData: TimelineItem[] = [
       "Fostered a collaborative learning environment, encouraging teamwork and problem-solving skills among students.",
     ],
     skills: ["Microbit", "Roblox Studio", "Lego Robotics", "Tynker", "Python", "Minecraft Education", "Blender", "JavaScript", "Scratch"],
-    accent: "oklch(67% 0.12 65)",
+    accent: "oklch(59% 0.1 65)",
   },
   {
     year: "2022",
@@ -54,7 +67,7 @@ const timelineData: TimelineItem[] = [
       "Led small teams in field operations, logistics planning and equipment readiness checks.",
     ],
     skills: ["Leadership", "Team Management", "Operations Planning", "Communication", "Discipline"],
-    accent: "oklch(56% 0.085 65)",
+    accent: "oklch(50% 0.075 65)",
   },
   {
     year: "2022",
@@ -68,7 +81,7 @@ const timelineData: TimelineItem[] = [
       "Gained hands-on experience in problem-solving and critical thinking in a fast-paced environment.",
     ],
     skills: ["Problem Solving", "Teamwork", "Technical Support"],
-    accent: "oklch(46% 0.06 65)",
+    accent: "oklch(42% 0.055 65)",
   },
 ];
 

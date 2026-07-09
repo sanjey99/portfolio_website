@@ -29,6 +29,18 @@ const hackathons: Hackathon[] = [
     images: [],
   },
   {
+    title: "BrainySG",
+    event: "DSTA BrainHack 2026 (Open Category)",
+    result: "Finalist",
+    stack: "Go, Gin, Supabase, React, OpenAI GPT-4.1/5.4",
+    repo: "https://github.com/sanjey99/BrainySG",
+    tracks: ["fullstack", "all"],
+    highlights:
+      "AI crisis-response platform for Singapore: live cross-agency government feed ingestion (NEA weather/haze/dengue, LTA transport, PUB flood sensors), LLM-triaged resident alerts on a OneMap-based map, role-based volunteer coordination. Built the Go/Gin backend — JWT auth, crisis/task APIs, concurrent ingestion pipeline, thread-safe TTL cache — for a 6-person team.",
+    accent: "oklch(73% 0.14 65)",
+    images: [],
+  },
+  {
     title: "PRISM",
     event: "HacX 2025 (HTX + Microsoft)",
     result: "2nd Place",
@@ -44,7 +56,7 @@ const hackathons: Hackathon[] = [
     title: "HarvestChain",
     event: "APRU x Google Tech Policy Hackathon 2025",
     result: "Global Top 5",
-    stack: "React, Tailwind, Flask, MongoDB, XRPL, Solidity, MetaMask",
+    stack: "React, Tailwind, Flask, MongoDB, Solidity, Hardhat",
     repo: "https://github.com/sanjey99/harvestchain",
     tracks: ["fullstack", "all"],
     highlights:
