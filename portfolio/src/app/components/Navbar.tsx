@@ -18,7 +18,7 @@ export function Navbar({ activeTrack, onReopenSelector }: { activeTrack?: TrackC
 
   return (
     <header className="site-nav">
-      <a href="#hero" onClick={(event) => { event.preventDefault(); scrollTo("#hero"); }} className="wordmark">S.</a>
+      <a href="/" className="wordmark" aria-label="Return to landing page">S.</a>
       <nav className="desktop-nav" aria-label="Primary">
         {links.map(([label, href]) => <a key={href} href={href} onClick={(event) => { event.preventDefault(); scrollTo(href); }}>{label}</a>)}
       </nav>

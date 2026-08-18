@@ -135,3 +135,26 @@ test("navigation has explicit desktop and mobile visibility rules", async () => 
     /@media \(max-width: 767px\)[\s\S]*\.menu-button\s*\{\s*display:\s*(?:inline-grid|grid)/,
   );
 });
+
+test("the portfolio wordmark returns to the landing route", async () => {
+  const navbar = await read("src/app/components/Navbar.tsx");
+
+  assert.match(navbar, /<a href="\/" className="wordmark"/);
+  assert.doesNotMatch(navbar, /scrollTo\("#hero"\)/);
+});
+
+test("hero actions share the viewport's right content edge", async () => {
+  const [hero, styles] = await Promise.all([
+    read("src/app/components/HeroSection.tsx"),
+    read("src/styles/index.css"),
+  ]);
+
+  assert.match(hero, /className="[^"]*hero-actions[^"]*"/);
+  assert.match(hero, /md:grid-cols-2/);
+  assert.match(hero, /md:justify-self-end/);
+  assert.doesNotMatch(hero, /max-w-\[1200px\]/);
+  assert.match(
+    styles,
+    /\.hero-actions\s*\{[^}]*align-items:\s*flex-end/s,
+  );
+});

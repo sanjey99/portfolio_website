@@ -39,6 +39,8 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 .resume-menu { position: absolute; right: 0; top: calc(100% + 10px); z-index: 60; min-width: 210px; background: #343933; border: 1px solid var(--border); }
 .resume-menu a { display: flex; align-items: center; gap: 8px; padding: 10px 12px; color: var(--foreground); text-decoration: none; }
 .resume-menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hero-actions { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.hero-actions .resume-menu { right: 0; left: auto; text-align: left; }
 .site-nav { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 24px; background: rgba(36,39,34,0.96); border-bottom: 1px solid var(--border); }
 .wordmark { color: var(--foreground); font-family: var(--font-display); font-size: 1.5rem; text-decoration: none; }
 .desktop-nav, .nav-actions { display: flex; align-items: center; gap: 20px; }
