@@ -46,7 +46,7 @@ export function MarqueeSection({ track: _track }: { track?: string }) {
             key={`${word}-${i}`}
             className="mx-8 md:mx-12"
             style={{
-              fontFamily: "'Bricolage Grotesque', sans-serif",
+              fontFamily: "var(--font-display)",
               fontWeight: 700,
               fontSize: "clamp(22px, 3vw, 38px)",
               color: "rgba(255,255,255,0.05)",

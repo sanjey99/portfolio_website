@@ -7,7 +7,6 @@ export interface TrackConfig {
   label: string;
   color: string;
   dim: string;
-  symbols: string[];
   description: string;
 }
 
@@ -17,7 +16,6 @@ export const TRACKS: TrackConfig[] = [
     label: "Quantitative Finance",
     color: "oklch(76% 0.155 65)",
     dim: "oklch(76% 0.155 65 / 0.55)",
-    symbols: ["Σ", "∂", "∫", "μ", "%", "σ", "$", "∇"],
     description: "Risk systems · Alpha research · Quant modeling",
   },
   {
@@ -25,7 +23,6 @@ export const TRACKS: TrackConfig[] = [
     label: "Machine Learning & AI",
     color: "oklch(62% 0.11 158)",
     dim: "oklch(62% 0.11 158 / 0.55)",
-    symbols: ["θ", "λ", "∇", "β", "∈", "≈", "∑", "⊕"],
     description: "LLMs · Fine-tuning · Multi-agent systems",
   },
   {
@@ -33,7 +30,6 @@ export const TRACKS: TrackConfig[] = [
     label: "Full Stack",
     color: "oklch(65% 0.14 260)",
     dim: "oklch(65% 0.14 260 / 0.55)",
-    symbols: ["{}", "<>", "fn", "//", "[]", "=>", "&&", "??"],
     description: "Real-time systems · APIs · Frontend",
   },
   {
@@ -41,7 +37,6 @@ export const TRACKS: TrackConfig[] = [
     label: "View Everything",
     color: "oklch(74% 0.04 65)",
     dim: "oklch(74% 0.04 65 / 0.55)",
-    symbols: ["★", "◆", "■", "●", "▲", "✦", "◈", "⬡"],
     description: "The full picture across all disciplines",
   },
 ];

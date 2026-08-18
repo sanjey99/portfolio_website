@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Mail, Github, Linkedin, FileText } from "lucide-react";
+import { Envelope, FileText, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
 import type { TrackId } from "../context/TrackContext";
 import { TRACKS } from "../context/TrackContext";
 
@@ -19,9 +19,9 @@ export function ContactSection({ track }: ContactSectionProps) {
   const resume = resumeByTrack[track];
 
   const contactLinks = [
-    { label: "Email", icon: Mail, href: "mailto:sanjeyan001@e.ntu.edu.sg", value: "sanjeyan001@e.ntu.edu.sg", download: false },
-    { label: "GitHub", icon: Github, href: "https://github.com/sanjey99", value: "sanjey99", download: false },
-    { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/sanjey99/", value: "Sanjeyan Chrysharnthan", download: false },
+    { label: "Email", icon: Envelope, href: "mailto:sanjeyan001@e.ntu.edu.sg", value: "sanjeyan001@e.ntu.edu.sg", download: false },
+    { label: "GitHub", icon: GithubLogo, href: "https://github.com/sanjey99", value: "sanjey99", download: false },
+    { label: "LinkedIn", icon: LinkedinLogo, href: "https://www.linkedin.com/in/sanjey99/", value: "Sanjeyan Chrysharnthan", download: false },
     { label: "Resume", icon: FileText, href: resume.href, value: "Download CV", download: true, filename: resume.filename },
   ];
 
@@ -45,7 +45,7 @@ export function ContactSection({ track }: ContactSectionProps) {
           >
             <h2
               style={{
-                fontFamily: "'Bricolage Grotesque', sans-serif",
+                fontFamily: "var(--font-display)",
                 fontWeight: 800,
                 fontSize: "clamp(32px, 4.5vw, 54px)",
                 color: "oklch(96% 0.008 65)",
@@ -63,7 +63,7 @@ export function ContactSection({ track }: ContactSectionProps) {
               className="mt-6"
               style={{
                 fontSize: "15px",
-                fontFamily: "'Epilogue', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontWeight: 300,
                 lineHeight: 1.65,
                 color: "oklch(96% 0.008 65 / 0.4)",
@@ -95,7 +95,7 @@ export function ContactSection({ track }: ContactSectionProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: 0.2 + i * 0.08 }}
-                  className="group flex items-center gap-4 py-4 transition-all duration-200"
+                  className="group flex items-center gap-4 py-4 transition-colors duration-200"
                   style={{
                     borderBottom: i < contactLinks.length - 1 ? "1px solid oklch(96% 0.008 65 / 0.05)" : "none",
                   }}
@@ -106,10 +106,10 @@ export function ContactSection({ track }: ContactSectionProps) {
                     className="group-hover:opacity-100"
                   />
                   <div className="flex items-baseline justify-between w-full gap-4">
-                    <span style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", fontWeight: 600, color: "oklch(96% 0.008 65 / 0.3)", letterSpacing: "0.13em", textTransform: "uppercase", flexShrink: 0 }}>
+                    <span style={{ fontSize: "11px", fontFamily: "var(--font-body)", fontWeight: 600, color: "oklch(96% 0.008 65 / 0.3)", letterSpacing: "0.13em", textTransform: "uppercase", flexShrink: 0 }}>
                       {link.label}
                     </span>
-                    <span className="group-hover:text-white transition-colors duration-200 truncate text-right" style={{ fontSize: "14px", fontFamily: "'Epilogue', sans-serif", fontWeight: 400, color: "oklch(96% 0.008 65 / 0.6)" }}>
+                    <span className="group-hover:text-white transition-colors duration-200 truncate text-right" style={{ fontSize: "14px", fontFamily: "var(--font-body)", fontWeight: 400, color: "oklch(96% 0.008 65 / 0.6)" }}>
                       {link.value}
                     </span>
                   </div>
@@ -119,16 +119,14 @@ export function ContactSection({ track }: ContactSectionProps) {
           </motion.div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.6 }}
-          className="mt-20"
-          style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "oklch(96% 0.008 65 / 0.12)" }}
+        <div
+          className="mt-20 flex flex-wrap items-center gap-4"
+          style={{ fontSize: "11px", fontFamily: "'IBM Plex Sans', sans-serif", color: "oklch(96% 0.008 65 / 0.5)" }}
         >
-          &copy; 2026 Sanjeyan Chrysharnthan
-        </motion.p>
+          <span>&copy; 2026 Sanjeyan Chrysharnthan</span>
+          <a className="hover:underline" href="/terms">Terms</a>
+          <a className="hover:underline" href="/privacy">Privacy</a>
+        </div>
       </div>
     </section>
   );

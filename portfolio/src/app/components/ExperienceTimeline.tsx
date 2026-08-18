@@ -1,89 +1,10 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
-import { Briefcase, ChevronDown } from "lucide-react";
+import { Briefcase, CaretDown } from "@phosphor-icons/react";
 import type { TrackId } from "../context/TrackContext";
 import { TRACKS } from "../context/TrackContext";
-
-interface TimelineItem {
-  year: string;
-  period: string;
-  title: string;
-  org: string;
-  description: string[];
-  skills: string[];
-  accent: string;
-}
-
-const timelineData: TimelineItem[] = [
-  {
-    year: "2026",
-    period: "May 2026 – Jul 2026",
-    title: "Machine Learning & Computer Vision Engineer Intern",
-    org: "Panasonic R&D Centre Singapore",
-    description: [
-      "Built and deployed an interactive video-segmentation web app on Meta's SAM3 (FastAPI, React, Docker) on a 24GB-VRAM GPU server — multi-modal prompting, full-video mask propagation, live SSE previews.",
-      "Hardened the newly-released SAM3 model for production serving: fixed mixed-precision inference bugs, object-ID collisions, and GPU race conditions via lock-guarded predictors.",
-      "Built a Tauri desktop app for fully local multi-model video-QA (Qwen2.5-VL, Cosmos-Reason2, MUSEG-3B) with single-GPU hot-swapping and a ROUGE-L/BERTScore evaluation harness.",
-    ],
-    skills: ["Python", "FastAPI", "React", "PyTorch", "Docker", "Computer Vision", "MLflow", "Prometheus/Grafana", "Tauri"],
-    accent: "oklch(76% 0.155 65)",
-  },
-  {
-    year: "2025",
-    period: "May 2025 – Jul 2025",
-    title: "Software Development Intern",
-    org: "Rohde & Schwarz",
-    description: [
-      "Developed software solutions using Python and libraries such as Pandas and NumPy to streamline data analysis processes, improving efficiency by 30%.",
-      "Collaborated with cross-functional teams to gather requirements and implement features that enhance user experience.",
-      "Conducted data analysis to support decision-making, utilizing statistical methods and data visualization techniques.",
-    ],
-    skills: ["Python", "GitLab", "C#", "Software Development", "Problem Solving", "Microsoft Excel", "Git"],
-    accent: "oklch(68% 0.13 65)",
-  },
-  {
-    year: "2024",
-    period: "Mar 2024 – May 2025",
-    title: "Coding Instructor",
-    org: "Empire Code",
-    description: [
-      "Registered MOE Instructor. Developed and delivered engaging lessons in coding and robotics to a secondary school class of 38 students.",
-      "Taught Minecraft Education Edition, enabling students to learn programming concepts through interactive gameplay and project-based learning.",
-      "Introduced video editing techniques, enhancing students' digital literacy and creativity.",
-      "Fostered a collaborative learning environment, encouraging teamwork and problem-solving skills among students.",
-    ],
-    skills: ["Microbit", "Roblox Studio", "Lego Robotics", "Tynker", "Python", "Minecraft Education", "Blender", "JavaScript", "Scratch"],
-    accent: "oklch(59% 0.1 65)",
-  },
-  {
-    year: "2022",
-    period: "Mar 2022 – Feb 2024",
-    title: "3SG, Artillery Specialist (HIMARS)",
-    org: "Singapore Armed Forces (23 SA)",
-    description: [
-      "Operated and maintained the High Mobility Artillery Rocket System (HIMARS) as part of 23rd Singapore Artillery.",
-      "Achieved rank of 3rd Sergeant through demonstrated leadership and technical proficiency.",
-      "Coordinated live-fire exercises requiring precision, discipline and real-time communication under pressure.",
-      "Led small teams in field operations, logistics planning and equipment readiness checks.",
-    ],
-    skills: ["Leadership", "Team Management", "Operations Planning", "Communication", "Discipline"],
-    accent: "oklch(50% 0.075 65)",
-  },
-  {
-    year: "2022",
-    period: "Feb 2022 – Mar 2022",
-    title: "Engineer Intern",
-    org: "Grand Hyatt Singapore",
-    description: [
-      "Assisted in the development and maintenance of engineering systems within the hotel, ensuring optimal functionality and guest satisfaction.",
-      "Collaborated with the engineering team to troubleshoot and resolve technical issues, enhancing operational efficiency.",
-      "Participated in projects aimed at improving energy efficiency and sustainability within the hotel premises.",
-      "Gained hands-on experience in problem-solving and critical thinking in a fast-paced environment.",
-    ],
-    skills: ["Problem Solving", "Teamwork", "Technical Support"],
-    accent: "oklch(42% 0.055 65)",
-  },
-];
+import { timelineData } from "../data/timeline";
+import type { TimelineItem } from "../data/timeline";
 
 // ─── Mobile accordion card ────────────────────────────────────────────────────
 
@@ -92,7 +13,7 @@ function AccordionCard({ item }: { item: TimelineItem }) {
 
   return (
     <div
-      className="rounded-xl overflow-hidden"
+      className="overflow-hidden"
       style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
     >
       {/* Header row — always visible, tap to toggle */}
@@ -102,16 +23,16 @@ function AccordionCard({ item }: { item: TimelineItem }) {
         style={{ cursor: "pointer", background: "transparent", border: "none" }}
       >
         <div
-          className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+          className="w-7 h-7 flex items-center justify-center shrink-0"
           style={{ background: `${item.accent}15` }}
         >
           <Briefcase size={13} style={{ color: item.accent }} />
         </div>
         <div className="flex-1 min-w-0">
-          <p style={{ fontSize: "13.5px", fontFamily: "'Epilogue', sans-serif", fontWeight: 600, color: "rgba(255,255,255,0.9)", marginBottom: "2px" }}>
+          <p style={{ fontSize: "13.5px", fontFamily: "var(--font-body)", fontWeight: 600, color: "rgba(255,255,255,0.9)", marginBottom: "2px" }}>
             {item.title}
           </p>
-          <p style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.35)" }}>
+          <p style={{ fontSize: "11px", fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.35)" }}>
             {item.org} · {item.period}
           </p>
         </div>
@@ -120,7 +41,7 @@ function AccordionCard({ item }: { item: TimelineItem }) {
           transition={{ duration: 0.22 }}
           style={{ flexShrink: 0 }}
         >
-          <ChevronDown size={16} style={{ color: "rgba(255,255,255,0.3)" }} />
+          <CaretDown size={16} style={{ color: "rgba(255,255,255,0.3)" }} />
         </motion.div>
       </button>
 
@@ -138,7 +59,7 @@ function AccordionCard({ item }: { item: TimelineItem }) {
                 key={j}
                 style={{
                   fontSize: "13px",
-                  fontFamily: "'Epilogue', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontWeight: 300,
                   lineHeight: 1.7,
                   color: "rgba(255,255,255,0.45)",
@@ -158,7 +79,7 @@ function AccordionCard({ item }: { item: TimelineItem }) {
                 className="px-2 py-0.5 rounded"
                 style={{
                   fontSize: "10px",
-                  fontFamily: "'Epilogue', sans-serif",
+                  fontFamily: "var(--font-body)",
                   color: "rgba(255,255,255,0.3)",
                   background: "rgba(255,255,255,0.04)",
                   border: "1px solid rgba(255,255,255,0.06)",
@@ -198,7 +119,7 @@ export function ExperienceTimeline({ track }: { track: TrackId }) {
         >
           <h2
             style={{
-              fontFamily: "'Bricolage Grotesque', sans-serif",
+              fontFamily: "var(--font-display)",
               fontWeight: 800,
               fontSize: "clamp(36px, 6vw, 64px)",
               color: "oklch(96% 0.008 65)",
@@ -212,7 +133,7 @@ export function ExperienceTimeline({ track }: { track: TrackId }) {
           <p
             style={{
               fontSize: "13.5px",
-              fontFamily: "'Epilogue', sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 300,
               lineHeight: 1.7,
               color: "rgba(255,255,255,0.35)",
@@ -254,14 +175,14 @@ export function ExperienceTimeline({ track }: { track: TrackId }) {
               <span
                 style={{
                   fontSize: "11px",
-                  fontFamily: "'Epilogue', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontWeight: 500,
                   color: `${trackColor.replace(")", " / 0.55)")}`,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
                 }}
               >
-                Drag to explore →
+                Drag to explore
               </span>
               <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.05)" }} />
             </div>
@@ -276,45 +197,42 @@ export function ExperienceTimeline({ track }: { track: TrackId }) {
                   className="relative flex flex-col items-start"
                   style={{ width: "340px", paddingRight: "20px" }}
                 >
-                  <p className="mb-4" style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: item.accent, letterSpacing: "0.05em" }}>
+                  <p className="mb-4" style={{ fontSize: "11px", fontFamily: "var(--font-body)", color: item.accent, letterSpacing: "0.05em" }}>
                     {item.year}
                   </p>
 
                   <div className="relative mb-6">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ background: item.accent }} />
+                    <div className="w-2.5 h-2.5" style={{ background: item.accent }} />
                   </div>
 
                   <motion.div
-                    whileHover={{ y: -3, transition: { duration: 0.2, ease: "easeOut" } }}
-                    className="p-5 rounded-xl w-full cursor-default"
+                    className="p-5 w-full cursor-default"
                     style={{
                       background: "rgba(255,255,255,0.03)",
                       border: "1px solid rgba(255,255,255,0.06)",
-                      transition: "box-shadow 0.3s ease, border-color 0.3s ease",
+                      transition: "border-color 0.3s ease",
                     }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLElement;
                       el.style.borderColor = `${item.accent}55`;
-                      el.style.boxShadow = `0 8px 28px ${item.accent}18`;
                     }}
                     onMouseLeave={(e) => {
                       const el = e.currentTarget as HTMLElement;
                       el.style.borderColor = "rgba(255,255,255,0.06)";
-                      el.style.boxShadow = "none";
                     }}
                   >
                     <div className="flex items-center gap-2.5 mb-2">
-                      <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `${item.accent}15` }}>
+                      <div className="w-7 h-7 flex items-center justify-center" style={{ background: `${item.accent}15` }}>
                         <Briefcase size={13} style={{ color: item.accent }} />
                       </div>
-                      <span style={{ fontSize: "14px", fontFamily: "'Epilogue', sans-serif", fontWeight: 600, color: "rgba(255,255,255,0.9)" }}>
+                      <span style={{ fontSize: "14px", fontFamily: "var(--font-body)", fontWeight: 600, color: "rgba(255,255,255,0.9)" }}>
                         {item.title}
                       </span>
                     </div>
-                    <p className="mb-1" style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.3)" }}>
+                    <p className="mb-1" style={{ fontSize: "11px", fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.3)" }}>
                       {item.org}
                     </p>
-                    <p className="mb-3" style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.38)" }}>
+                    <p className="mb-3" style={{ fontSize: "11px", fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.38)" }}>
                       {item.period}
                     </p>
 
@@ -324,7 +242,7 @@ export function ExperienceTimeline({ track }: { track: TrackId }) {
                           key={j}
                           style={{
                             fontSize: "13px",
-                            fontFamily: "'Epilogue', sans-serif",
+                            fontFamily: "var(--font-body)",
                             fontWeight: 300,
                             lineHeight: 1.65,
                             color: "rgba(255,255,255,0.45)",
@@ -345,7 +263,7 @@ export function ExperienceTimeline({ track }: { track: TrackId }) {
                           className="px-2 py-0.5 rounded"
                           style={{
                             fontSize: "10px",
-                            fontFamily: "'Epilogue', sans-serif",
+                            fontFamily: "var(--font-body)",
                             color: "rgba(255,255,255,0.3)",
                             background: "rgba(255,255,255,0.04)",
                             border: "1px solid rgba(255,255,255,0.06)",

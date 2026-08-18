@@ -115,7 +115,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
           <p
             style={{
               fontSize: "11px",
-              fontFamily: "'Epilogue', sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 500,
               letterSpacing: "0.15em",
               color: trackColorDim,
@@ -127,7 +127,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
           </p>
           <h2
             style={{
-              fontFamily: "'Bricolage Grotesque', sans-serif",
+              fontFamily: "var(--font-display)",
               fontWeight: 800,
               fontSize: "clamp(30px, 5vw, 52px)",
               color: "oklch(96% 0.008 65)",
@@ -140,14 +140,14 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
         </motion.div>
 
         {/* Asymmetric layout: Skills 3/5, Leadership 2/5 */}
-        <div className="grid md:grid-cols-5 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           {/* Left: Skills (wider) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
-            className="md:col-span-3"
+            className=""
           >
             <div className="space-y-8">
               {Object.entries(filteredSkills).map(([category, items]) => (
@@ -156,7 +156,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                     <p
                       style={{
                         fontSize: "10px",
-                        fontFamily: "'Epilogue', sans-serif",
+                        fontFamily: "var(--font-body)",
                         fontWeight: 600,
                         color: trackColorDim,
                         letterSpacing: "0.12em",
@@ -176,13 +176,13 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                         key={skill}
                         style={{
                           fontSize: "11.5px",
-                          fontFamily: "'Epilogue', sans-serif",
+                          fontFamily: "var(--font-body)",
                           fontWeight: 400,
                           color: "rgba(255,255,255,0.5)",
                           background: "rgba(255,255,255,0.03)",
                           border: "1px solid rgba(255,255,255,0.07)",
                           padding: "4px 10px",
-                          borderRadius: "5px",
+                          borderRadius: "2px",
                         }}
                       >
                         {skill}
@@ -200,13 +200,13 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: 0.12 }}
-            className="md:col-span-2"
+            className=""
           >
             <div className="flex items-center gap-3 mb-6">
               <p
                 style={{
                   fontSize: "10px",
-                  fontFamily: "'Epilogue', sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontWeight: 600,
                   color: trackColorDim,
                   letterSpacing: "0.12em",
@@ -237,7 +237,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                     <p
                       style={{
                         fontSize: "13px",
-                        fontFamily: "'Epilogue', sans-serif",
+                        fontFamily: "var(--font-body)",
                         fontWeight: 500,
                         color: "rgba(255,255,255,0.72)",
                         lineHeight: 1.4,
@@ -248,7 +248,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                     <span
                       style={{
                         fontSize: "10px",
-                        fontFamily: "'Epilogue', sans-serif",
+                        fontFamily: "var(--font-body)",
                         color: "rgba(255,255,255,0.22)",
                         flexShrink: 0,
                         paddingTop: "2px",
@@ -260,7 +260,7 @@ export function SkillsLeadershipSection({ track }: { track: TrackId }) {
                   <p
                     style={{
                       fontSize: "12px",
-                      fontFamily: "'Epilogue', sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontWeight: 300,
                       lineHeight: 1.6,
                       color: "rgba(255,255,255,0.3)",

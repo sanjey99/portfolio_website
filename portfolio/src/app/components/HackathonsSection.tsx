@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Trophy, Github } from "lucide-react";
+import { useState } from "react";
+import { motion } from "motion/react";
+import { GithubLogo, Trophy } from "@phosphor-icons/react";
 import type { TrackId } from "../context/TrackContext";
+import { PortfolioImage } from "./PortfolioImage";
 
 interface Hackathon {
   title: string;
@@ -86,74 +87,23 @@ const hackathons: Hackathon[] = [
 
 function ImageCarousel({ images, accent }: { images: string[]; accent: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
-
-  const next = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const interval = setInterval(next, 3500);
-    return () => clearInterval(interval);
-  }, [next, images.length]);
 
   if (images.length === 0) return null;
 
-  const imageLoaded = !failedImages.has(currentIndex);
-
   return (
-    <div className="relative w-full h-full rounded-xl overflow-hidden">
-      <AnimatePresence mode="wait">
-        {imageLoaded ? (
-          <motion.img
-            key={currentIndex}
-            src={images[currentIndex]}
-            alt="Hackathon photo"
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="w-full h-full object-cover"
-            onError={() => setFailedImages((prev) => new Set([...prev, currentIndex]))}
-          />
-        ) : (
-          <motion.div
-            key={`fallback-${currentIndex}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full h-full flex items-center justify-center"
-            style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.015), rgba(255,255,255,0.003))" }}
-          >
-            <span style={{ fontSize: "11px", fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.15)", letterSpacing: "0.06em" }}>
-              Photo unavailable
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {/* Gradient overlay for polish */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(135deg, ${accent}08 0%, transparent 60%)`,
-        }}
-      />
-      {/* Dot indicators */}
+    <div className="relative h-full w-full overflow-hidden" style={{ border: `1px solid ${accent}55` }}>
+      <PortfolioImage src={images[currentIndex]} alt="Hackathon photo" />
       {images.length > 1 && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <div className="absolute bottom-3 left-3 flex gap-1">
           {images.map((_, idx) => (
             <button
               key={idx}
+              type="button"
               onClick={() => setCurrentIndex(idx)}
-              className="w-2 h-2 rounded-full transition-all duration-300"
-              style={{
-                background:
-                  idx === currentIndex ? accent : "rgba(255,255,255,0.35)",
-                transform: idx === currentIndex ? "scale(1.3)" : "scale(1)",
-              }}
-            />
+              aria-label={`View image ${idx + 1}`}
+              className="carousel-control"
+              style={{ background: idx === currentIndex ? accent : "rgba(36,39,34,0.76)" }}
+            >{idx + 1}</button>
           ))}
         </div>
       )}
@@ -183,7 +133,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
           <p
             style={{
               fontSize: "11px",
-              fontFamily: "'Epilogue', sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 600,
               letterSpacing: "0.13em",
               color: "oklch(76% 0.155 65 / 0.6)",
@@ -195,7 +145,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
           </p>
           <h2
             style={{
-              fontFamily: "'Bricolage Grotesque', sans-serif",
+              fontFamily: "var(--font-display)",
               fontWeight: 800,
               fontSize: "clamp(36px, 6vw, 72px)",
               color: "oklch(96% 0.008 65)",
@@ -217,7 +167,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
           className="mb-16"
           style={{
             fontSize: "13.5px",
-            fontFamily: "'Epilogue', sans-serif",
+            fontFamily: "var(--font-body)",
             fontWeight: 300,
             lineHeight: 1.7,
             color: "rgba(255,255,255,0.35)",
@@ -239,7 +189,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
           <span
             style={{
               fontSize: "11px",
-              fontFamily: "'Epilogue', sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 600,
               color: "rgba(255,255,255,0.55)",
               letterSpacing: "0.13em",
@@ -263,25 +213,10 @@ export function HackathonsSection({ track }: { track: TrackId }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{
-                y: -2,
-                transition: { duration: 0.2, ease: "easeOut" },
-              }}
-              className="group relative rounded-xl overflow-hidden cursor-default"
+              className="group relative overflow-hidden cursor-default"
               style={{
                 background: "rgba(255,255,255,0.02)",
                 border: "1px solid rgba(255,255,255,0.06)",
-                transition: "box-shadow 0.3s ease, border-color 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = `${hack.accent}55`;
-                el.style.boxShadow = `0 8px 28px ${hack.accent}18`;
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(255,255,255,0.06)";
-                el.style.boxShadow = "none";
               }}
             >
               <div className="flex flex-col md:flex-row">
@@ -290,7 +225,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
                   <div className="flex flex-wrap items-center gap-3 mb-2">
                     <h3
                       style={{
-                        fontFamily: "'Bricolage Grotesque', sans-serif",
+                        fontFamily: "var(--font-display)",
                         fontWeight: 700,
                         fontSize: "18px",
                         color: "rgba(255,255,255,0.92)",
@@ -300,10 +235,10 @@ export function HackathonsSection({ track }: { track: TrackId }) {
                       {hack.title}
                     </h3>
                     <span
-                      className="rounded-full"
+                      className=""
                       style={{
                         fontSize: "10.5px",
-                        fontFamily: "'Epilogue', sans-serif",
+                        fontFamily: "var(--font-body)",
                         fontWeight: 600,
                         letterSpacing: "0.04em",
                         color: hack.accent,
@@ -320,7 +255,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
                     className="mb-3"
                     style={{
                       fontSize: "12px",
-                      fontFamily: "'Epilogue', sans-serif",
+                      fontFamily: "var(--font-body)",
                       color: "rgba(255,255,255,0.25)",
                     }}
                   >
@@ -331,7 +266,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
                     className="mb-4"
                     style={{
                       fontSize: "13.5px",
-                      fontFamily: "'Epilogue', sans-serif",
+                      fontFamily: "var(--font-body)",
                       fontWeight: 300,
                       lineHeight: 1.7,
                       color: "rgba(255,255,255,0.5)",
@@ -344,7 +279,7 @@ export function HackathonsSection({ track }: { track: TrackId }) {
                     className="mb-3"
                     style={{
                       fontSize: "11px",
-                      fontFamily: "'Epilogue', sans-serif",
+                      fontFamily: "var(--font-body)",
                       color: "rgba(255,255,255,0.2)",
                     }}
                   >
@@ -359,10 +294,10 @@ export function HackathonsSection({ track }: { track: TrackId }) {
                       className="inline-flex items-center gap-1.5 text-white/25 hover:text-white/50 transition-colors"
                       style={{
                         fontSize: "11px",
-                        fontFamily: "'Epilogue', sans-serif",
+                        fontFamily: "var(--font-body)",
                       }}
                     >
-                      <Github size={13} />
+                      <GithubLogo size={13} />
                       View Repo
                     </a>
                   )}
