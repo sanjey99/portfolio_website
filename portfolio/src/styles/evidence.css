@@ -1,0 +1,330 @@
+.work-section {
+  max-width: 1340px;
+}
+.work-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 44px;
+  align-items: end;
+  margin-bottom: 54px;
+}
+
+.work-heading h2 {
+  max-width: 15ch;
+}
+
+.work-heading > div:first-child > p {
+  max-width: 64ch;
+  margin: 24px 0 0;
+}
+
+.view-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 520px;
+  border: 1px solid var(--border);
+}
+
+.view-filter button {
+  min-height: 44px;
+  padding: 8px 12px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.view-filter button:last-child {
+  border-right: 0;
+}
+
+.view-filter button:hover {
+  color: var(--foreground);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.view-filter button[aria-pressed="true"] {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+.case-study-list {
+  border-top: 2px solid var(--foreground);
+}
+
+.case-study {
+  --domain-color: var(--accent);
+  padding: 42px 0 0;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.case-study[data-domain="ml"] {
+  --domain-color: var(--green);
+}
+
+.case-study[data-domain="product"] {
+  --domain-color: var(--steel);
+}
+
+.case-study-header {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: start;
+}
+
+.case-index {
+  color: var(--domain-color);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.case-meta,
+.archive-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 12px;
+  color: var(--domain-color);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.case-heading h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.case-subtitle {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.project-link,
+.private-evidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--domain-color);
+  text-underline-offset: 5px;
+}
+
+.private-evidence {
+  color: var(--faint);
+}
+
+.case-study-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.75fr);
+  gap: clamp(40px, 8vw, 112px);
+  align-items: start;
+  padding: 40px 0 30px 80px;
+}
+
+.case-summary {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+  line-height: 1.35;
+}
+
+.metric-ledger {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border: 1px solid var(--border);
+}
+
+.metric-ledger div {
+  min-height: 86px;
+  padding: 13px;
+  border-right: 1px solid var(--border);
+}
+
+.metric-ledger div:last-child {
+  border-right: 0;
+}
+
+.metric-ledger dt {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.metric-ledger dd {
+  margin: 12px 0 0;
+  color: var(--domain-color);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.stack-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-left: 80px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+
+.stack-line span {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+}
+
+.evidence-drawer {
+  margin-left: 80px;
+  border-top: 1px solid var(--border-strong);
+}
+
+.evidence-drawer summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.evidence-drawer summary::-webkit-details-marker {
+  display: none;
+}
+
+.evidence-drawer[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+}
+
+.evidence-grid > div {
+  min-height: 180px;
+  padding: 24px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.evidence-grid > div:nth-child(2n) {
+  border-right: 0;
+}
+
+.evidence-grid h4 {
+  margin: 0 0 14px;
+  color: var(--domain-color);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.evidence-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.evidence-grid .evidence-boundary {
+  background: rgba(194, 154, 84, 0.06);
+}
+
+.archive-section {
+  margin-top: 96px;
+}
+
+.archive-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: end;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--foreground);
+}
+
+.archive-heading h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  font-weight: 600;
+}
+
+.archive-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: right;
+}
+
+.archive-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 54px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-meta {
+  --domain-color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.archive-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+}
+
+.archive-item p,
+.archive-proof > span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.archive-item p {
+  margin: 8px 0 0;
+}
+
+.archive-proof {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.archive-proof > span {
+  max-width: 32ch;
+}

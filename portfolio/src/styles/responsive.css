@@ -1,0 +1,247 @@
+@media (max-width: 1023px) {
+  .hero-section {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.7fr);
+    gap: 40px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(4rem, 8.8vw, 6.6rem);
+  }
+
+  .proof-point {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .experience-item {
+    grid-template-columns: 70px minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+    gap: 22px;
+  }
+
+  .work-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .view-filter {
+    justify-content: flex-start;
+    max-width: none;
+    width: max-content;
+  }
+
+  .case-study-body {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .capabilities-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .leadership-panel {
+    padding: 30px 0 0;
+    border-top: 1px solid var(--border-strong);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-nav {
+    grid-template-columns: 1fr auto;
+    padding: 0 16px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .desktop-resume {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-grid;
+  }
+
+  .hero-section {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    min-height: 0;
+    padding: 112px 20px 30px;
+  }
+
+  .hero-copy h1 {
+    max-width: none;
+    font-size: clamp(3.15rem, 13.4vw, 4.2rem);
+  }
+
+  .hero-portrait {
+    min-height: 480px;
+  }
+
+  .proof-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .proof-point:nth-child(2) {
+    border-right: 0;
+  }
+
+  .proof-point:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section {
+    padding: 84px 20px;
+  }
+
+  .section-heading h2,
+  .contact-copy h2 {
+    font-size: clamp(2.6rem, 13vw, 4.2rem);
+  }
+
+  .split-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .experience-section,
+  .capabilities-section {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .experience-item {
+    grid-template-columns: 50px 1fr;
+    gap: 14px 18px;
+  }
+
+  .experience-item ul,
+  .experience-skills {
+    grid-column: 2;
+  }
+
+  .experience-item ul {
+    padding-left: 16px;
+  }
+
+  .view-filter {
+    width: 100%;
+  }
+
+  .view-filter button {
+    flex: 1 1 33%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .case-study-header {
+    grid-template-columns: 38px 1fr;
+    gap: 12px;
+  }
+
+  .case-study-header > .project-link,
+  .case-study-header > .private-evidence {
+    grid-column: 2;
+    width: max-content;
+  }
+
+  .case-study-body,
+  .stack-line,
+  .evidence-drawer {
+    margin-left: 50px;
+  }
+
+  .case-study-body {
+    padding: 30px 0 24px;
+  }
+
+  .metric-ledger {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-ledger div {
+    min-height: 66px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .metric-ledger div:last-child {
+    border-bottom: 0;
+  }
+
+  .evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-grid > div,
+  .evidence-grid > div:nth-child(2n) {
+    min-height: 0;
+    border-right: 0;
+  }
+
+  .archive-heading,
+  .archive-item {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-heading p {
+    text-align: left;
+  }
+
+  .archive-item {
+    gap: 20px;
+  }
+
+  .archive-proof {
+    align-items: flex-start;
+  }
+
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .leadership-panel article > div {
+    display: grid;
+  }
+
+  .contact-section {
+    grid-template-columns: 1fr;
+    gap: 64px;
+    padding: 84px 20px 28px;
+  }
+
+  .footer-meta {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .footer-meta nav {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .image-skeleton {
+    animation: none;
+  }
+}

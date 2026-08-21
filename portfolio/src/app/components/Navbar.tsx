@@ -1,36 +1,87 @@
 import { useState } from "react";
 import { CaretDown, DownloadSimple, List, X } from "@phosphor-icons/react";
-import type { TrackConfig } from "../context/TrackContext";
 
 const links = [
-  ["Experience", "#experience"], ["Projects", "#projects"], ["Hackathons", "#hackathons"], ["Skills", "#skills"], ["Contact", "#contact"],
+  ["Experience", "#experience"],
+  ["Selected work", "#projects"],
+  ["Capabilities", "#capabilities"],
+  ["Contact", "#contact"],
 ] as const;
+
 const resumes = [
-  { label: "Quantitative Finance", href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume_Quant.pdf" },
-  { label: "Machine Learning & AI", href: "/resumes/resume-ml.pdf", filename: "Sanjey_Resume_ML.pdf" },
-  { label: "Full Stack", href: "/resumes/resume-fullstack.pdf", filename: "Sanjey_Resume_FullStack.pdf" },
+  {
+    label: "Quantitative Finance",
+    href: "/resumes/resume-quant.pdf",
+    filename: "Sanjey_Resume_Quant.pdf",
+  },
+  {
+    label: "Machine Learning & AI",
+    href: "/resumes/resume-ml.pdf",
+    filename: "Sanjey_Resume_ML.pdf",
+  },
+  {
+    label: "Software Systems",
+    href: "/resumes/resume-fullstack.pdf",
+    filename: "Sanjey_Resume_Software.pdf",
+  },
 ];
 
-export function Navbar({ activeTrack, onReopenSelector }: { activeTrack?: TrackConfig; onReopenSelector?: () => void }) {
+export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [resumeOpen, setResumeOpen] = useState(false);
-  const scrollTo = (href: string) => { setMenuOpen(false); document.querySelector(href)?.scrollIntoView({ behavior: "smooth" }); };
 
   return (
     <header className="site-nav">
-      <a href="/" className="wordmark" aria-label="Return to landing page">S.</a>
-      <nav className="desktop-nav" aria-label="Primary">
-        {links.map(([label, href]) => <a key={href} href={href} onClick={(event) => { event.preventDefault(); scrollTo(href); }}>{label}</a>)}
+      <a href="#hero" className="wordmark" aria-label="Sanjeyan Chrysharnthan, top of page">
+        SC
+      </a>
+
+      <nav className="desktop-nav" aria-label="Primary navigation">
+        {links.map(([label, href]) => (
+          <a key={href} href={href}>
+            {label}
+          </a>
+        ))}
       </nav>
+
       <div className="nav-actions">
-        {activeTrack && <button className="track-switch" type="button" onClick={onReopenSelector}>{activeTrack.label}</button>}
-        <div className="relative hidden md:block">
-          <button className="text-link" type="button" onClick={() => setResumeOpen((open) => !open)}>Resume <CaretDown size={14} /></button>
-          {resumeOpen && <div className="resume-menu">{resumes.map((resume) => <a key={resume.label} href={resume.href} download={resume.filename}><DownloadSimple size={13} /> {resume.label}</a>)}</div>}
-        </div>
-        <button className="menu-button md:hidden" type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={20} /> : <List size={20} />}</button>
+        <details className="resume-disclosure desktop-resume">
+          <summary>
+            Resumes <CaretDown size={14} aria-hidden="true" />
+          </summary>
+          <div className="resume-menu">
+            {resumes.map((resume) => (
+              <a key={resume.label} href={resume.href} download={resume.filename}>
+                <DownloadSimple size={15} aria-hidden="true" />
+                {resume.label}
+              </a>
+            ))}
+          </div>
+        </details>
+
+        <button
+          className="menu-button"
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={20} /> : <List size={20} />}
+        </button>
       </div>
-      {menuOpen && <nav className="mobile-nav" aria-label="Mobile primary">{links.map(([label, href]) => <a key={href} href={href} onClick={(event) => { event.preventDefault(); scrollTo(href); }}>{label}</a>)}<a href={resumes[0].href} download={resumes[0].filename}>Resume</a></nav>}
+
+      {menuOpen && (
+        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation">
+          {links.map(([label, href]) => (
+            <a key={href} href={href} onClick={() => setMenuOpen(false)}>
+              {label}
+            </a>
+          ))}
+          <a href={resumes[1].href} download={resumes[1].filename}>
+            Download ML resume
+          </a>
+        </nav>
+      )}
     </header>
   );
 }

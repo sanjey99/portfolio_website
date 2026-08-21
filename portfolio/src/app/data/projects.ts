@@ -1,302 +1,262 @@
-import type { TrackId } from "../context/TrackContext";
-export type Category = "quant" | "ml" | "academic";
+import type { WorkView } from "../context/TrackContext";
+
+export type Domain = "quant" | "ml" | "product";
+export type EvidenceType =
+  | "Public repository"
+  | "Work case study"
+  | "Open-source contribution"
+  | "Competition result"
+  | "Team build";
+
 export interface Metric {
   label: string;
   value: string;
 }
+
 export interface Project {
+  slug: string;
   title: string;
   subtitle: string;
-  category: Category;
-  tracks: TrackId[];
+  summary: string;
+  domain: Domain;
+  views: WorkView[];
+  featured: boolean;
+  evidenceType: EvidenceType;
+  maturity: string;
   stack: string[];
-  repo: string;
-  description: string;
-  metrics?: Metric[];
-  badge: string;
-  featured?: boolean;
+  repo?: string;
+  evidence: string;
+  problem: string;
+  decision: string;
+  verification: string;
+  boundary: string;
+  metrics: Metric[];
 }
+
 export const projects: Project[] = [
   {
+    slug: "algorithmic-trading-backtester",
     title: "Algorithmic Trading Backtester",
-    subtitle: "Event-driven research with reproducible data and analytics",
-    category: "quant",
-    tracks: ["quant", "all"],
+    subtitle: "Reproducible event-driven research infrastructure",
+    summary:
+      "A research platform built around data provenance, deterministic event flow, and analytics that can be audited instead of merely plotted.",
+    domain: "quant",
+    views: ["selected", "quant"],
+    featured: true,
+    evidenceType: "Public repository",
+    maturity: "Public · verified",
     stack: ["Python", "pandas", "NumPy", "SciPy", "SQLite", "PyArrow"],
     repo: "https://github.com/sanjey99/algo-backtesting",
-    description:
-      "Event-driven trading backtester with walk-forward analysis and Monte Carlo permutation testing. The current local branch " +
-      "adds quality-gated market-data acquisition, immutable cache generations, redacted evidence manifests, and a direct-SQL " +
-      "analytics layer for reproducible comparisons and integrity audits.",
+    evidence: "Public repository · 64 source modules · automated quality gates",
+    problem:
+      "Quant research becomes unreliable when data lineage, cache state, execution order, and comparison logic are implicit.",
+    decision:
+      "Built a typed event pipeline with quality-gated acquisition, immutable cache generations, redacted evidence manifests, walk-forward analysis, Monte Carlo testing, and direct-SQL analytics.",
+    verification:
+      "712 tests, Ruff, and strict mypy currently pass across the repository.",
+    boundary:
+      "This is research infrastructure, not a live-trading deployment or a claim of investment returns.",
     metrics: [
-      { label: "Verification", value: "579 tests" },
-      { label: "Analysis", value: "Walk-forward + MC" },
-      { label: "Data boundary", value: "Quality-gated" },
+      { label: "Verification", value: "712 tests" },
+      { label: "Codebase", value: "64 modules" },
+      { label: "Quality", value: "Ruff + strict mypy" },
     ],
-    badge: "Personal",
-    featured: true,
   },
   {
+    slug: "market-risk-forecasting-lab",
+    title: "Market Risk Forecasting Lab",
+    subtitle: "Multi-model forecasting, VaR/ES, and monitored serving",
+    summary:
+      "An end-to-end risk system that compares statistical and learned volatility models, turns forecasts into VaR/ES, and carries the result through reproducible training and observable serving.",
+    domain: "quant",
+    views: ["selected", "quant", "ml"],
+    featured: true,
+    evidenceType: "Public repository",
+    maturity: "Public · empirical boundary",
+    stack: ["Python", "PyTorch", "DVC", "MLflow", "FastAPI", "Prometheus"],
+    repo: "https://github.com/sanjey99/market-risk-forecasting-lab",
+    evidence: "Public repository · 74 source modules · reproducible pipeline",
+    problem:
+      "A model notebook cannot answer whether data, training, backtesting, serving, and monitoring agree on the same risk definition.",
+    decision:
+      "Designed one pipeline spanning HAR/GARCH, gradient boosting and LSTM forecasts; VaR/ES backtesting; DVC and MLflow lineage; FastAPI serving; and Prometheus instrumentation.",
+    verification:
+      "204 tests plus Ruff and mypy validate the current system across 74 source modules.",
+    boundary:
+      "The current evaluation is synthetic-only; no empirical market-performance or forecasting-superiority claim is made.",
+    metrics: [
+      { label: "Verification", value: "204 tests" },
+      { label: "Models", value: "HAR · GARCH · GBM · LSTM" },
+      { label: "Boundary", value: "Synthetic-only" },
+    ],
+  },
+  {
+    slug: "panasonic-sam3-systems-work",
+    title: "Panasonic SAM3 Systems Work",
+    subtitle: "Interactive video segmentation on constrained GPU infrastructure",
+    summary:
+      "A work case study in turning a research-grade vision model into an interactive application with multi-object prompting, full-video propagation, and live progress feedback.",
+    domain: "ml",
+    views: ["selected", "ml", "product"],
+    featured: true,
+    evidenceType: "Work case study",
+    maturity: "Internship · delivered",
+    stack: ["Python", "PyTorch", "FastAPI", "React", "SSE", "Docker"],
+    evidence:
+      "Selected as one of four AI technologies for Panasonic AIMX Singapore × TechInnovation 2026.",
+    problem:
+      "Long-running GPU segmentation needed to remain interactive while mixed precision, object identity, and concurrent jobs could fail in non-obvious ways.",
+    decision:
+      "Implemented chunk-wise SSE previews, multi-object state handling, full-video mask propagation, mocked-GPU tests, and serving safeguards before migration to an NVIDIA GB10 system.",
+    verification:
+      "Delivered on a 24GB GPU server, exercised with MLflow, Prometheus, and Grafana during development, and handed off to the supervising team.",
+    boundary:
+      "This is a first-person work case study. Public event material does not name individual contributors, and Sanjeyan was not the public presenter.",
+    metrics: [
+      { label: "Compute", value: "24GB GPU" },
+      { label: "Interaction", value: "Chunk-wise SSE" },
+      { label: "Programme", value: "1 of 4 technologies" },
+    ],
+  },
+  {
+    slug: "financepy-oss",
     title: "FinancePy — OSS Contribution",
     subtitle: "Merged Python 3.10/3.11 compatibility fix",
-    category: "quant",
-    tracks: ["quant", "all"],
-    stack: ["Python", "FinancePy", "pytest", "pylint"],
+    summary: "Removed two bonds-package SyntaxError paths and restored imports on current Python versions.",
+    domain: "quant",
+    views: ["archive", "quant"],
+    featured: false,
+    evidenceType: "Open-source contribution",
+    maturity: "Merged upstream",
+    stack: ["Python", "pytest", "pylint"],
     repo: "https://github.com/domokane/FinancePy/pull/249",
-    description:
-      "Merged upstream fix for a Python 3.10/3.11 SyntaxError that prevented FinancePy's bonds package from importing. " +
-      "Identified and corrected a second latent instance in the YTM/OAS pricing warnings beyond the original issue report.",
+    evidence: "Merged FinancePy pull request #249",
+    problem: "The bonds package failed to import on Python 3.10 and 3.11.",
+    decision: "Fixed the reported warning syntax and a second latent instance discovered during review.",
+    verification: "Maintainer-reviewed and merged upstream as PR #249.",
+    boundary: "A focused compatibility contribution, not ownership of the wider library.",
     metrics: [
       { label: "Status", value: "Merged" },
-      { label: "PR", value: "#249" },
-      { label: "Python", value: "3.10 / 3.11" },
+      { label: "Pull request", value: "#249" },
     ],
-    badge: "Open Source",
   },
   {
-    title: "FinSentinel",
-    subtitle: "Finance AI dashboard prototype",
-    category: "quant",
-    tracks: ["quant", "fullstack", "all"],
-    stack: ["React", "Node.js", "FastAPI", "PyTorch", "Docker"],
-    repo: "https://github.com/sanjey99/hackathon-fin-ai",
-    description:
-      "Weekend finance-track prototype that combines portfolio and transaction-style inputs with synthetic risk inference, " +
-      "confidence scores, and hedge/hold/rebalance suggestions in a terminal-style dashboard. The ML path is " +
-      "heuristic/synthetic, not a validated production model.",
-    metrics: [
-      { label: "Status", value: "Prototype" },
-      { label: "Architecture", value: "React + API + ML" },
-      { label: "Inference", value: "Synthetic" },
-    ],
-    badge: "Hackathon",
-  },
-  {
+    slug: "worldquant-iqc",
     title: "WorldQuant International Quant Championship",
     subtitle: "Volatility mean-reversion alpha research",
-    category: "quant",
-    tracks: ["quant", "all"],
-    stack: ["WorldQuant BRAIN", "Time-series alpha research"],
-    repo: "",
-    description:
-      "Built a TOP3000 USA equities volatility mean-reversion alpha using time-series ranking, exponential decay, subindustry " +
-      "neutralisation, single-stock truncation, and a one-day execution delay to avoid look-ahead bias.",
+    summary: "Built and evaluated a delayed, neutralised volatility mean-reversion signal for US equities.",
+    domain: "quant",
+    views: ["archive", "quant"],
+    featured: false,
+    evidenceType: "Competition result",
+    maturity: "Gold · top 20%",
+    stack: ["WorldQuant BRAIN", "Time-series research"],
+    evidence: "Gold level · global top 20% · reported Sharpe 2.27",
+    problem: "Develop an alpha signal while controlling look-ahead and concentration risk.",
+    decision: "Combined time-series ranking, decay, subindustry neutralisation, truncation, and a one-day delay.",
+    verification: "Competition platform recorded Gold level, global top 20%, and Sharpe 2.27.",
+    boundary: "Competition research result; not a personally operated live strategy.",
     metrics: [
       { label: "Award", value: "Gold" },
-      { label: "Global rank", value: "Top 20%" },
+      { label: "Rank", value: "Top 20%" },
       { label: "Sharpe", value: "2.27" },
     ],
-    badge: "Competition",
   },
   {
-    title: "QSVM Fraud Detection",
-    subtitle: "DBS Fraud Detection Track · QAI Quantum Computing Hackathon",
-    category: "ml",
-    tracks: ["quant", "ml", "all"],
-    stack: ["Qiskit", "scikit-learn", "Python", "Spring Boot", "Java"],
-    repo: "https://github.com/sanjey99/quantum_hackathon",
-    description:
-      "Quantum-enhanced fraud-detection system built in a 36-hour hackathon: a Qiskit quantum-kernel SVM over the Kaggle " +
-      "credit-card fraud dataset, exposed through a Java Spring Boot REST service and QCentroid-compatible solver entry point.",
-    metrics: [
-      { label: "Format", value: "36-hour hackathon" },
-      { label: "Model", value: "QSVM" },
-      { label: "Serving", value: "Spring Boot" },
-    ],
-    badge: "Hackathon",
-  },
-  {
-    title: "NAISC 2026 — Adaptive Drift Detection",
-    subtitle: "National AI Singapore Challenge · Singtel Track",
-    category: "ml",
-    tracks: ["ml", "all"],
-    stack: ["LightGBM", "PSI", "KS tests", "scikit-learn", "Python"],
-    repo: "https://github.com/swisshackersorg/singtel_naisc",
-    description:
-      "Four-person team submission for Singtel's model-integrity challenge: Detect → Quantify → Adapt → Automate churn-drift " +
-      "pipeline using PSI, KS tests, adversarial validation, and a fixed-hyperparameter LightGBM blend under CPU-only challenge " +
-      "constraints.",
-    metrics: [
-      { label: "Public-test AU-PRC", value: "0.787" },
-      { label: "Holdout blend", value: "0.8993" },
-      { label: "Team", value: "4 people" },
-    ],
-    badge: "Competition",
-  },
-  {
-    title: "Multimodal Video Recommendation",
-    subtitle: "Short-video understanding and ranking pipeline",
-    category: "ml",
-    tracks: ["ml", "all"],
-    stack: ["CLIP ViT-L/14", "C++/pybind11", "Whisper", "DeepFM", "FAISS"],
-    repo: "https://github.com/sanjey99/multimodal-video-recommendation",
-    description:
-      "TikTok/Monolith-inspired pipeline from C++ frame extraction through CLIP and Whisper embeddings, fusion classification, " +
-      "two-tower retrieval, DeepFM/MMoE ranking, and FastAPI/Celery serving. All four models train and serve from " +
-      "synthetic-data checkpoints; real video extraction remains unverified.",
-    metrics: [
-      { label: "Models", value: "4 trained" },
-      { label: "Retrieval", value: "Two-tower + FAISS" },
-      { label: "Data", value: "Synthetic" },
-    ],
-    badge: "Personal",
-  },
-  {
-    title: "Travel Video Intelligence",
-    subtitle: "Local-first TikTok evidence and recommendation pipeline",
-    category: "ml",
-    tracks: ["ml", "all"],
-    stack: ["Python", "yt-dlp", "Whisper", "EasyOCR"],
-    repo: "https://github.com/sanjey99/travel-video-intel",
-    description:
-      "Local-first pipeline that discovers and ranks destination-specific TikTok videos, extracts speech and on-screen text, " +
-      "and produces creator-attributed manifests for agent-assisted travel recommendations. Records liked recommendations and " +
-      "followed creators for subsequent runs.",
-    metrics: [
-      { label: "Tests", value: "41 mocked" },
-      { label: "Speech", value: "Whisper" },
-      { label: "Text", value: "EasyOCR" },
-    ],
-    badge: "Personal",
-  },
-  {
+    slug: "brainysg",
     title: "BrainySG",
-    subtitle: "AI crisis-response platform · BrainHack 2026 finalist",
-    category: "ml",
-    tracks: ["ml", "all"],
-    stack: ["Go", "Gin", "React", "Supabase", "Leaflet", "OneMap"],
+    subtitle: "Crisis-response platform · BrainHack 2026 finalist",
+    summary: "Built the Go/Gin backend and live Singapore government-feed ingestion for a team crisis-response product.",
+    domain: "product",
+    views: ["archive", "ml", "product"],
+    featured: false,
+    evidenceType: "Team build",
+    maturity: "Hackathon finalist",
+    stack: ["Go", "Gin", "React", "Supabase", "OneMap"],
     repo: "https://github.com/sanjey99/BrainySG",
-    description:
-      "Team crisis-response platform that ingests live Singapore government feeds, maps incidents, generates resident-facing AI " +
-      "summaries and volunteer tasks, and coordinates role-based workflows with task matching and group chats. Built the Go/Gin " +
-      "backend and live-feed ingestion pipeline.",
+    evidence: "Finalist · attributable backend and ingestion ownership",
+    problem: "Turn fragmented live incident data into coordinated resident and volunteer workflows.",
+    decision: "Owned the Go API and feed-ingestion path within the wider team platform.",
+    verification: "Finalist result and public repository.",
+    boundary: "Team project; claims are limited to the backend and ingestion work personally owned.",
     metrics: [
       { label: "Result", value: "Finalist" },
-      { label: "Backend", value: "Go + Gin" },
-      { label: "Data", value: "Live gov feeds" },
+      { label: "Ownership", value: "Go backend" },
     ],
-    badge: "Hackathon",
   },
   {
+    slug: "sentinel",
     title: "Sentinel",
-    subtitle: "AI governance · 3rd place, NTU Deep Learning Week 2026",
-    category: "ml",
-    tracks: ["ml", "fullstack", "all"],
+    subtitle: "Coding-agent governance · NTU Deep Learning Week 2026",
+    summary: "Led architecture and built the fusion decision path for human review of high-risk agent actions.",
+    domain: "ml",
+    views: ["archive", "ml", "product"],
+    featured: false,
+    evidenceType: "Team build",
+    maturity: "3rd place",
     stack: ["React", "Node.js", "FastAPI", "PyTorch", "OpenAI"],
     repo: "https://github.com/sanjey99/dlweek",
-    description:
-      "Five-person AI-agent governance platform that intercepts high-risk coding-agent actions, fuses ML risk scoring with " +
-      "deterministic policy rules, and routes decisions to a human review queue. Led architecture/orchestration and built the " +
-      "fusion decision backbone.",
+    evidence: "3rd place · architecture and orchestration ownership",
+    problem: "Autonomous coding actions need deterministic policy and human escalation around uncertain ML scores.",
+    decision: "Combined ML risk scoring with rules and routed contested decisions into a review queue.",
+    verification: "Placed 3rd in the OpenAI track at NTU Deep Learning Week 2026.",
+    boundary: "Five-person team build; architecture/orchestration and fusion-decision claims are personal scope.",
     metrics: [
-      { label: "Placement", value: "3rd place" },
-      { label: "Track", value: "OpenAI" },
+      { label: "Placement", value: "3rd" },
       { label: "Team", value: "5 people" },
     ],
-    badge: "3rd Place",
   },
   {
+    slug: "prism",
     title: "PRISM",
     subtitle: "Prison transport safety system · Hacx! 2025",
-    category: "academic",
-    tracks: ["fullstack", "all"],
-    stack: ["React", "Node.js", "TypeScript", "Express", "Socket.IO"],
+    summary: "A team workflow system spanning inspections, RFID handover, assignment, alerts, and trip completion.",
+    domain: "product",
+    views: ["archive", "product"],
+    featured: false,
+    evidenceType: "Team build",
+    maturity: "2nd place",
+    stack: ["React", "Node.js", "TypeScript", "Socket.IO"],
     repo: "https://github.com/sanjey99/PRISM-hacx",
-    description:
-      "Team prison-transport management system with pre-trip vehicle inspection, RFID inmate scanning and seat assignment, " +
-      "handover workflows, simulated real-time vitals/telematics alerts, and post-trip completion.",
+    evidence: "2nd place · HTX × Microsoft Hacx! 2025",
+    problem: "Transport handovers and safety checks were fragmented across a high-stakes operational flow.",
+    decision: "Represented the full trip lifecycle in one real-time web workflow.",
+    verification: "Second-place competition result and public repository.",
+    boundary: "Team prototype; not a deployed prison operations system.",
     metrics: [
-      { label: "Placement", value: "2nd place" },
-      { label: "Event", value: "HTX × Microsoft" },
-      { label: "API", value: "OpenAPI 3" },
+      { label: "Placement", value: "2nd" },
+      { label: "Interface", value: "OpenAPI 3" },
     ],
-    badge: "2nd Place",
   },
   {
+    slug: "harvestchain",
     title: "HarvestChain",
-    subtitle: "Financial inclusion for Filipino fisherfolk · APRU 2025",
-    category: "academic",
-    tracks: ["quant", "fullstack", "all"],
-    stack: ["React", "Flask", "MongoDB", "Solidity", "Hardhat"],
+    subtitle: "Financial inclusion platform · APRU 2025",
+    summary: "A five-person team prototype for micro-futures, identity, credit support, pooled lending, and insurance.",
+    domain: "product",
+    views: ["archive", "quant", "product"],
+    featured: false,
+    evidenceType: "Team build",
+    maturity: "Global 5th",
+    stack: ["React", "Flask", "MongoDB", "Solidity"],
     repo: "https://github.com/sanjey99/harvestchain",
-    description:
-      "Five-person team platform for financial inclusion: micro-futures smart contracts, self-sovereign identity, AI credit " +
-      "scoring and pricing support, plus pooled lending and insurance for marginalised Filipino fisherfolk.",
+    evidence: "Global 5th · five-person APRU team",
+    problem: "Small fishing communities face fragmented access to price stability, credit, and insurance.",
+    decision: "Prototyped a linked set of financial and identity workflows around micro-futures contracts.",
+    verification: "Global fifth-place competition result and public repository.",
+    boundary: "Team competition prototype; no claim of real-world financial deployment.",
     metrics: [
       { label: "Result", value: "Global 5th" },
-      { label: "Contracts", value: "Solidity" },
       { label: "Team", value: "5 people" },
     ],
-    badge: "Global 5th",
-  },
-  {
-    title: "Interview Station",
-    subtitle: "Pre-launch medical-school interview preparation startup",
-    category: "academic",
-    tracks: ["fullstack", "all"],
-    stack: ["React Native", "Expo", "TypeScript", "Zustand"],
-    repo: "https://github.com/sanjey99/mmi",
-    description:
-      "Co-founded, pre-launch interview-preparation product for UK medical-school applicants. Supports authenticated " +
-      "onboarding, timed practice, AI scoring across five dimensions, feedback visualisations, progress tracking, and " +
-      "admin-configured questions/providers from one React Native and web codebase.",
-    metrics: [
-      { label: "Stage", value: "Pre-launch" },
-      { label: "Platforms", value: "Mobile + web" },
-      { label: "Role", value: "Co-founder" },
-    ],
-    badge: "Startup",
-  },
-  {
-    title: "Nika AI Agent",
-    subtitle: "Local-first Singapore location assistant",
-    category: "academic",
-    tracks: ["fullstack", "all"],
-    stack: ["Tauri", "Rust", "React", "Ollama", "MapLibre"],
-    repo: "https://github.com/sanjey99/nika_aiagent",
-    description:
-      "Tauri desktop AI agent for finding Singapore hangout spots. A locally running Ollama model calls a location-search tool " +
-      "and pins results on a MapLibre map, avoiding cloud API keys.",
-    metrics: [
-      { label: "LLM", value: "Local Ollama" },
-      { label: "Desktop", value: "Tauri 2" },
-      { label: "Maps", value: "MapLibre" },
-    ],
-    badge: "Personal",
-  },
-  {
-    title: "HomeCast",
-    subtitle: "SC2006 team real-estate platform",
-    category: "academic",
-    tracks: ["fullstack", "all"],
-    stack: ["Next.js", "React", "TypeScript", "MySQL", "Leaflet"],
-    repo: "",
-    description:
-      "Eight-person coursework team project: a Singapore property platform with interactive map clustering, preference-based " +
-      "matching, and nearby amenities from data.gov.sg APIs. Presented as team work; no individual code attribution is claimed.",
-    badge: "Academic team",
-  },
-  {
-    title: "SC2002 Team Documentation",
-    subtitle:
-      "Sequence diagrams for a Java internship-management coursework project",
-    category: "academic",
-    tracks: ["fullstack", "all"],
-    stack: ["UML", "Sequence diagrams", "Java coursework"],
-    repo: "",
-    description:
-      "Team coursework; contributed sequence-diagram documentation for four core workflows. The Java CLI implementation, " +
-      "authentication, matching, and approval logic were authored by teammates and are not presented as personal code.",
-    badge: "Academic team",
   },
 ];
-export function selectProjectsByCategoryAndTrack(
+
+export function selectProjectsForView(
   source: readonly Project[],
-  category: Category,
-  track: TrackId,
+  view: WorkView,
 ) {
-  return source.filter(
-    (project) =>
-      project.category === category && project.tracks.includes(track),
-  );
+  if (view === "selected") return source.filter((project) => project.featured);
+  if (view === "archive") return source.filter((project) => !project.featured);
+  return source.filter((project) => project.views.includes(view));
 }

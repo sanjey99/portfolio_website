@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-21T09:18:42Z",
+  "title": "Design System: Sanjeyan Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "warm-black": {
+        "role": "neutral",
+        "displayName": "Warm Black",
+        "canonical": "#20231f",
+        "tonalRamp": ["#171916", "#20231f", "#343832", "#4e544a", "#70786b", "#98a08f", "#c8cdbf", "#f1f2ec"]
+      },
+      "deep-surface": {
+        "role": "neutral",
+        "displayName": "Deep Surface",
+        "canonical": "#181b18",
+        "tonalRamp": ["#111310", "#181b18", "#2b302b", "#474e46", "#697267", "#929a8e", "#c4c9bf", "#eff0ec"]
+      },
+      "raised-surface": {
+        "role": "neutral",
+        "displayName": "Raised Surface",
+        "canonical": "#292e29",
+        "tonalRamp": ["#151815", "#292e29", "#3d453d", "#586158", "#778277", "#9da69d", "#cbd0ca", "#f2f3f0"]
+      },
+      "warm-ivory": {
+        "role": "neutral",
+        "displayName": "Warm Ivory",
+        "canonical": "#f2ecdc",
+        "tonalRamp": ["#29251b", "#484133", "#6a604c", "#8e826a", "#b2a68c", "#d3c9b3", "#e9e1d0", "#f8f4e9"]
+      },
+      "muted-ivory": {
+        "role": "neutral",
+        "displayName": "Muted Ivory",
+        "canonical": "#b8b19f",
+        "tonalRamp": ["#252219", "#454035", "#655f50", "#847d6c", "#a39b89", "#c0b8a7", "#ddd7c8", "#f5f1e8"]
+      },
+      "faint-olive": {
+        "role": "neutral",
+        "displayName": "Faint Olive",
+        "canonical": "#827d70",
+        "tonalRamp": ["#211f18", "#3b382f", "#555146", "#706b5e", "#8d8779", "#aca697", "#d0cbbf", "#f2f0ea"]
+      },
+      "evidence-gold": {
+        "role": "primary",
+        "displayName": "Evidence Gold",
+        "canonical": "#c29a54",
+        "tonalRamp": ["#30230f", "#503919", "#705122", "#916b2d", "#b4873d", "#cfa55f", "#e5c88f", "#f7ead0"]
+      },
+      "gold-ink": {
+        "role": "neutral",
+        "displayName": "Gold Ink",
+        "canonical": "#201a11",
+        "tonalRamp": ["#171109", "#201a11", "#393126", "#554b3c", "#766a58", "#9d917d", "#ccc2b1", "#f2eee7"]
+      },
+      "systems-green": {
+        "role": "secondary",
+        "displayName": "Systems Green",
+        "canonical": "#78a189",
+        "tonalRamp": ["#143024", "#244b38", "#35664d", "#4b8264", "#68a07d", "#8cbea0", "#b9dac7", "#e5f2e9"]
+      },
+      "product-steel": {
+        "role": "tertiary",
+        "displayName": "Product Steel",
+        "canonical": "#6f8ea0",
+        "tonalRamp": ["#152b36", "#274554", "#3a6072", "#507c91", "#6d99b0", "#91b8ca", "#bfd7e1", "#e8f2f5"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editorial Display",
+        "purpose": "Career name, section theses, case-study titles, and argument copy."
+      },
+      "body": {
+        "displayName": "Technical Body",
+        "purpose": "Long-form evidence and navigational copy."
+      },
+      "label": {
+        "displayName": "Evidence Label",
+        "purpose": "Dates, types, maturity, metrics, and technology strings."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "pattern-entry",
+        "value": "opacity 1.2s ease-out",
+        "purpose": "Introduce the background candlestick field without competing with content."
+      },
+      {
+        "name": "image-reveal",
+        "value": "opacity 280ms ease",
+        "purpose": "Replace the loading skeleton when the portrait is ready."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Collapse animation and transition duration when reduced motion is requested."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "768px" },
+      { "name": "compact-desktop", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Gold call to action used for the single strongest action in a viewport.",
+      "html": "<a class=\"ds-button-primary\" href=\"#\">See selected work</a>",
+      "css": ".ds-button-primary { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:10px 16px; color:var(--accent-ink, #201a11); background:var(--accent, #c29a54); border:1px solid var(--accent, #c29a54); border-radius:2px; font-family:var(--font-body, sans-serif); font-weight:600; text-decoration:none; } .ds-button-primary:hover { color:var(--accent, #c29a54); background:transparent; } .ds-button-primary:focus-visible { outline:2px solid var(--ring, #d7b16b); outline-offset:4px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet rectangular action for resumes and supporting paths.",
+      "html": "<a class=\"ds-button-secondary\" href=\"#\">Resume</a>",
+      "css": ".ds-button-secondary { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:10px 16px; color:var(--foreground, #f2ecdc); background:transparent; border:1px solid rgba(242,236,220,.34); border-radius:2px; font-family:var(--font-body, sans-serif); font-weight:600; text-decoration:none; } .ds-button-secondary:hover { border-color:var(--foreground, #f2ecdc); } .ds-button-secondary:focus-visible { outline:2px solid var(--ring, #d7b16b); outline-offset:4px; }"
+    },
+    {
+      "name": "Work View Filter",
+      "kind": "chip",
+      "refersTo": "filter-selected",
+      "description": "Connected, non-pill filters for optional domain views.",
+      "html": "<div class=\"ds-filter\"><button aria-pressed=\"true\">Selected</button><button>Applied ML</button><button>Archive</button></div>",
+      "css": ".ds-filter { display:inline-flex; border:1px solid rgba(242,236,220,.18); } .ds-filter button { min-height:44px; padding:8px 12px; color:#b8b19f; background:transparent; border:0; border-right:1px solid rgba(242,236,220,.18); border-radius:2px; font-family:var(--font-body, sans-serif); } .ds-filter button:last-child { border-right:0; } .ds-filter button[aria-pressed=\"true\"] { color:#201a11; background:#c29a54; } .ds-filter button:focus-visible { outline:2px solid #d7b16b; outline-offset:4px; }"
+    },
+    {
+      "name": "Metric Ledger",
+      "kind": "custom",
+      "description": "Small bordered definition list for verification counts and boundaries.",
+      "html": "<dl class=\"ds-metrics\"><div><dt>Verification</dt><dd>712 tests</dd></div><div><dt>Quality</dt><dd>Ruff + strict mypy</dd></div></dl>",
+      "css": ".ds-metrics { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); margin:0; border:1px solid rgba(242,236,220,.18); } .ds-metrics div { min-height:86px; padding:13px; border-right:1px solid rgba(242,236,220,.18); } .ds-metrics div:last-child { border-right:0; } .ds-metrics dt { color:#827d70; font:500 .61rem/1.3 var(--font-mono, monospace); text-transform:uppercase; } .ds-metrics dd { margin:12px 0 0; color:#c29a54; font:600 .82rem/1.35 var(--font-body, sans-serif); }"
+    },
+    {
+      "name": "Evidence Ledger",
+      "kind": "custom",
+      "description": "Native disclosure that exposes problem, decision, verification, and boundary.",
+      "html": "<details class=\"ds-evidence\"><summary>Open evidence ledger</summary><div><section><h4>Problem</h4><p>State the engineering problem.</p></section><section><h4>Honest boundary</h4><p>State where the evidence stops.</p></section></div></details>",
+      "css": ".ds-evidence { color:#f2ecdc; border-top:1px solid rgba(242,236,220,.34); font-family:var(--font-body, sans-serif); } .ds-evidence summary { display:flex; align-items:center; min-height:54px; font:500 .72rem var(--font-mono, monospace); cursor:pointer; } .ds-evidence > div { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); border-top:1px solid rgba(242,236,220,.18); } .ds-evidence section { min-height:150px; padding:24px; border-right:1px solid rgba(242,236,220,.18); } .ds-evidence section:last-child { border-right:0; background:rgba(194,154,84,.06); } .ds-evidence h4 { margin:0 0 14px; color:#c29a54; font:500 .67rem var(--font-mono, monospace); text-transform:uppercase; } .ds-evidence p { margin:0; color:#b8b19f; font-size:.86rem; line-height:1.65; } .ds-evidence summary:focus-visible { outline:2px solid #d7b16b; outline-offset:4px; }"
+    },
+    {
+      "name": "Fixed Navigation",
+      "kind": "nav",
+      "description": "Ruled, warm-black navigation with a serif monogram and quiet text links.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-mark\" href=\"#\">SC</a><a href=\"#\">Experience</a><a href=\"#\">Selected work</a><a href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { display:flex; align-items:center; gap:28px; min-height:68px; padding:0 24px; color:#f2ecdc; background:#20231f; border-bottom:1px solid rgba(242,236,220,.18); font-family:var(--font-body, sans-serif); } .ds-nav a { display:inline-flex; align-items:center; min-height:44px; color:#b8b19f; font-size:.84rem; text-decoration:none; } .ds-nav .ds-mark { margin-right:auto; color:#f2ecdc; font:600 1.35rem var(--font-display, Georgia, serif); } .ds-nav a:hover { color:#f2ecdc; text-decoration:underline; text-decoration-color:#c29a54; text-underline-offset:6px; } .ds-nav a:focus-visible { outline:2px solid #d7b16b; outline-offset:4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Evidence Ledger",
+    "overview": "The portfolio feels like an editorial engineering dossier: composed, exact, and willing to show how a claim was verified. Warm dark surfaces and serif display type carry the human career narrative; monospace labels, hairline rules, and tabular metrics carry the evidence. Interest comes from information architecture and disclosure, not decorative effects.",
+    "keyCharacteristics": [
+      "Warm editorial darkness rather than blue-black developer-dashboard styling.",
+      "Sharp, ruled geometry with no floating-card shadows.",
+      "One real photograph as the primary material anchor.",
+      "Proof and boundaries presented as first-class content.",
+      "Motion limited to entry, disclosure, and state clarity."
+    ],
+    "rules": [
+      { "name": "The Scarce Gold Rule", "body": "Evidence gold marks decisions, proof, and active state. It never washes an entire section or competes with the photograph.", "section": "colors" },
+      { "name": "The Warm Ground Rule", "body": "New dark surfaces stay olive-warm; do not drift into generic navy or blue-black.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Serif makes the argument; sans and mono prove it. Do not introduce another display family or use mono for long prose.", "section": "typography" },
+      { "name": "The Title-First Rule", "body": "Context follows or supports the title; never add decorative eyebrow copy above a section heading.", "section": "typography" },
+      { "name": "The Ruled-Depth Rule", "body": "A stronger hairline or a tonal step should solve hierarchy before elevation or shadow is considered.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do lead with one clear career thesis and a small number of flagship systems.",
+      "Do pair every consequential number with its verification context or boundary.",
+      "Do use hairlines, typography, and spacing to create hierarchy.",
+      "Do preserve 44px minimum interaction targets and visible keyboard focus.",
+      "Do keep photograph crops intentional and provide specific alt text."
+    ],
+    "donts": [
+      "Don't restore a mandatory track gate before visitors can see the work.",
+      "Don't turn every repository into an equal-weight card or duplicate projects across sections.",
+      "Don't use glossy gradients, glass surfaces, shadows, oversized pills, or effect-heavy hover motion.",
+      "Don't add decorative technology tickers or skills without evidence in shipped work.",
+      "Don't hide synthetic-data, team-attribution, or private-work boundaries.",
+      "Don't place kicker or eyebrow labels above headings."
+    ]
+  }
+}

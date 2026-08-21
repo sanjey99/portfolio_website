@@ -3,16 +3,20 @@
   --font-display: "Newsreader", Georgia, serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --background: #242722;
-  --foreground: #f4efdf;
-  --accent: #9a7a3a;
-  --steel: #53758a;
-  --teal: #4f827b;
-  --border: rgba(244, 239, 223, 0.18);
-  --ring: #9a7a3a;
+  --background: #20231f;
+  --surface: #181b18;
+  --surface-raised: #292e29;
+  --foreground: #f2ecdc;
+  --muted: #b8b19f;
+  --faint: #827d70;
+  --accent: #c29a54;
+  --accent-ink: #201a11;
+  --green: #78a189;
+  --steel: #6f8ea0;
+  --border: rgba(242, 236, 220, 0.18);
+  --border-strong: rgba(242, 236, 220, 0.34);
+  --ring: #d7b16b;
   --radius: 2px;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
 }
 
 @theme inline {

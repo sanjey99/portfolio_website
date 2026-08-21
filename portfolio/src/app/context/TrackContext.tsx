@@ -1,65 +1,67 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  type ReactNode,
+} from "react";
 
-export type TrackId = "quant" | "ml" | "fullstack" | "all";
+export type WorkView = "selected" | "quant" | "ml" | "product" | "archive";
 
-export interface TrackConfig {
-  id: TrackId;
+export interface WorkViewConfig {
+  id: WorkView;
   label: string;
-  color: string;
-  dim: string;
   description: string;
 }
 
-export const TRACKS: TrackConfig[] = [
+export const WORK_VIEWS: WorkViewConfig[] = [
+  {
+    id: "selected",
+    label: "Selected",
+    description: "Three flagship systems",
+  },
   {
     id: "quant",
-    label: "Quantitative Finance",
-    color: "oklch(76% 0.155 65)",
-    dim: "oklch(76% 0.155 65 / 0.55)",
-    description: "Risk systems · Alpha research · Quant modeling",
+    label: "Quant Systems",
+    description: "Research and risk infrastructure",
   },
   {
     id: "ml",
-    label: "Machine Learning & AI",
-    color: "oklch(62% 0.11 158)",
-    dim: "oklch(62% 0.11 158 / 0.55)",
-    description: "LLMs · Fine-tuning · Multi-agent systems",
+    label: "Applied ML",
+    description: "Models built into working systems",
   },
   {
-    id: "fullstack",
-    label: "Full Stack",
-    color: "oklch(65% 0.14 260)",
-    dim: "oklch(65% 0.14 260 / 0.55)",
-    description: "Real-time systems · APIs · Frontend",
+    id: "product",
+    label: "Product Systems",
+    description: "APIs, interfaces, and operations",
   },
   {
-    id: "all",
-    label: "View Everything",
-    color: "oklch(74% 0.04 65)",
-    dim: "oklch(74% 0.04 65 / 0.55)",
-    description: "The full picture across all disciplines",
+    id: "archive",
+    label: "Archive",
+    description: "Compact record of additional proof",
   },
 ];
 
-interface TrackContextValue {
-  selectedTrack: TrackId;
-  setSelectedTrack: (t: TrackId) => void;
+interface WorkViewContextValue {
+  workView: WorkView;
+  setWorkView: (view: WorkView) => void;
 }
 
-const TrackContext = createContext<TrackContextValue>({
-  selectedTrack: "all",
-  setSelectedTrack: () => {},
-});
+const WorkViewContext = createContext<WorkViewContextValue | null>(null);
 
-export function TrackProvider({ children }: { children: ReactNode }) {
-  const [selectedTrack, setSelectedTrack] = useState<TrackId>("all");
+export function WorkViewProvider({ children }: { children: ReactNode }) {
+  const [workView, setWorkView] = useState<WorkView>("selected");
+
   return (
-    <TrackContext.Provider value={{ selectedTrack, setSelectedTrack }}>
+    <WorkViewContext.Provider value={{ workView, setWorkView }}>
       {children}
-    </TrackContext.Provider>
+    </WorkViewContext.Provider>
   );
 }
 
-export function useTrack() {
-  return useContext(TrackContext);
+export function useWorkView() {
+  const context = useContext(WorkViewContext);
+  if (!context) {
+    throw new Error("useWorkView must be used inside WorkViewProvider");
+  }
+  return context;
 }

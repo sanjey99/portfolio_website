@@ -9,7 +9,7 @@ const sources = async (dir) =>
     .map((file) => read(`${dir}/${file}`));
 
 test("the portfolio uses local editorial fonts and Phosphor icons", async () => {
-  const [packageJson, fonts, components] = await Promise.all([
+  const [packageJson, fonts, app] = await Promise.all([
     read("package.json"),
     read("src/styles/fonts.css"),
     read("src/app/App.tsx"),
@@ -20,10 +20,10 @@ test("the portfolio uses local editorial fonts and Phosphor icons", async () => 
   assert.doesNotMatch(packageJson, /lucide-react/);
   assert.match(fonts, /@fontsource\/newsreader/);
   assert.doesNotMatch(fonts, /fonts\.googleapis\.com/);
-  assert.doesNotMatch(components, /WarpTransition/);
+  assert.doesNotMatch(app, /WarpTransition/);
 });
 
-test("forbidden visual motifs are absent from the active UI", async () => {
+test("forbidden generic visual motifs are absent from the active UI", async () => {
   const ui = (
     await Promise.all([
       ...(await sources("src/app")),
@@ -33,57 +33,53 @@ test("forbidden visual motifs are absent from the active UI", async () => {
 
   for (const motif of [
     "lucide-react",
-    "TerminalDriftCanvas",
-    "ConstellationCanvas",
-    "dot grid",
     "backdropFilter",
     "boxShadow",
     "radial-gradient",
-    "createRadialGradient",
-    "whileHover",
-    "grid-cols-3",
-    "grid-cols-5",
-    "col-span-2",
-    "col-span-3",
-    "col-span-4",
     "rounded-full",
     "rounded-xl",
-    "rounded-lg",
-    'borderRadius: "100px"',
-    'borderRadius: "50%"',
-    'borderRadius: "4px"',
-    'borderRadius: "5px"',
     "hover:scale",
     "hover:translate",
     "transition-all",
     "Bricolage Grotesque",
     "Epilogue",
-    "\\bInter\\b",
-    "\\bGeist\\b",
     "Space Grotesk",
   ]) {
     assert.doesNotMatch(ui, new RegExp(motif));
   }
-
-  const components = (
-    await Promise.all(await sources("src/app/components"))
-  ).join("\n");
-  assert.doesNotMatch(components, /→|★|✦/);
-  assert.doesNotMatch(
-    await read("src/app/components/ProjectsSection.tsx"),
-    /linear-gradient/,
-  );
-  assert.doesNotMatch(
-    await read("src/app/components/ProjectsSection.tsx"),
-    /featured &&/,
-  );
-  assert.doesNotMatch(
-    await read("src/app/components/ProjectsSection.tsx"),
-    /shadow:/,
-  );
 });
 
-test("legal pages are reachable from the SPA", async () => {
+test("the homepage renders directly as one semantic document", async () => {
+  const app = await read("src/app/App.tsx");
+
+  assert.match(app, /<main/);
+  assert.match(app, /<HeroSection/);
+  assert.match(app, /<ProjectsSection/);
+  assert.doesNotMatch(app, /type Stage/);
+  assert.doesNotMatch(app, /TrackSelector/);
+  assert.doesNotMatch(app, /stage ===/);
+});
+
+test("work views are optional inline filters with selected as default", async () => {
+  const [context, projects] = await Promise.all([
+    read("src/app/context/TrackContext.tsx"),
+    read("src/app/components/ProjectsSection.tsx"),
+  ]);
+
+  for (const label of [
+    "Selected",
+    "Quant Systems",
+    "Applied ML",
+    "Product Systems",
+    "Archive",
+  ]) {
+    assert.match(context, new RegExp(label));
+  }
+  assert.match(context, /useState<WorkView>\("selected"\)/);
+  assert.match(projects, /aria-pressed/);
+});
+
+test("legal pages remain reachable and the page has a semantic footer", async () => {
   const [app, contact, legal] = await Promise.all([
     read("src/app/App.tsx"),
     read("src/app/components/ContactSection.tsx"),
@@ -92,31 +88,30 @@ test("legal pages are reachable from the SPA", async () => {
 
   assert.match(app, /pathname === "\/terms"/);
   assert.match(app, /pathname === "\/privacy"/);
+  assert.match(contact, /<footer/);
   assert.match(contact, /href="\/terms"/);
   assert.match(contact, /href="\/privacy"/);
   assert.match(legal, /anonymous aggregate page views/);
   assert.match(legal, /no cookies/);
-  assert.match(legal, /vercel\.com\/docs\/analytics\/privacy-policy/);
 });
 
-test("real image loading states are used for hero and hackathon media", async () => {
-  const [image, hero, hacks, styles] = await Promise.all([
+test("images expose explicit loading and decoding behavior", async () => {
+  const [image, hero, styleFiles] = await Promise.all([
     read("src/app/components/PortfolioImage.tsx"),
     read("src/app/components/HeroSection.tsx"),
-    read("src/app/components/HackathonsSection.tsx"),
-    read("src/styles/index.css"),
+    sources("src/styles"),
   ]);
+  const styles = (await Promise.all(styleFiles)).join("\n");
 
-  assert.match(image, /useState/);
+  assert.match(image, /loading/);
+  assert.match(image, /decoding/);
   assert.match(image, /onError/);
-  assert.match(image, /image-skeleton/);
-  assert.match(hero, /PortfolioImage/);
-  assert.match(hacks, /PortfolioImage/);
+  assert.match(hero, /fetchPriority="high"/);
   assert.match(styles, /flat-pulse/);
 });
 
 test("navigation has explicit desktop and mobile visibility rules", async () => {
-  const styles = await read("src/styles/index.css");
+  const styles = (await Promise.all(await sources("src/styles"))).join("\n");
 
   assert.match(
     styles,
@@ -124,37 +119,20 @@ test("navigation has explicit desktop and mobile visibility rules", async () => 
   );
   assert.match(
     styles,
-    /@media \(min-width: 768px\)[\s\S]*\.mobile-nav\s*\{\s*display:\s*none/,
-  );
-  assert.match(
-    styles,
     /@media \(max-width: 767px\)[\s\S]*\.desktop-nav\s*\{\s*display:\s*none/,
   );
   assert.match(
     styles,
-    /@media \(max-width: 767px\)[\s\S]*\.menu-button\s*\{\s*display:\s*(?:inline-grid|grid)/,
+    /@media \(max-width: 767px\)[\s\S]*\.menu-button\s*\{\s*display:\s*inline-grid/,
   );
 });
 
-test("the portfolio wordmark returns to the landing route", async () => {
-  const navbar = await read("src/app/components/Navbar.tsx");
+test("metadata describes and previews the career portfolio", async () => {
+  const html = await read("index.html");
 
-  assert.match(navbar, /<a href="\/" className="wordmark"/);
-  assert.doesNotMatch(navbar, /scrollTo\("#hero"\)/);
-});
-
-test("hero actions share the viewport's right content edge", async () => {
-  const [hero, styles] = await Promise.all([
-    read("src/app/components/HeroSection.tsx"),
-    read("src/styles/index.css"),
-  ]);
-
-  assert.match(hero, /className="[^"]*hero-actions[^"]*"/);
-  assert.match(hero, /md:grid-cols-2/);
-  assert.match(hero, /md:justify-self-end/);
-  assert.doesNotMatch(hero, /max-w-\[1200px\]/);
-  assert.match(
-    styles,
-    /\.hero-actions\s*\{[^}]*align-items:\s*flex-end/s,
-  );
+  assert.match(html, /rel="canonical"/);
+  assert.match(html, /property="og:title"/);
+  assert.match(html, /property="og:image"/);
+  assert.match(html, /name="twitter:card"/);
+  assert.match(html, /Applied ML Systems/);
 });

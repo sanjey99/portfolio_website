@@ -1,279 +1,93 @@
-import { motion } from "motion/react";
-import type { TrackId } from "../context/TrackContext";
-import { TRACKS } from "../context/TrackContext";
-
-const skills: Record<string, string[]> = {
-  Languages: ["Python", "TypeScript", "JavaScript", "Java", "Go", "C", "C++", "C#", "SQL"],
-  Frontend: ["React", "Next.js", "Tailwind CSS", "Tauri", "Socket.IO"],
-  "Backend / APIs": [
-    "Node.js + Express",
-    "FastAPI",
-    "Flask",
-    "Java Spring Boot",
-    "Go + Gin",
-    "Supabase",
-    "REST API design",
-    "WebSockets",
-  ],
-  "ML & AI": [
-    "PyTorch",
-    "Computer Vision (SAM3, CLIP)",
-    "Vision-Language Models (VLM)",
-    "Qiskit / Quantum ML",
-    "MLflow",
-    "LightGBM",
-    "FAISS",
-    "scikit-learn",
-  ],
-  "Quant / Finance": [
-    "Backtesting & walk-forward analysis",
-    "Monte Carlo permutation testing",
-    "PSI + KS drift detection",
-    "Qiskit / Quantum ML",
-    "LightGBM",
-  ],
-  "Data & Infrastructure": [
-    "Docker",
-    "Redis",
-    "PostgreSQL",
-    "MongoDB",
-    "Supabase",
-    "Pandas",
-    "NumPy",
-    "MLflow",
-    "Prometheus + Grafana",
-  ],
-};
-
-const leadership = [
+const skillGroups = [
   {
-    title: "NTU Hall 10 TOP — Financial Controller",
-    period: "AY 26/27",
-    desc: "$10k budget, 200 participants. Real-time spend tracking, compliance, reimbursements.",
+    label: "Build",
+    items: ["Python", "TypeScript", "Go", "SQL"],
   },
   {
-    title: "NTU ODAC — Special Projects Officer",
-    period: "2025–26",
-    desc: "Led 18-person team for overseas expeditions. 40+ participant camp: risk, routing, budget.",
+    label: "ML & quantitative",
+    items: ["PyTorch", "pandas / NumPy", "Time-series research", "VaR / ES"],
   },
   {
-    title: "Hall X — Orientation Group Leader",
-    period: "2026",
-    desc: "Guided new residents through orientation programming and hall culture.",
+    label: "Systems",
+    items: ["Django", "FastAPI", "React / Next.js", "PostgreSQL"],
   },
   {
-    title: "ODAC FOOT — Treasurer",
-    period: "2024–25",
-    desc: "Subcommittee finances and vendor coordination for outdoor expeditions.",
-  },
-  {
-    title: "OCIP Programme — Treasurer",
-    period: "2025",
-    desc: "Budget management for overseas community involvement programme.",
-  },
-  {
-    title: "SAJC — Honour Roll & Ultimate Frisbee Captain",
-    period: "2020",
-    desc: "Team strategy, training, leadership. Physical Education Representative.",
+    label: "Reliability",
+    items: ["Automated testing", "Docker", "MLflow / Prometheus"],
   },
 ];
 
-const TRACK_SKILL_CATEGORIES: Record<TrackId, string[]> = {
-  quant: ["Languages", "Quant / Finance", "Data & Infrastructure"],
-  ml: ["Languages", "ML & AI", "Data & Infrastructure"],
-  fullstack: ["Languages", "Frontend", "Backend / APIs", "Data & Infrastructure"],
-  all: Object.keys({
-    Languages: [], Frontend: [], "Backend / APIs": [], "ML & AI": [],
-    "Quant / Finance": [], "Data & Infrastructure": [],
-  }),
-};
+const leadership = [
+  {
+    title: "Financial Controller",
+    organization: "NTU Hall 10 Transition Orientation Programme 26/27",
+    period: "Aug 2025 – Present",
+    summary:
+      "Govern a $10,000 budget for a 200-participant programme as one of five core organizers, linking spend requests, claim evidence, reimbursements, and advisor approvals.",
+  },
+  {
+    title: "Special Projects Officer",
+    organization: "NTU Outdoor Adventure Club",
+    period: "Jul 2025 – Jul 2026",
+    summary:
+      "Co-led 18 subcommittee members to deliver two overseas adventure trips, completing both within budget with no safety incidents; the club-open trip served about 30–40 participants.",
+  },
+];
 
-export function SkillsLeadershipSection({ track }: { track: TrackId }) {
-  const visibleCategories = TRACK_SKILL_CATEGORIES[track];
-  const filteredSkills = Object.fromEntries(
-    Object.entries(skills).filter(([cat]) => visibleCategories.includes(cat))
-  );
-  const trackColor = TRACKS.find(t => t.id === track)?.color ?? "oklch(76% 0.155 65)";
-  const trackColorDim = trackColor.replace(")", " / 0.6)");
-  const trackColorFaint = trackColor.replace(")", " / 0.08)");
+const earlierExperience = [
+  "Coding Instructor · Empire Code · Mar 2024 – May 2025",
+  "3SG, Artillery Specialist (HIMARS) · Singapore Armed Forces · Mar 2022 – Feb 2024",
+  "Engineer Intern · Grand Hyatt Singapore · Feb 2022 – Mar 2022",
+];
 
+export function SkillsLeadershipSection() {
   return (
-    <section
-      id="skills"
-      className="relative py-24 md:py-32 px-6"
-      style={{ background: "oklch(8.5% 0.006 65)" }}
-    >
-      <div className="max-w-[1100px] mx-auto">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <p
-            style={{
-              fontSize: "11px",
-              fontFamily: "var(--font-body)",
-              fontWeight: 500,
-              letterSpacing: "0.15em",
-              color: trackColorDim,
-              textTransform: "uppercase",
-              marginBottom: "10px",
-            }}
-          >
-            Capabilities
-          </p>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 5vw, 52px)",
-              color: "oklch(96% 0.008 65)",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.05,
-            }}
-          >
-            Skills & Leadership
-          </h2>
-        </motion.div>
+    <section id="capabilities" className="section capabilities-section" aria-labelledby="capabilities-title">
+      <div className="section-heading split-heading">
+        <h2 id="capabilities-title">Capabilities with receipts.</h2>
+        <p>
+          A deliberately small set of tools that recur in shipped work, verified projects,
+          and technical internships—not a keyword inventory.
+        </p>
+      </div>
 
-        {/* Asymmetric layout: Skills 3/5, Leadership 2/5 */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-          {/* Left: Skills (wider) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5 }}
-            className=""
-          >
-            <div className="space-y-8">
-              {Object.entries(filteredSkills).map(([category, items]) => (
-                <div key={category}>
-                  <div className="flex items-center gap-3 mb-3">
-                    <p
-                      style={{
-                        fontSize: "10px",
-                        fontFamily: "var(--font-body)",
-                        fontWeight: 600,
-                        color: trackColorDim,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {category}
-                    </p>
-                    <div
-                      className="flex-1 h-px"
-                      style={{ background: trackColorFaint }}
-                    />
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {items.map((skill) => (
-                      <span
-                        key={skill}
-                        style={{
-                          fontSize: "11.5px",
-                          fontFamily: "var(--font-body)",
-                          fontWeight: 400,
-                          color: "rgba(255,255,255,0.5)",
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.07)",
-                          padding: "4px 10px",
-                          borderRadius: "2px",
-                        }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
+      <div className="capabilities-layout">
+        <div className="skills-ledger">
+          {skillGroups.map((group) => (
+            <div className="skill-row" key={group.label}>
+              <h3>{group.label}</h3>
+              <div>
+                {group.items.map((skill) => (
+                  <span key={skill}>{skill}</span>
+                ))}
+              </div>
             </div>
-          </motion.div>
+          ))}
+        </div>
 
-          {/* Right: Leadership (narrower) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: 0.12 }}
-            className=""
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <p
-                style={{
-                  fontSize: "10px",
-                  fontFamily: "var(--font-body)",
-                  fontWeight: 600,
-                  color: trackColorDim,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Leadership
-              </p>
-              <div
-                className="flex-1 h-px"
-                style={{ background: trackColorFaint }}
-              />
-            </div>
-
-            <div>
-              {leadership.map((item, i) => (
-                <div
-                  key={item.title}
-                  className="py-4"
-                  style={{
-                    borderBottom:
-                      i < leadership.length - 1
-                        ? "1px solid rgba(255,255,255,0.05)"
-                        : "none",
-                  }}
-                >
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        fontFamily: "var(--font-body)",
-                        fontWeight: 500,
-                        color: "rgba(255,255,255,0.72)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {item.title}
-                    </p>
-                    <span
-                      style={{
-                        fontSize: "10px",
-                        fontFamily: "var(--font-body)",
-                        color: "rgba(255,255,255,0.22)",
-                        flexShrink: 0,
-                        paddingTop: "2px",
-                      }}
-                    >
-                      {item.period}
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 300,
-                      lineHeight: 1.6,
-                      color: "rgba(255,255,255,0.3)",
-                    }}
-                  >
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+        <div className="leadership-panel">
+          <h3>Leadership</h3>
+          {leadership.map((item) => (
+            <article key={item.title}>
+              <div>
+                <h4>{item.title}</h4>
+                <span>{item.period}</span>
+              </div>
+              <strong>{item.organization}</strong>
+              <p>{item.summary}</p>
+            </article>
+          ))}
         </div>
       </div>
+
+      <details className="earlier-experience">
+        <summary>Earlier experience</summary>
+        <ul>
+          {earlierExperience.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </details>
     </section>
   );
 }

@@ -2,100 +2,79 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   projects,
-  selectProjectsByCategoryAndTrack,
+  selectProjectsForView,
 } from "../src/app/data/projects.ts";
 import { timelineData } from "../src/app/data/timeline.ts";
 
-test("project catalogue contains every publishable canonical dossier", () => {
-  const titles = new Set(projects.map(({ title }) => title));
-
-  for (const title of [
-    "Algorithmic Trading Backtester",
-    "FinancePy — OSS Contribution",
-    "FinSentinel",
-    "WorldQuant International Quant Championship",
-    "QSVM Fraud Detection",
-    "NAISC 2026 — Adaptive Drift Detection",
-    "Multimodal Video Recommendation",
-    "Travel Video Intelligence",
-    "BrainySG",
-    "Sentinel",
-    "PRISM",
-    "HarvestChain",
-    "Interview Station",
-    "Nika AI Agent",
-  ]) {
-    assert.ok(titles.has(title));
-  }
-});
-
-test("project catalogue excludes planning-only work and scopes team coursework honestly", () => {
-  const titles = new Set(projects.map(({ title }) => title));
-  const sc2002 = projects.find(
-    ({ title }) => title === "SC2002 Team Documentation",
+test("the default view is a focused three-case-study argument", () => {
+  const titles = selectProjectsForView(projects, "selected").map(
+    ({ title }) => title,
   );
 
-  for (const title of [
-    "Portfolio Risk Analytics",
-    "Algorithmic Arbitrage Trading Bot",
-    "LLM Fine-Tuning & Alignment Lab",
-    "Multi-Agent Reasoning System",
+  assert.deepEqual(titles, [
+    "Algorithmic Trading Backtester",
     "Market Risk Forecasting Lab",
+    "Panasonic SAM3 Systems Work",
+  ]);
+});
+
+test("flagship claims expose current verification and honest boundaries", () => {
+  const backtester = projects.find(
+    ({ title }) => title === "Algorithmic Trading Backtester",
+  );
+  const riskLab = projects.find(
+    ({ title }) => title === "Market Risk Forecasting Lab",
+  );
+  const panasonic = projects.find(
+    ({ title }) => title === "Panasonic SAM3 Systems Work",
+  );
+
+  assert.match(backtester?.verification ?? "", /712 tests/);
+  assert.match(backtester?.verification ?? "", /strict mypy/);
+  assert.match(riskLab?.verification ?? "", /204 tests/);
+  assert.match(riskLab?.boundary ?? "", /synthetic-only/i);
+  assert.match(panasonic?.evidence ?? "", /one of four AI technologies/i);
+  assert.match(panasonic?.boundary ?? "", /not the public presenter/i);
+});
+
+test("the archive keeps attributable proof and omits weak material", () => {
+  const archiveTitles = new Set(
+    selectProjectsForView(projects, "archive").map(({ title }) => title),
+  );
+  const titles = new Set(projects.map(({ title }) => title));
+
+  for (const title of [
+    "FinancePy — OSS Contribution",
+    "WorldQuant International Quant Championship",
+    "BrainySG",
+    "Sentinel",
   ]) {
-    assert.ok(!titles.has(title));
+    assert.ok(archiveTitles.has(title));
   }
 
-  assert.match(sc2002?.description ?? "", /sequence-diagram documentation/);
+  for (const title of ["HomeCast", "SC2002 Team Documentation", "FinSentinel"])
+    assert.ok(!titles.has(title));
 });
 
-test("quant selection includes finance-adjacent team work without reclassifying it", () => {
-  const quantMlTitles = selectProjectsByCategoryAndTrack(
-    projects,
-    "ml",
-    "quant",
-  ).map(({ title }) => title);
-  const quantAcademicTitles = selectProjectsByCategoryAndTrack(
-    projects,
-    "academic",
-    "quant",
-  ).map(({ title }) => title);
-  const qsvm = projects.find(({ title }) => title === "QSVM Fraud Detection");
-  const harvestChain = projects.find(({ title }) => title === "HarvestChain");
-
-  assert.ok(quantMlTitles.includes("QSVM Fraud Detection"));
-  assert.ok(quantAcademicTitles.includes("HarvestChain"));
-  assert.equal(qsvm?.category, "ml");
-  assert.equal(harvestChain?.category, "academic");
-});
-
-test("experience timeline reflects the current evidence-backed roles", () => {
+test("experience timeline reflects the current technical roles", () => {
   const vertex = timelineData[0];
-  const roleTitles = new Set(timelineData.map(({ title }) => title));
 
+  assert.deepEqual(
+    timelineData.map(({ org }) => org),
+    [
+      "Vertex Holdings",
+      "Panasonic R&D Centre Singapore",
+      "Rohde & Schwarz Asia",
+    ],
+  );
   assert.equal(
     vertex.title,
     "Data Scientist Intern, Rhombus Platform (Labs Team)",
   );
-  assert.equal(vertex.org, "Vertex Holdings");
   assert.ok(vertex.skills.includes("LangSmith"));
   assert.ok(vertex.skills.includes("GCP"));
   assert.match(vertex.description.join(" "), /15 tests, passed 3,422 tests/);
-  assert.match(
-    vertex.description.join(" "),
-    /manager praise for cleaner production table output/,
-  );
   assert.match(vertex.description.join(" "), /silent PDF clipping bug/);
-  assert.match(
-    vertex.description.join(" "),
-    /mutation-verified regression test/,
-  );
-  assert.match(vertex.description.join(" "), /digit-width boundaries/);
   assert.match(vertex.description.join(" "), /2,030 tests/);
-
-  for (const title of [
-    "Machine Learning & GenAI Engineer (Intern)",
-    "Software Development Engineer (Intern)",
-  ]) {
-    assert.ok(roleTitles.has(title));
-  }
+  assert.match(vertex.description.join(" "), /10 merged PRs/);
 });

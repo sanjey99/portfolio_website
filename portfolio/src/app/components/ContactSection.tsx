@@ -1,133 +1,82 @@
-import { motion } from "motion/react";
-import { Envelope, FileText, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
-import type { TrackId } from "../context/TrackContext";
-import { TRACKS } from "../context/TrackContext";
+import {
+  ArrowUpRight,
+  DownloadSimple,
+  Envelope,
+  GithubLogo,
+  LinkedinLogo,
+} from "@phosphor-icons/react";
 
-const resumeByTrack: Record<TrackId, { href: string; filename: string }> = {
-  quant: { href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume_Quant.pdf" },
-  ml: { href: "/resumes/resume-ml.pdf", filename: "Sanjey_Resume_ML.pdf" },
-  fullstack: { href: "/resumes/resume-fullstack.pdf", filename: "Sanjey_Resume_FullStack.pdf" },
-  all: { href: "/resumes/resume-quant.pdf", filename: "Sanjey_Resume.pdf" },
-};
+const contactLinks = [
+  {
+    label: "Email",
+    value: "sanjeyan001@e.ntu.edu.sg",
+    href: "mailto:sanjeyan001@e.ntu.edu.sg",
+    icon: Envelope,
+  },
+  {
+    label: "GitHub",
+    value: "github.com/sanjey99",
+    href: "https://github.com/sanjey99",
+    icon: GithubLogo,
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/sanjey99",
+    href: "https://www.linkedin.com/in/sanjey99/",
+    icon: LinkedinLogo,
+  },
+];
 
-interface ContactSectionProps {
-  track: TrackId;
-}
-
-export function ContactSection({ track }: ContactSectionProps) {
-  const trackColor = TRACKS.find(t => t.id === track)?.color ?? "oklch(76% 0.155 65)";
-  const resume = resumeByTrack[track];
-
-  const contactLinks = [
-    { label: "Email", icon: Envelope, href: "mailto:sanjeyan001@e.ntu.edu.sg", value: "sanjeyan001@e.ntu.edu.sg", download: false },
-    { label: "GitHub", icon: GithubLogo, href: "https://github.com/sanjey99", value: "sanjey99", download: false },
-    { label: "LinkedIn", icon: LinkedinLogo, href: "https://www.linkedin.com/in/sanjey99/", value: "Sanjeyan Chrysharnthan", download: false },
-    { label: "Resume", icon: FileText, href: resume.href, value: "Download CV", download: true, filename: resume.filename },
-  ];
-
+export function ContactSection() {
   return (
-    <section
-      id="contact"
-      className="relative py-28 md:py-40 px-6"
-      style={{
-        background: "linear-gradient(180deg, oklch(8.5% 0.006 65) 0%, oklch(9% 0.008 65) 100%)",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      <div className="max-w-[1100px] mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
-          {/* Left: Heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(32px, 4.5vw, 54px)",
-                color: "oklch(96% 0.008 65)",
-                lineHeight: 1.08,
-                letterSpacing: "-0.025em",
-              }}
-            >
-              Let's build
-              <br />
-              something
-              <br />
-              together<span style={{ color: trackColor }}>.</span>
-            </h2>
-            <p
-              className="mt-6"
-              style={{
-                fontSize: "15px",
-                fontFamily: "var(--font-body)",
-                fontWeight: 300,
-                lineHeight: 1.65,
-                color: "oklch(96% 0.008 65 / 0.4)",
-                maxWidth: "38ch",
-              }}
-            >
-              Open to internships, collaborations, and interesting problems.
-            </p>
-          </motion.div>
-
-          {/* Right: Contact links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="space-y-1"
-          >
-            {contactLinks.map((link, i) => {
-              const Icon = link.icon;
-              return (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  download={link.download ? link.filename : undefined}
-                  target={link.href.startsWith("http") ? "_blank" : undefined}
-                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: 0.2 + i * 0.08 }}
-                  className="group flex items-center gap-4 py-4 transition-colors duration-200"
-                  style={{
-                    borderBottom: i < contactLinks.length - 1 ? "1px solid oklch(96% 0.008 65 / 0.05)" : "none",
-                  }}
-                >
-                  <Icon
-                    size={16}
-                    style={{ color: trackColor, flexShrink: 0, opacity: 0.8, transition: "opacity 0.2s" }}
-                    className="group-hover:opacity-100"
-                  />
-                  <div className="flex items-baseline justify-between w-full gap-4">
-                    <span style={{ fontSize: "11px", fontFamily: "var(--font-body)", fontWeight: 600, color: "oklch(96% 0.008 65 / 0.3)", letterSpacing: "0.13em", textTransform: "uppercase", flexShrink: 0 }}>
-                      {link.label}
-                    </span>
-                    <span className="group-hover:text-white transition-colors duration-200 truncate text-right" style={{ fontSize: "14px", fontFamily: "var(--font-body)", fontWeight: 400, color: "oklch(96% 0.008 65 / 0.6)" }}>
-                      {link.value}
-                    </span>
-                  </div>
-                </motion.a>
-              );
-            })}
-          </motion.div>
-        </div>
-
-        <div
-          className="mt-20 flex flex-wrap items-center gap-4"
-          style={{ fontSize: "11px", fontFamily: "'IBM Plex Sans', sans-serif", color: "oklch(96% 0.008 65 / 0.5)" }}
-        >
-          <span>&copy; 2026 Sanjeyan Chrysharnthan</span>
-          <a className="hover:underline" href="/terms">Terms</a>
-          <a className="hover:underline" href="/privacy">Privacy</a>
-        </div>
+    <footer id="contact" className="contact-section">
+      <div className="contact-copy">
+        <h2>Looking for the next hard system.</h2>
+        <p>
+          Seeking 2027 internships in applied ML, quantitative development, and software
+          systems—especially teams where correctness and production behavior matter.
+        </p>
+        <a className="primary-action" href="mailto:sanjeyan001@e.ntu.edu.sg">
+          Start a conversation <ArrowUpRight size={17} aria-hidden="true" />
+        </a>
       </div>
-    </section>
+
+      <div className="contact-links">
+        {contactLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              target={link.href.startsWith("http") ? "_blank" : undefined}
+              rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+            >
+              <Icon size={18} aria-hidden="true" />
+              <span>
+                <small>{link.label}</small>
+                {link.value}
+              </span>
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+          );
+        })}
+        <a href="/resumes/resume-ml.pdf" download="Sanjey_Resume_ML.pdf">
+          <DownloadSimple size={18} aria-hidden="true" />
+          <span>
+            <small>Resume</small>
+            Download ML resume
+          </span>
+        </a>
+      </div>
+
+      <div className="footer-meta">
+        <span>© 2026 Sanjeyan Chrysharnthan</span>
+        <span>Singapore</span>
+        <nav aria-label="Legal">
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+        </nav>
+      </div>
+    </footer>
   );
 }
