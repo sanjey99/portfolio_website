@@ -5,8 +5,21 @@ import test from "node:test";
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 const sources = async (dir) =>
   (await readdir(new URL(`../${dir}`, import.meta.url), { recursive: true }))
-    .filter((file) => file.endsWith(".tsx") || file.endsWith(".css"))
+    .filter(
+      (file) =>
+        file.endsWith(".tsx") ||
+        file.endsWith(".ts") ||
+        file.endsWith(".css"),
+    )
     .map((file) => read(`${dir}/${file}`));
+
+test("authored UI copy does not use em dashes", async () => {
+  const authoredUi = (
+    await Promise.all([read("index.html"), ...(await sources("src/app"))])
+  ).join("\n");
+
+  assert.doesNotMatch(authoredUi, /\u2014/);
+});
 
 test("the portfolio uses local editorial fonts and Phosphor icons", async () => {
   const [packageJson, fonts, app] = await Promise.all([
@@ -135,4 +148,20 @@ test("metadata describes and previews the career portfolio", async () => {
   assert.match(html, /property="og:image"/);
   assert.match(html, /name="twitter:card"/);
   assert.match(html, /Applied ML Systems/);
+});
+
+test("all resume actions use one current public resume", async () => {
+  const resumeActions = (
+    await Promise.all([
+      read("src/app/components/Navbar.tsx"),
+      read("src/app/components/HeroSection.tsx"),
+      read("src/app/components/ContactSection.tsx"),
+    ])
+  ).join("\n");
+
+  assert.match(resumeActions, /\/resumes\/resume\.pdf/);
+  assert.doesNotMatch(
+    resumeActions,
+    /resume-(?:ml|quant|fullstack)\.pdf|Download ML resume|Sanjey_Resume_/,
+  );
 });

@@ -20,9 +20,9 @@ Design:
 6. Writing & Updates (Optional Section)
 
 Create a slim vertical timeline:
- • Now — Sentinel progress
- • Next — internship updates
- • Later — automation stack improvements (OpenClaw, Telegram, Notion)
+ • Now: Sentinel progress
+ • Next: internship updates
+ • Later: automation stack improvements (OpenClaw, Telegram, Notion)
 Add placeholder cards for micro-notes.
 
 ⸻
@@ -68,7 +68,7 @@ Include labelled overlays for:
  • Soft fade/blur transitions
  • Parallax layers (foreground chips, mid-ground cards, background table)
 
-Not actual prototype logic—just clean visual annotation.
+This is not actual prototype logic, just clean visual annotation.
 
 ⸻
 

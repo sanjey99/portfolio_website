@@ -1,12 +1,12 @@
 ⸻
 
-✅ MASTER PROMPT — “Recreate Saracajner.com Style For Sanjeyan Portfolio (No Poker Elements)”
+✅ MASTER PROMPT: “Recreate Saracajner.com Style For Sanjeyan Portfolio (No Poker Elements)”
 
 Copy–paste directly into Claude Opus 4.6 on Copilot Pro.
 
 ⸻
 
-Design a complete personal portfolio website for “Sanjeyan Chrysharnthan | Computer Engineering @ NTU” in the style, layout philosophy, minimalism, motion language, and interactive behavior of Saracajner.com — WITHOUT reusing any poker motifs or any copyrighted site assets.
+Design a complete personal portfolio website for “Sanjeyan Chrysharnthan | Computer Engineering @ NTU” in the style, layout philosophy, minimalism, motion language, and interactive behavior of Saracajner.com. Do not reuse any poker motifs or copyrighted site assets.
 
 This design must capture the feel of Saracajner.com:
 extremely minimal, soft transitions, elegant whitespace, modern grids, and GSAP-style scroll motion.

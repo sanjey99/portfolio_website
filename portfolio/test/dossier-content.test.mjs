@@ -44,7 +44,7 @@ test("the archive keeps attributable proof and omits weak material", () => {
   const titles = new Set(projects.map(({ title }) => title));
 
   for (const title of [
-    "FinancePy — OSS Contribution",
+    "FinancePy OSS Contribution",
     "WorldQuant International Quant Championship",
     "BrainySG",
     "Sentinel",

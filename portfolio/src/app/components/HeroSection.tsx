@@ -25,7 +25,7 @@ export function HeroSection() {
           Applied ML systems, quantitative research infrastructure, and production software.
         </p>
         <p className="hero-intro">
-          I build systems where the difficult part is not the demo—it is data integrity,
+          I build systems where the difficult part is not the demo; it is data integrity,
           model behavior, reliability, and evidence that the result actually works.
         </p>
 
@@ -35,8 +35,8 @@ export function HeroSection() {
           </a>
           <a
             className="secondary-action"
-            href="/resumes/resume-ml.pdf"
-            download="Sanjey_Resume_ML.pdf"
+            href="/resumes/resume.pdf"
+            download="Sanjeyan_Chrysharnthan_Resume.pdf"
           >
             Resume <DownloadSimple size={17} aria-hidden="true" />
           </a>

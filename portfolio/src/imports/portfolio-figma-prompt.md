@@ -94,15 +94,15 @@ For each project card include:
 
 Hackathons to include:
 
-DL Week 2026 — Sentinel
+DL Week 2026: Sentinel
  • Repo: https://github.com/sanjey99/dlweek
  • Challenge summary + governance system components
 
-PRISM | HacX 2025 — 2nd place
+PRISM | HacX 2025: 2nd place
  • Repo + stack
  • Real-time telematics system
 
-HarvestChain — Global Top 5
+HarvestChain: Global Top 5
  • Repo + stack
  • SSI + blockchain financial equity story
 

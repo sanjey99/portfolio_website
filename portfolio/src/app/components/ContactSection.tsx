@@ -34,7 +34,7 @@ export function ContactSection() {
         <h2>Looking for the next hard system.</h2>
         <p>
           Seeking 2027 internships in applied ML, quantitative development, and software
-          systems—especially teams where correctness and production behavior matter.
+          systems, especially teams where correctness and production behavior matter.
         </p>
         <a className="primary-action" href="mailto:sanjeyan001@e.ntu.edu.sg">
           Start a conversation <ArrowUpRight size={17} aria-hidden="true" />
@@ -60,11 +60,14 @@ export function ContactSection() {
             </a>
           );
         })}
-        <a href="/resumes/resume-ml.pdf" download="Sanjey_Resume_ML.pdf">
+        <a
+          href="/resumes/resume.pdf"
+          download="Sanjeyan_Chrysharnthan_Resume.pdf"
+        >
           <DownloadSimple size={18} aria-hidden="true" />
           <span>
             <small>Resume</small>
-            Download ML resume
+            Download resume
           </span>
         </a>
       </div>

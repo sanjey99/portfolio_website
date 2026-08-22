@@ -122,11 +122,7 @@ summary:focus-visible {
   gap: 8px;
 }
 
-.resume-disclosure {
-  position: relative;
-}
-
-.resume-disclosure summary {
+.desktop-resume {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -134,51 +130,13 @@ summary:focus-visible {
   padding: 0 10px;
   color: var(--foreground);
   border: 1px solid transparent;
-  cursor: pointer;
-  list-style: none;
-}
-
-.resume-disclosure summary::-webkit-details-marker {
-  display: none;
-}
-
-.resume-disclosure[open] summary {
-  border-color: var(--border);
-}
-
-.resume-disclosure[open] summary svg {
-  transform: rotate(180deg);
-}
-
-.resume-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  z-index: 60;
-  width: 242px;
-  background: var(--surface-raised);
-  border: 1px solid var(--border-strong);
-}
-
-.resume-menu a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 8px 12px;
-  color: var(--foreground);
   font-size: 0.82rem;
   text-decoration: none;
-  border-bottom: 1px solid var(--border);
 }
 
-.resume-menu a:last-child {
-  border-bottom: 0;
-}
-
-.resume-menu a:hover {
+.desktop-resume:hover {
   color: var(--accent);
-  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border);
 }
 
 .menu-button {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CaretDown, DownloadSimple, List, X } from "@phosphor-icons/react";
+import { DownloadSimple, List, X } from "@phosphor-icons/react";
 
 const links = [
   ["Experience", "#experience"],
@@ -8,23 +8,10 @@ const links = [
   ["Contact", "#contact"],
 ] as const;
 
-const resumes = [
-  {
-    label: "Quantitative Finance",
-    href: "/resumes/resume-quant.pdf",
-    filename: "Sanjey_Resume_Quant.pdf",
-  },
-  {
-    label: "Machine Learning & AI",
-    href: "/resumes/resume-ml.pdf",
-    filename: "Sanjey_Resume_ML.pdf",
-  },
-  {
-    label: "Software Systems",
-    href: "/resumes/resume-fullstack.pdf",
-    filename: "Sanjey_Resume_Software.pdf",
-  },
-];
+const resume = {
+  href: "/resumes/resume.pdf",
+  filename: "Sanjeyan_Chrysharnthan_Resume.pdf",
+} as const;
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,19 +31,13 @@ export function Navbar() {
       </nav>
 
       <div className="nav-actions">
-        <details className="resume-disclosure desktop-resume">
-          <summary>
-            Resumes <CaretDown size={14} aria-hidden="true" />
-          </summary>
-          <div className="resume-menu">
-            {resumes.map((resume) => (
-              <a key={resume.label} href={resume.href} download={resume.filename}>
-                <DownloadSimple size={15} aria-hidden="true" />
-                {resume.label}
-              </a>
-            ))}
-          </div>
-        </details>
+        <a
+          className="desktop-resume"
+          href={resume.href}
+          download={resume.filename}
+        >
+          Resume <DownloadSimple size={15} aria-hidden="true" />
+        </a>
 
         <button
           className="menu-button"
@@ -77,8 +58,8 @@ export function Navbar() {
               {label}
             </a>
           ))}
-          <a href={resumes[1].href} download={resumes[1].filename}>
-            Download ML resume
+          <a href={resume.href} download={resume.filename}>
+            Download resume
           </a>
         </nav>
       )}

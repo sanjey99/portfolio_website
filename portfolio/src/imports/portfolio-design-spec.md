@@ -31,9 +31,9 @@ Motion
 🗂️ 7. WRITING + TIMELINE SECTION
 
 A clean vertical timeline with:
- • Now — current focus
- • Next — near-term plans
- • Later — long-term themes
+ • Now: current focus
+ • Next: near-term plans
+ • Later: long-term themes
 
 Style this exactly like high-end visual journals:
  • Single-column
@@ -138,7 +138,7 @@ Detailed frames describing interactions as if implemented with GSAP.
 
 🎯 FINAL OUTPUT REQUIREMENT
 
-Produce a fully designed, highly polished, end-to-end portfolio site inspired directly by the layout, motion language, and minimalism of Saracajner.com — but unique, content-driven, poker-free, and tailored to “Sanjeyan Chrysharnthan | Computer Engineering @ NTU.”
+Produce a fully designed, highly polished, end-to-end portfolio site inspired directly by the layout, motion language, and minimalism of Saracajner.com while remaining unique, content-driven, poker-free, and tailored to “Sanjeyan Chrysharnthan | Computer Engineering @ NTU.”
 
 ⸻
 

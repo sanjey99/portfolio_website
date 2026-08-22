@@ -120,7 +120,7 @@ export const projects: Project[] = [
   },
   {
     slug: "financepy-oss",
-    title: "FinancePy — OSS Contribution",
+    title: "FinancePy OSS Contribution",
     subtitle: "Merged Python 3.10/3.11 compatibility fix",
     summary: "Removed two bonds-package SyntaxError paths and restored imports on current Python versions.",
     domain: "quant",

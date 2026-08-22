@@ -33,9 +33,9 @@ The default journey is direct and editorial: career thesis, proof, technical exp
 
 ## Flagship evidence
 
-1. Algorithmic Trading Backtester — public repository, 712 tests, Ruff and strict mypy, reproducible data and analytics architecture.
-2. Market Risk Forecasting Lab — public repository, 204 tests, multi-model risk system with an explicit synthetic-only empirical boundary.
-3. Panasonic SAM3 Systems Work — work case study covering interactive video segmentation, GPU serving reliability, SSE previews, and selection as one of four AI technologies for Panasonic AIMX Singapore × TechInnovation 2026; do not imply Sanjeyan was the public presenter.
+1. Algorithmic Trading Backtester: public repository, 712 tests, Ruff and strict mypy, reproducible data and analytics architecture.
+2. Market Risk Forecasting Lab: public repository, 204 tests, multi-model risk system with an explicit synthetic-only empirical boundary.
+3. Panasonic SAM3 Systems Work: a case study covering interactive video segmentation, GPU serving reliability, SSE previews, and selection as one of four AI technologies for Panasonic AIMX Singapore × TechInnovation 2026; do not imply Sanjeyan was the public presenter.
 
 ## Visual direction
 

@@ -47,7 +47,7 @@ export function SkillsLeadershipSection() {
         <h2 id="capabilities-title">Capabilities with receipts.</h2>
         <p>
           A deliberately small set of tools that recur in shipped work, verified projects,
-          and technical internships—not a keyword inventory.
+          and technical internships, not a keyword inventory.
         </p>
       </div>
 

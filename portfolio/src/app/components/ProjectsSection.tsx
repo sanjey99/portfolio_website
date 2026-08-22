@@ -131,7 +131,7 @@ export function ProjectsSection() {
           <h2 id="work-title">Systems that survived contact with reality.</h2>
           <p>
             Three flagship case studies lead with the problem, the engineering decision,
-            the verification, and the boundary—not just the stack.
+            the verification, and the boundary, not just the stack.
           </p>
         </div>
         <div className="view-filter" role="group" aria-label="Filter work by domain">
